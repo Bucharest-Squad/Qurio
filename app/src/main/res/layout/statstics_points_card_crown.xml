@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="17dp"
+        android:text="@string/statstics_points_card_title"
         android:textColor="@color/shade_tertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
             android:id="@+id/ic_lives"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:contentDescription="Points Icon"
+            android:contentDescription="@string/statstics_points_card_icon_description"
             android:src="@drawable/ic_points"
             tools:layout_editor_absoluteX="58dp"
             tools:layout_editor_absoluteY="21dp" />
@@ -57,9 +58,11 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     <ImageView
+        android:id="@+id/ic_crown_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_crown"
+        android:contentDescription="@string/statstics_points_card_crown_icon_description"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
