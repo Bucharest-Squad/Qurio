@@ -1,0 +1,5 @@
+<resources>
+    <string name="stats_awards_card_title">الجوائز</string>
+    <string name="stats_awards_card_icon_description">أيقونة الجوائز</string>
+    <string name="stats_awards_card_upgrade_arrow_description">أيقونة سهم الترقية</string>
+</resources>
