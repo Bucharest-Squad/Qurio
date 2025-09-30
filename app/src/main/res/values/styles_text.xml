@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- disable font padding -->
+    <style name="GlobalTextViewStyle" parent="@android:style/Widget.TextView">
+        <item name="android:includeFontPadding">false</item>
+    </style>
 
     <!--region Headline Styles -->
     <style name="Headline">
@@ -7,19 +11,16 @@
     </style>
 
     <style name="Headline.Large">
-        <item name="android:fontFamily">@font/fredoka_one_regular</item>
         <item name="android:textSize">28sp</item>
         <item name="android:lineHeight">42sp</item>
     </style>
 
     <style name="Headline.Medium">
-        <item name="android:fontFamily">@font/fredoka_one_regular</item>
         <item name="android:textSize">24sp</item>
         <item name="android:lineHeight">36sp</item>
     </style>
 
     <style name="Headline.Small">
-        <item name="android:fontFamily">@font/fredoka_one_regular</item>
         <item name="android:textSize">20sp</item>
         <item name="android:lineHeight">30sp</item>
     </style>
