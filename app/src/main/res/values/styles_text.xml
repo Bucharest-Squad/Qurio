@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--region Headline Styles -->
+    <style name="Headline">
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+    </style>
+
+    <style name="Headline.Large">
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:lineHeight">42sp</item>
+    </style>
+
+    <style name="Headline.Medium">
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineHeight">36sp</item>
+    </style>
+
+    <style name="Headline.Small">
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineHeight">30sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Title Styles -->
+    <style name="Title">
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+    </style>
+
+    <style name="Title.Large">
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineHeight">30sp</item>
+    </style>
+
+    <style name="Title.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">28sp</item>
+    </style>
+
+    <style name="Title.Small">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Body Styles -->
+    <style name="Body">
+        <item name="android:fontFamily">@font/fredoka_regular</item>
+    </style>
+
+    <style name="Body.Large">
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">28sp</item>
+    </style>
+
+    <style name="Body.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Body.Small">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">22sp</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Label Styles -->
+    <style name="Label">
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+    </style>
+
+    <style name="Label.Large">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Label.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">22sp</item>
+    </style>
+
+    <style name="Label.Small">
+        <item name="android:fontFamily">@font/fredoka_medium</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineHeight">16sp</item>
+    </style>
+
+    <style name="Label.XSmall">
+        <item name="android:fontFamily">@font/fredoka_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineHeight">14sp</item>
+    </style>
+    <!--endregion-->
+
+</resources>
