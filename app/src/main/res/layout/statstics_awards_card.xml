@@ -40,6 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/lives" />
 
         <TextView
+            android:id="@+id/awards_count"
             style="@style/Label.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,11 +52,11 @@
             app:layout_constraintTop_toBottomOf="@+id/points"
             tools:text="2" />
         <ImageView
-            android:id="@+id/ic_upgrade_arrow_image"
+            android:id="@+id/next_arrow_button"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_upgrade_arrow"
-            android:contentDescription="@string/statstics_awards_card_upgrade_arrow_description"
+            android:src="@drawable/ic_next_arrow"
+            android:contentDescription="@string/statstics_awards_card_next_arrow_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>

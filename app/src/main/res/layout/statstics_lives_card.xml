@@ -7,6 +7,7 @@
     android:background="@drawable/statstics_lives">
 
     <ImageView
+        android:id="@+id/upgrade_button"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/ic_circle_upgrade"
@@ -48,6 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/lives" />
 
         <TextView
+            android:id="@+id/lives_count"
             style="@style/Label.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -38,6 +38,7 @@
             tools:layout_editor_absoluteY="21dp" />
 
         <TextView
+            android:id="@+id/points_count"
             style="@style/Label.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

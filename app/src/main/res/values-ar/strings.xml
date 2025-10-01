@@ -1,7 +1,7 @@
 <resources>
     <string name="statstics_awards_card_title">الجوائز</string>
     <string name="statstics_awards_card_icon_description">أيقونة الجوائز</string>
-    <string name="statstics_awards_card_upgrade_arrow_description">أيقونة سهم الترقية</string>
+    <string name="statstics_awards_card_next_arrow_description">أيقونة سهم الترقية</string>
     <string name="statstics_lives_card_upgrade_icon_description">أيقونة الترقية</string>
     <string name="statstics_lives_card_title">الحياة</string>
     <string name="statstics_lives_card_lives_icon_description">أيقونة الحياة</string>
