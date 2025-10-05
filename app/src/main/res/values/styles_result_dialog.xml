@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Style for the result stats container (LinearLayout) -->
     <style name="ResultStatsContainer">
         <item name="android:layout_width">96dp</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:background">@drawable/result_ship</item>
+        <item name="android:background">@drawable/result_chip</item>
         <item name="android:orientation">vertical</item>
         <item name="android:paddingHorizontal">8dp</item>
         <item name="android:paddingVertical">2dp</item>
     </style>
 
-    <!-- Base style for the result stats label (e.g., 'Correct', 'Incorrect') -->
     <style name="ResultStatsLabel" parent="Body.Small">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/shade_secondary</item>
     </style>
 
-    <!-- Specific style for the 'Correct' label -->
     <style name="ResultStatsLabel.Correct">
         <item name="android:text">@string/result_label_correct</item>
     </style>
 
-    <!-- Specific style for the 'Incorrect' label -->
     <style name="ResultStatsLabel.Incorrect">
         <item name="android:text">@string/result_label_incorrect</item>
     </style>
 
-    <!-- Specific style for the 'Skipped' label -->
     <style name="ResultStatsLabel.Skipped">
         <item name="android:text">@string/result_label_skipped</item>
     </style>
 
-    <!-- Style for the result stats value (e.g., '10') -->
+
     <style name="ResultStatsValue" parent="Label.Medium">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
         <item name="android:textColor">@color/shade_primary</item>
     </style>
 
-    <!-- Style for the result stars -->
     <style name="ResultStar">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>

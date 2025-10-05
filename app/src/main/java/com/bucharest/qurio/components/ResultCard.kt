@@ -18,10 +18,6 @@ class ResultCard @JvmOverloads constructor(
         this,
         true
     )
-    init {
-        setStars(3)
-        setStats(0, 0, 0)
-    }
 
     fun setStars(count: Int) = with(binding) {
         when (count) {
@@ -54,10 +50,11 @@ class ResultCard @JvmOverloads constructor(
         }
     }
 
-    fun setStats(correct: Int, incorrect: Int, skipped: Int) = with(binding) {
+    fun setStats(correct: Int, incorrect: Int, skipped: Int,score:Int) = with(binding) {
         correctAnswersValue.text = correct.toString()
         incorrectAnswersValue.text = incorrect.toString()
         skippedAnswersValue.text = skipped.toString()
+        resultCoinsValue.text = score.toString()
     }
 
     private fun dpToPx(dp: Int): Int =
