@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="96dp"
     android:layout_height="50dp"
-    android:background="@drawable/statstics_lives">
+    android:background="@drawable/statistics_awards_background">
 
     <TextView
         android:id="@+id/lives"
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="7dp"
-        android:text="@string/statstics_awards_card_title"
+        android:text="@string/statistics_awards_card_title"
         android:textColor="@color/shade_tertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="20dp"
             android:layout_marginTop="1dp"
             android:src="@drawable/ic_award"
-            android:contentDescription="@string/statstics_awards_card_icon_description"
+            android:contentDescription="@string/statistics_awards_card_icon_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lives" />
@@ -51,14 +51,21 @@
             app:layout_constraintStart_toEndOf="@id/ic_lives"
             app:layout_constraintTop_toBottomOf="@+id/points"
             tools:text="2" />
-        <ImageView
-            android:id="@+id/next_arrow_button"
+        <FrameLayout
+            android:id="@+id/upgrade_button"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_next_arrow"
-            android:contentDescription="@string/statstics_awards_card_next_arrow_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
+            android:background="@drawable/circle_button_background"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/right_arrow"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
     </LinearLayout>
 
     <include layout="@layout/indicator"/>

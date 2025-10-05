@@ -4,16 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="96dp"
     android:layout_height="50dp"
-    android:background="@drawable/statstics_lives">
+    android:background="@drawable/statistics_lives_background">
 
-    <ImageView
+
+    <FrameLayout
         android:id="@+id/upgrade_button"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:src="@drawable/ic_circle_upgrade"
-        android:contentDescription="@string/statstics_lives_card_upgrade_icon_description"
+        android:background="@drawable/circle_button_background"
+        android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_plus" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/lives"
@@ -21,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="7dp"
-        android:text="@string/statstics_lives_card_title"
+        android:text="@string/statistics_lives_card_title"
         android:textColor="@color/shade_tertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lives">
@@ -42,8 +50,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="1dp"
+            android:contentDescription="@string/statistics_lives_card_lives_icon_description"
             android:src="@drawable/ic_lives"
-            android:contentDescription="@string/statstics_lives_card_lives_icon_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lives" />
