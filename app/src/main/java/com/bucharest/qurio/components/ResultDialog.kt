@@ -9,10 +9,10 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 
 class ResultDialog(
-    private val correct: Int,
-    private val incorrect: Int,
-    private val skipped: Int,
-    private val stars: Int,
+    private val correctCount: Int,
+    private val incorrectCount: Int,
+    private val skippedCount: Int,
+    private val starsCount: Int,
     private val score: Int
 ) : DialogFragment() {
 
@@ -22,8 +22,7 @@ class ResultDialog(
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         val resultCard = ResultCard(requireContext())
-        resultCard.setStats(correct, incorrect, skipped,score)
-        resultCard.setStars(stars)
+        resultCard.setStats(correctCount, incorrectCount, skippedCount, score,starsCount)
 
         dialog.setContentView(resultCard)
 

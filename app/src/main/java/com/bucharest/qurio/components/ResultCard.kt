@@ -10,8 +10,7 @@ import com.bucharest.qurio.databinding.ItemResultDialogBinding
 class ResultCard @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs) {
 
     private val binding: ItemResultDialogBinding = ItemResultDialogBinding.inflate(
         LayoutInflater.from(context),
@@ -19,7 +18,7 @@ class ResultCard @JvmOverloads constructor(
         true
     )
 
-    fun setStars(count: Int) = with(binding) {
+    private fun setStars(count: Int) = with(binding) {
         when (count) {
             1 -> {
                 firstResultStar.visibility = GONE
@@ -53,11 +52,12 @@ class ResultCard @JvmOverloads constructor(
         }
     }
 
-    fun setStats(correct: Int, incorrect: Int, skipped: Int, score: Int) = with(binding) {
+    fun setStats(correct: Int, incorrect: Int, skipped: Int, score: Int,starsCount:Int) = with(binding) {
         correctAnswersValue.text = correct.toString()
         incorrectAnswersValue.text = incorrect.toString()
         skippedAnswersValue.text = skipped.toString()
         resultCoinsValue.text = score.toString()
+        setStars(starsCount)
     }
 
     private fun dpToPx(dp: Int): Int =
