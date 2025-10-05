@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bucharest.qurio.components.ResultDialog
 import com.bucharest.qurio.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,11 +17,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
         setUpInsets()
-        binding.resultCard.setStats(
+        ResultDialog(
             correct = 5,
             incorrect = 2,
-            skipped = 1
-        )
+            skipped = 1,
+            stars = 3
+        ).show(supportFragmentManager, "result_dialog")
     }
 
     private fun setUpInsets(){

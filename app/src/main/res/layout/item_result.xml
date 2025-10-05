@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="344dp"
     android:layout_height="360dp"
-    android:background="@color/surface">
+    >
 
     <View
         android:layout_width="328dp"
@@ -52,12 +52,38 @@
             android:textColor="@color/on_primary" />
     </FrameLayout>
 
-    <include
-        android:id="@+id/result_stars"
-        layout="@layout/result_stars"
+
+    <ImageView
+        android:id="@+id/second_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/ic_result_star"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/first_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/second_result_star" />
+
+
+    <ImageView
+        android:id="@+id/third_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/second_result_star" />
 
     <TextView
         android:id="@+id/reward_tv"
@@ -93,10 +119,42 @@
         android:src="@drawable/ic_points"
         app:layout_constraintStart_toStartOf="@+id/reward_tv"
         app:layout_constraintTop_toBottomOf="@id/reward_tv" />
-    <include
-        layout="@layout/result_stats"
+    <LinearLayout
+        android:id="@+id/correct_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView style="@style/ResultStatsLabel.Correct" />
+        <TextView
+            android:id="@+id/correctAnswersValue"
+            style="@style/ResultStatsValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/incorrect_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/correct_answers_layout"
+        app:layout_constraintTop_toTopOf="@+id/correct_answers_layout">
+        <TextView style="@style/ResultStatsLabel.Incorrect" />
+        <TextView
+            android:id="@+id/incorrectAnswersValue"
+            style="@style/ResultStatsValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/skipped_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/incorrect_answers_layout"
+        app:layout_constraintTop_toTopOf="@+id/incorrect_answers_layout">
+        <TextView style="@style/ResultStatsLabel.Skipped" />
+        <TextView
+            android:id="@+id/skippedAnswersValue"
+            style="@style/ResultStatsValue" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
