@@ -13,12 +13,9 @@
     android:background="@drawable/statistics_points_background">
     <TextView
         android:id="@+id/points"
-        style="@style/Label.XSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/StatisticsCardTitle"
         android:paddingTop="17dp"
         android:text="@string/statistics_points_card_title"
-        android:textColor="@color/shade_tertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,12 +41,8 @@
 
         <TextView
             android:id="@+id/points_count"
-            style="@style/Label.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            style="@style/StatisticsCardValue"
             tools:text="5,400"
-            android:textColor="@color/shade_primary"
             tools:layout_editor_absoluteX="86dp"
             tools:layout_editor_absoluteY="20dp" />
 

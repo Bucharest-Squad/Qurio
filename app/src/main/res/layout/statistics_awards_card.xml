@@ -8,12 +8,9 @@
 
     <TextView
         android:id="@+id/lives"
-        style="@style/Label.XSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/StatisticsCardTitle"
         android:paddingTop="7dp"
         android:text="@string/statistics_awards_card_title"
-        android:textColor="@color/shade_tertiary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,51 +19,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lives">
 
         <ImageView
             android:id="@+id/ic_lives"
-            android:layout_width="20dp"
+            android:layout_width="22dp"
             android:layout_height="20dp"
             android:layout_marginTop="1dp"
-            android:src="@drawable/ic_award"
             android:contentDescription="@string/statistics_awards_card_icon_description"
+            android:src="@drawable/ic_award"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lives" />
 
         <TextView
             android:id="@+id/awards_count"
-            style="@style/Label.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            style="@style/StatisticsCardValue"
             android:layout_marginEnd="8dp"
-            android:textColor="@color/shade_primary"
             app:layout_constraintBottom_toBottomOf="@+id/ic_lives"
             app:layout_constraintStart_toEndOf="@id/ic_lives"
             app:layout_constraintTop_toBottomOf="@+id/points"
             tools:text="2" />
+
         <FrameLayout
             android:id="@+id/upgrade_button"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
             android:background="@drawable/circle_button_background"
+            android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/right_arrow"
                 android:layout_gravity="center"
-                />
+                android:src="@drawable/right_arrow" />
         </FrameLayout>
     </LinearLayout>
 
-    <include layout="@layout/indicator"/>
+    <include layout="@layout/indicator" />
 </androidx.constraintlayout.widget.ConstraintLayout>
