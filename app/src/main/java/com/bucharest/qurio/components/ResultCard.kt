@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
-import com.bucharest.qurio.databinding.ItemResultBinding
+import com.bucharest.qurio.databinding.ItemResultDialogBinding
 
 class ResultCard @JvmOverloads constructor(
     context: Context,
@@ -13,7 +13,7 @@ class ResultCard @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private val binding: ItemResultBinding = ItemResultBinding.inflate(
+    private val binding: ItemResultDialogBinding = ItemResultDialogBinding.inflate(
         LayoutInflater.from(context),
         this,
         true
@@ -29,11 +29,13 @@ class ResultCard @JvmOverloads constructor(
                     topMargin = dpToPx(72)
                 }
             }
+
             2 -> {
                 firstResultStar.visibility = VISIBLE
                 thirdResultStar.visibility = VISIBLE
                 secondResultStar.visibility = GONE
             }
+
             3 -> {
                 firstResultStar.visibility = VISIBLE
                 secondResultStar.visibility = VISIBLE
@@ -42,6 +44,7 @@ class ResultCard @JvmOverloads constructor(
                     topMargin = dpToPx(64)
                 }
             }
+
             else -> {
                 firstResultStar.visibility = GONE
                 secondResultStar.visibility = GONE
@@ -50,7 +53,7 @@ class ResultCard @JvmOverloads constructor(
         }
     }
 
-    fun setStats(correct: Int, incorrect: Int, skipped: Int,score:Int) = with(binding) {
+    fun setStats(correct: Int, incorrect: Int, skipped: Int, score: Int) = with(binding) {
         correctAnswersValue.text = correct.toString()
         incorrectAnswersValue.text = incorrect.toString()
         skippedAnswersValue.text = skipped.toString()
