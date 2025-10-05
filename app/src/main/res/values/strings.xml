@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">Qurio</string>
-    <string name="statstics_awards_card_title">Awards</string>
-    <string name="statstics_awards_card_icon_description">Awards icon</string>
-    <string name="statstics_awards_card_next_arrow_description">Next arrow icon</string>
-    <string name="statstics_lives_card_upgrade_icon_description">Upgrade icon</string>
-    <string name="statstics_lives_card_title">Lives</string>
-    <string name="statstics_lives_card_lives_icon_description">Lives icon</string>
-    <string name="statstics_points_card_title">Points</string>
-    <string name="statstics_points_card_icon_description">Points icon</string>
-    <string name="statstics_points_card_crown_icon_description">Crown icon</string>
+    <string name="statistics_awards_card_title">Awards</string>
+    <string name="statistics_awards_card_icon_description">Awards icon</string>
+    <string name="statistics_awards_card_next_arrow_description">Next arrow icon</string>
+    <string name="statistics_lives_card_upgrade_icon_description">Upgrade icon</string>
+    <string name="statistics_lives_card_title">Lives</string>
+    <string name="statistics_lives_card_lives_icon_description">Lives icon</string>
+    <string name="statistics_points_card_title">Points</string>
+    <string name="statistics_points_card_icon_description">Points icon</string>
+    <string name="statistics_points_card_crown_icon_description">Crown icon</string>
 </resources>
