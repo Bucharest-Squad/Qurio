@@ -46,7 +46,7 @@
             tools:text="2" />
 
         <FrameLayout
-            android:id="@+id/upgrade_button"
+            android:id="@+id/next_button"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:background="@drawable/circle_button_background"

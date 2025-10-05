@@ -8,7 +8,7 @@
 
 
     <FrameLayout
-        android:id="@+id/upgrade_button"
+        android:id="@+id/add_live_button"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:background="@drawable/circle_button_background"

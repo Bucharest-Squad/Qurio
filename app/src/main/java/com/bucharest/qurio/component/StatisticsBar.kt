@@ -14,10 +14,19 @@ class StatisticsBar @JvmOverloads constructor(
     private val binding: StatisticsBarBinding =
         StatisticsBarBinding.inflate(LayoutInflater.from(context), this, true)
 
-    fun setStats(lives: Int, points: Int, awards: Int, isWinner: Boolean = false) {
-        binding.statisticsLivesCard.livesCount.text = lives.toString()
-        binding.statisticsPointsCard.pointsCount.text = points.toString()
-        binding.statisticsAwardsCard.awardsCount.text = awards.toString()
+    fun setStats(
+        livesCount: Int,
+        pointsCount: Int,
+        awardsCount: Int,
+        isWinner: Boolean = false,
+        onAddLivesClicked: () -> Unit,
+        onNextArrowClicked: () -> Unit
+    ) {
+        binding.statisticsLivesCard.livesCount.text = livesCount.toString()
+        binding.statisticsPointsCard.pointsCount.text = pointsCount.toString()
+        binding.statisticsAwardsCard.awardsCount.text = awardsCount.toString()
         binding.statisticsPointsCard.icCrownImage.visibility = if (isWinner) VISIBLE else GONE
+        binding.statisticsLivesCard.addLiveButton.setOnClickListener { onAddLivesClicked() }
+        binding.statisticsAwardsCard.nextButton.setOnClickListener { onNextArrowClicked() }
     }
 }
