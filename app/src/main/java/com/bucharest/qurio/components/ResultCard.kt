@@ -52,10 +52,16 @@ class ResultCard @JvmOverloads constructor(
         }
     }
 
-    fun setStats(correct: Int, incorrect: Int, skipped: Int, score: Int,starsCount:Int) = with(binding) {
-        correctAnswersValue.text = correct.toString()
-        incorrectAnswersValue.text = incorrect.toString()
-        skippedAnswersValue.text = skipped.toString()
+    fun setStats(
+        correctCount: Int,
+        incorrectCount: Int,
+        skippedCount: Int,
+        score: Int,
+        starsCount:Int
+    ) = with(binding) {
+        correctAnswersValue.text = correctCount.toString()
+        incorrectAnswersValue.text = incorrectCount.toString()
+        skippedAnswersValue.text = skippedCount.toString()
         resultCoinsValue.text = score.toString()
         setStars(starsCount)
     }
