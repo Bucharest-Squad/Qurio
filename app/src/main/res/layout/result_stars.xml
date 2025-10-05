@@ -1,0 +1,37 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Middle star (raised one) -->
+    <ImageView
+        android:id="@+id/second_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Left star -->
+    <ImageView
+        android:id="@+id/first_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/second_result_star" />
+
+    <!-- Right star -->
+    <ImageView
+        android:id="@+id/third_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/second_result_star" />
+
+</merge>

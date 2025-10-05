@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/correct_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView style="@style/ResultStatsLabel.Correct" />
+        <TextView
+            android:id="@+id/correctAnswersValue"
+            style="@style/ResultStatsValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/incorrect_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/correct_answers_layout"
+        app:layout_constraintTop_toTopOf="@+id/correct_answers_layout">
+        <TextView style="@style/ResultStatsLabel.Incorrect" />
+        <TextView
+            android:id="@+id/incorrectAnswersValue"
+            style="@style/ResultStatsValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/skipped_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/incorrect_answers_layout"
+        app:layout_constraintTop_toTopOf="@+id/incorrect_answers_layout">
+        <TextView style="@style/ResultStatsLabel.Skipped" />
+        <TextView
+            android:id="@+id/skippedAnswersValue"
+            style="@style/ResultStatsValue" />
+    </LinearLayout>
+</merge>
