@@ -9,4 +9,10 @@
     <string name="statistics_points_card_title">Points</string>
     <string name="statistics_points_card_icon_description">Points icon</string>
     <string name="statistics_points_card_crown_icon_description">Crown icon</string>
+    <!-- item_result.xml -->
+    <string name="result_great_job">Great Job</string>
+    <string name="result_reward">Reward</string>
+    <string name="result_label_correct">Correct</string>
+    <string name="result_label_incorrect">Incorrect</string>
+    <string name="result_label_skipped">Skipped</string>
 </resources>
