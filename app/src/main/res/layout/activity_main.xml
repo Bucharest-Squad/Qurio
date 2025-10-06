@@ -17,4 +17,37 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <com.bucharest.qurio.view.DifficultyLevelButton
+        android:id="@+id/buttonEasy"
+        android:layout_width="96dp"
+        android:layout_height="37dp"
+        android:text="@string/easy"
+        app:isSelected="true"
+        app:layout_constraintTop_toBottomOf="@id/statistics_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"/>
+
+    <com.bucharest.qurio.view.DifficultyLevelButton
+        android:id="@+id/buttonMedium"
+        android:layout_width="96dp"
+        android:layout_height="37dp"
+        android:text="@string/medium"
+        app:isSelected="false"
+        app:layout_constraintTop_toBottomOf="@id/buttonEasy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <com.bucharest.qurio.view.DifficultyLevelButton
+        android:id="@+id/buttonHard"
+        android:layout_width="96dp"
+        android:layout_height="37dp"
+        android:text="@string/hard"
+        app:isSelected="true"
+        app:layout_constraintTop_toBottomOf="@id/buttonMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
