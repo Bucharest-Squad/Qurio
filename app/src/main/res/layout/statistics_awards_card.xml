@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="96dp"
+    android:layout_height="50dp"
+    android:background="@drawable/statistics_awards_background">
+
+    <TextView
+        android:id="@+id/lives"
+        style="@style/StatisticsCardTitle"
+        android:paddingTop="7dp"
+        android:text="@string/statistics_awards_card_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ic_lives"
+        android:layout_width="22dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="-13dp"
+        android:contentDescription="@string/statistics_awards_card_icon_description"
+        android:src="@drawable/ic_award"
+        app:layout_constraintStart_toStartOf="@+id/lives"
+        app:layout_constraintTop_toBottomOf="@+id/lives" />
+
+    <TextView
+        android:id="@+id/awards_count"
+        style="@style/StatisticsCardValue"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_lives"
+        app:layout_constraintStart_toEndOf="@id/ic_lives"
+        app:layout_constraintTop_toBottomOf="@+id/points"
+        tools:text="2" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle_button_background"
+            android:src="@drawable/right_arrow"
+            android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
+            app:layout_constraintStart_toEndOf="@id/awards_count"
+            app:layout_constraintTop_toTopOf="@id/awards_count"/>
+    <include layout="@layout/indicator" />
+    <View
+        android:layout_width="48dp"
+        android:layout_height="5dp"
+        android:background="@drawable/indicator_blue_shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
