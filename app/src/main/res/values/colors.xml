@@ -17,4 +17,14 @@
     <color name="yellow">#F4C343</color>
     <color name="green">#739E61</color>
     <color name="red">#E12F32</color>
+
+    <!-- Category Colors -->
+    <color name="category_geography_start">#00739E61</color>
+    <color name="category_geography_end">#CC739E61</color>
+    <color name="category_general_knowledge_start">#00DC6A43</color>
+    <color name="category_general_knowledge_end">#CCDC6A43</color>
+    <color name="category_music_start">#00993397</color>
+    <color name="category_music_end">#CC993397</color>
+    <color name="category_food_drink_start">#0030ABE8</color>
+    <color name="category_food_drink_end">#CC30ABE8</color>
 </resources>

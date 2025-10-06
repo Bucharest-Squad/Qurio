@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Qurio</string>
+
+    <!-- Category Titles -->
+    <string name="category_title_geography">Geography</string>
+    <string name="category_title_science">Science</string>
+    <string name="category_title_general_knowledge">General Knowledge</string>
+    <string name="category_title_music">Music</string>
+    <string name="category_title_film_tv">Film &amp; TV</string>
+    <string name="category_title_food_drink">Food &amp; Drink</string>
+    <string name="category_title_society_culture">Society &amp; Culture</string>
+    <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
+    <string name="category_title_history">History</string>
+    <string name="category_title_arts_literature">Arts &amp; Literature</string>
 </resources>

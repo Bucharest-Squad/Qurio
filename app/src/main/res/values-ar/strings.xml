@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qurio</string>
+
+    <!-- Category Titles -->
+    <string name="category_title_geography">الجغرافيا</string>
+    <string name="category_title_science">العلوم</string>
+    <string name="category_title_general_knowledge">معلومات عامة</string>
+    <string name="category_title_music">الموسيقى</string>
+    <string name="category_title_film_tv">الأفلام والتلفزيون</string>
+    <string name="category_title_food_drink">الطعام والشراب</string>
+    <string name="category_title_society_culture">المجتمع والثقافة</string>
+    <string name="category_title_sport_leisure">الرياضة والترفيه</string>
+    <string name="category_title_history">التاريخ</string>
+    <string name="category_title_arts_literature">الفنون والآداب</string>
+</resources>
