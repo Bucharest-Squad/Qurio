@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ResultStatsContainer">
+        <item name="android:layout_width">96dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/result_chip</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:paddingVertical">2dp</item>
+    </style>
+
+    <style name="ResultStatsLabel" parent="Body.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/shade_secondary</item>
+    </style>
+
+    <style name="ResultStatsLabel.Correct">
+        <item name="android:text">@string/result_label_correct</item>
+    </style>
+
+    <style name="ResultStatsLabel.Incorrect">
+        <item name="android:text">@string/result_label_incorrect</item>
+    </style>
+
+    <style name="ResultStatsLabel.Skipped">
+        <item name="android:text">@string/result_label_skipped</item>
+    </style>
+
+
+    <style name="ResultStatsValue" parent="Label.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/shade_primary</item>
+    </style>
+
+    <style name="ResultStar">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:src">@drawable/ic_result_star</item>
+    </style>
+
+</resources>
