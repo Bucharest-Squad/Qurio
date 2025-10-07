@@ -4,8 +4,5 @@
     android:layout_height="match_parent">
 
 
-
-    <include layout="@layout/streak_card"
-
-        />
+    <include layout="@layout/streak_card" />
 </androidx.constraintlayout.widget.ConstraintLayout>

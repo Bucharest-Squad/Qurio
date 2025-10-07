@@ -1,4 +1,4 @@
-package com.bucharest.ui.homeScreen
+package com.bucharest.qurio.ui.homeScreen
 
 data class HomeUiState (
     val streakDays:List<StreakDayUiState>
@@ -6,6 +6,6 @@ data class HomeUiState (
 ){
     data class StreakDayUiState (
         val day:String,
-        val isSelected:Boolean
+        val isInStreak:Boolean
     )
 }

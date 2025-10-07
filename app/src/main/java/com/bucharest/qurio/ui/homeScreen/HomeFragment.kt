@@ -1,4 +1,4 @@
-package com.bucharest.ui.homeScreen
+package com.bucharest.qurio.ui.homeScreen
 
 import StreakDayAdapter
 import android.os.Bundle
@@ -22,14 +22,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView(view)
+        showStreakCard(view)
     }
 
-    private fun setupRecyclerView(rootView: View) {
-        val recyclerView = rootView.findViewById<RecyclerView>(R.id.streakRecyclerView)
+    private fun showStreakCard(rootView: View) {
+        val streakRecyclerView = rootView.findViewById<RecyclerView>(R.id.streakRecyclerView)
         streakAdapter = StreakDayAdapter(getMockStreakData())
 
-        recyclerView?.apply {
+        streakRecyclerView?.apply {
             adapter = streakAdapter
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
