@@ -1,8 +1,8 @@
 package com.bucharest.qurio.di
 
 import android.app.Application
-import com.bucharest.qurio.ui.home.HomeFragment
-import com.bucharest.qurio.ui.quiz.QuizFragment
+import com.bucharest.qurio.presentation.home.HomeFragment
+import com.bucharest.qurio.presentation.quiz.QuizFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

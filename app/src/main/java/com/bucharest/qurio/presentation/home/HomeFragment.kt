@@ -1,11 +1,11 @@
-package com.bucharest.qurio.ui.home
+package com.bucharest.qurio.presentation.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bucharest.qurio.QurioApp
-import com.bucharest.qurio.base.BaseFragment
+import com.bucharest.qurio.presentation.base.BaseFragment
 import com.bucharest.qurio.databinding.FragmentHomeBinding
 import javax.inject.Inject
 

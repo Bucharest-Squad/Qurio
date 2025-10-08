@@ -1,8 +1,8 @@
 package com.bucharest.qurio.di
 
 import com.bucharest.qurio.domain.repository.TriviaRepository
-import com.bucharest.qurio.ui.home.HomePresenter
-import com.bucharest.qurio.ui.quiz.QuizPresenter
+import com.bucharest.qurio.presentation.home.HomePresenter
+import com.bucharest.qurio.presentation.quiz.QuizPresenter
 import dagger.Module
 import dagger.Provides
 

@@ -1,5 +1,6 @@
-package com.bucharest.qurio.ui.adapter
+package com.bucharest.qurio.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class QuestionAdapter : ListAdapter<Question, QuestionAdapter.QuestionViewHolder
         private val binding: ItemQuestionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(question: Question) {
             binding.apply {
                 tvQuestionNumber.text = "Question ${bindingAdapterPosition + 1}"

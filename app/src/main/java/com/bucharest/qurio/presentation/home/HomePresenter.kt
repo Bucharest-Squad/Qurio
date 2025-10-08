@@ -1,6 +1,6 @@
-package com.bucharest.qurio.ui.home
+package com.bucharest.qurio.presentation.home
 
-import com.bucharest.qurio.base.BasePresenter
+import com.bucharest.qurio.presentation.base.BasePresenter
 
 class HomePresenter : BasePresenter<HomeView>() {
 

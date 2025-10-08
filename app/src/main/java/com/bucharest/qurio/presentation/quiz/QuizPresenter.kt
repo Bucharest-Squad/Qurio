@@ -1,6 +1,6 @@
-package com.bucharest.qurio.ui.quiz
+package com.bucharest.qurio.presentation.quiz
 
-import com.bucharest.qurio.base.BasePresenter
+import com.bucharest.qurio.presentation.base.BasePresenter
 import com.bucharest.qurio.domain.repository.TriviaRepository
 import javax.inject.Inject
 

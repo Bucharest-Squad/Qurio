@@ -1,6 +1,6 @@
-package com.bucharest.qurio.ui.quiz
+package com.bucharest.qurio.presentation.quiz
 
-import com.bucharest.qurio.base.BaseView
+import com.bucharest.qurio.presentation.base.BaseView
 import com.bucharest.qurio.domain.entity.Question
 
 interface QuizView : BaseView {

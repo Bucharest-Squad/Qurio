@@ -1,4 +1,4 @@
-package com.bucharest.qurio.ui.quiz
+package com.bucharest.qurio.presentation.quiz
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bucharest.qurio.QurioApp
-import com.bucharest.qurio.base.BaseFragment
+import com.bucharest.qurio.presentation.base.BaseFragment
 import com.bucharest.qurio.databinding.FragmentQuizBinding
 import com.bucharest.qurio.domain.entity.Question
-import com.bucharest.qurio.ui.adapter.QuestionAdapter
+import com.bucharest.qurio.presentation.adapter.QuestionAdapter
 import javax.inject.Inject
 
 class QuizFragment : BaseFragment<FragmentQuizBinding, QuizView, QuizPresenter>(), QuizView {
