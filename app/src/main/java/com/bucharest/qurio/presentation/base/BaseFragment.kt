@@ -40,21 +40,13 @@ abstract class BaseFragment<VB : ViewBinding, V : BaseView, P : BasePresenter<V>
         initObservers()
     }
 
-    override fun showLoading() {
-        // Override in child fragments to show loading
-    }
+    override fun showLoading() {}
 
-    override fun hideLoading() {
-        // Override in child fragments to hide loading
-    }
+    override fun hideLoading() {}
 
-    override fun showError(message: String) {
-        // Override in child fragments to show custom error snackbar
-    }
+    override fun showError(message: String) {}
 
-    override fun showMessage(message: String) {
-        // Override in child fragments to show custom message snackbar
-    }
+    override fun showMessage(message: String) {}
 
     protected fun updateToolbar(title: String? = null, showToolbar: Boolean = true) {
         (activity as? AppCompatActivity)?.supportActionBar?.apply {
