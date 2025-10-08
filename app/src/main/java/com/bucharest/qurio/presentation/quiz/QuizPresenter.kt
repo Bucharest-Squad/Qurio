@@ -13,27 +13,18 @@ class QuizPresenter @Inject constructor(
             execute = {
                 triviaRepository.getQuestions(amount = amount)
             },
-            onSuccess = { result ->
-                result.fold(
-                    onSuccess = { questions ->
-                        executeIfViewAttached {
-                            if (questions.isNotEmpty()) {
-                                displayQuestions(questions)
-                            } else {
-                                showEmptyState()
-                            }
-                        }
-                    },
-                    onFailure = { error ->
-                        executeIfViewAttached {
-                            showError(error.message ?: "Failed to load questions")
-                        }
+            onSuccess = { questions ->
+                executeIfViewAttached {
+                    if (questions.isNotEmpty()) {
+                        displayQuestions(questions)
+                    } else {
+                        showEmptyState()
                     }
-                )
+                }
             },
             onError = { throwable ->
                 executeIfViewAttached {
-                    showError(throwable.message ?: "An error occurred")
+                    showError(throwable.message ?: "Failed to load questions")
                 }
             },
             onStart = {
