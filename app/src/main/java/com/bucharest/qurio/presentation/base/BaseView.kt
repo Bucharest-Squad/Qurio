@@ -1,4 +1,4 @@
-package com.bucharest.qurio.base
+package com.bucharest.qurio.presentation.base
 
 interface BaseView {
     fun showLoading()

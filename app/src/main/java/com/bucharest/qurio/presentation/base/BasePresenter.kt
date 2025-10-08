@@ -1,4 +1,4 @@
-package com.bucharest.qurio.base
+package com.bucharest.qurio.presentation.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
