@@ -30,20 +30,20 @@ class QuestionAdapter : ListAdapter<Question, QuestionAdapter.QuestionViewHolder
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(question: Question) {
-            binding.apply {
-                tvQuestionNumber.text = "Question ${bindingAdapterPosition + 1}"
-                tvCategory.text = question.category
-                tvDifficulty.text = question.difficulty.uppercase()
-                tvQuestion.text = Html.fromHtml(question.question, Html.FROM_HTML_MODE_LEGACY)
+        fun bind(question: Question) = with(binding) {
+            tvQuestionNumber.text = "Question ${bindingAdapterPosition + 1}"
+            tvCategory.text = question.category.displayName
+            tvDifficulty.text = question.difficulty.name.uppercase()
+            tvQuestion.text = Html.fromHtml(question.question, Html.FROM_HTML_MODE_LEGACY)
 
-                // Display answers
-                val answersText = question.allAnswers.mapIndexed { index, answer ->
-                    "${('A' + index)}. ${Html.fromHtml(answer, Html.FROM_HTML_MODE_LEGACY)}"
-                }.joinToString("\n\n")
+            val answersText = question.answers.mapIndexed { index, answer ->
+                val letter = ('A' + index)
+                val decodedText =
+                    Html.fromHtml(answer.text, Html.FROM_HTML_MODE_LEGACY)
+                "$letter. $decodedText"
+            }.joinToString("\n\n")
 
-                tvAnswers.text = answersText
-            }
+            tvAnswers.text = answersText
         }
     }
 
