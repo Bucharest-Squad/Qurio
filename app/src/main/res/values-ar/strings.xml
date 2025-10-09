@@ -8,11 +8,13 @@
     <string name="statistics_points_card_title">النقاط</string>
     <string name="statistics_points_card_icon_description">أيقونة النقاط</string>
     <string name="statistics_points_card_crown_icon_description">أيقونة التاج</string>
-
     <!-- item_result.xml -->
     <string name="result_great_job">عمل رائع</string>
     <string name="result_reward">المكافأة</string>
     <string name="result_label_correct">صحيح</string>
     <string name="result_label_incorrect">غير صحيح</string>
     <string name="result_label_skipped">تم تخطيه</string>
+    <string name="easy">سهل</string>
+    <string name="medium">متوسط</string>
+    <string name="hard">صعب</string>
 </resources>
