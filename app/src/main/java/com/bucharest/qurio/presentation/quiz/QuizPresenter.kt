@@ -1,5 +1,6 @@
 package com.bucharest.qurio.presentation.quiz
 
+import com.bucharest.qurio.domain.model.QuestionFilter
 import com.bucharest.qurio.presentation.base.BasePresenter
 import com.bucharest.qurio.domain.repository.TriviaRepository
 import javax.inject.Inject
@@ -11,7 +12,7 @@ class QuizPresenter @Inject constructor(
     fun loadQuestions(amount: Int = 10) {
         tryToExecute(
             execute = {
-                triviaRepository.getQuestions(amount = amount)
+                triviaRepository.getQuestions(filter = QuestionFilter(amount = amount))
             },
             onSuccess = { questions ->
                 executeIfViewAttached {
