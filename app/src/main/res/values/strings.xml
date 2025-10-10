@@ -15,4 +15,7 @@
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 </resources>
