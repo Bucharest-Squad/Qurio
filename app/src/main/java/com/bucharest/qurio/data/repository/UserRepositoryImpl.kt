@@ -3,9 +3,9 @@ package com.bucharest.qurio.data.repository
 import com.bucharest.qurio.data.local.dao.UserDao
 import com.bucharest.qurio.data.local.dao.CharacterDao
 import com.bucharest.qurio.data.local.dto.UserDto
-import com.bucharest.qurio.data.mapper.toDto
 import com.bucharest.qurio.data.local.AchievementManager
-import com.bucharest.qurio.data.mapper.toEntity
+import com.bucharest.qurio.data.local.mapper.toDto
+import com.bucharest.qurio.data.local.mapper.toEntity
 import com.bucharest.qurio.domain.entity.User
 import com.bucharest.qurio.domain.exception.NotEnoughCoinsException
 import com.bucharest.qurio.domain.repository.UserRepository

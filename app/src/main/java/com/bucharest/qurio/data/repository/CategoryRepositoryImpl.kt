@@ -1,7 +1,7 @@
 package com.bucharest.qurio.data.repository
 
 import com.bucharest.qurio.data.local.dao.CategoryDao
-import com.bucharest.qurio.data.mapper.toEntity
+import com.bucharest.qurio.data.local.mapper.toEntity
 import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import javax.inject.Inject
