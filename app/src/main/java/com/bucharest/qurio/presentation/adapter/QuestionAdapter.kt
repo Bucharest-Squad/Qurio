@@ -32,7 +32,7 @@ class QuestionAdapter : ListAdapter<Question, QuestionAdapter.QuestionViewHolder
         @SuppressLint("SetTextI18n")
         fun bind(question: Question) = with(binding) {
             tvQuestionNumber.text = "Question ${bindingAdapterPosition + 1}"
-            tvCategory.text = question.category.displayName
+            tvCategory.text = question.category.name
             tvDifficulty.text = question.difficulty.name.uppercase()
             tvQuestion.text = Html.fromHtml(question.question, Html.FROM_HTML_MODE_LEGACY)
 
