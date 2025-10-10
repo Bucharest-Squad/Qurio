@@ -7,17 +7,12 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresenterModule {
+object PresenterModule {
 
     @Provides
-    fun provideHomePresenter(): HomePresenter {
-        return HomePresenter()
-    }
+    fun provideHomePresenter(): HomePresenter = HomePresenter()
 
     @Provides
-    fun provideQuizPresenter(
-        triviaRepository: TriviaRepository
-    ): QuizPresenter {
-        return QuizPresenter(triviaRepository)
-    }
+    fun provideQuizPresenter(triviaRepository: TriviaRepository): QuizPresenter =
+        QuizPresenter(triviaRepository)
 }
