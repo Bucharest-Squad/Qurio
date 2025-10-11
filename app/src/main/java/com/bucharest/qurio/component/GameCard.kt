@@ -16,6 +16,11 @@ class GameCard @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding = ItemGameCardBinding.inflate(LayoutInflater.from(context), this, true)
+    
+    init {
+        // Enable hardware acceleration for smooth animations
+        setLayerType(LAYER_TYPE_HARDWARE, null)
+    }
 
     fun setState(
         title: String,
