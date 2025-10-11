@@ -11,6 +11,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1000,
             name = "Rika",
+            age = "12 Sunblooms",
             description = "Nature's little explorer! Rika talks to mushrooms and swears squirrels give her battle advice. Always ready for an adventure.",
             price = 0,
             owned = true
@@ -18,6 +19,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1001,
             name = "Kaiyo",
+            age = "14 Storms",
             description = "A calm storm in human form. Kaiyo trains with ancient scrolls by day and drinks spicy tea by night. Sword sharp, heart sharper.",
             price = 300,
             owned = false
@@ -25,6 +27,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1002,
             name = "Mimi",
+            age = "10 Volcano Puffs",
             description = "Tiny but terrifying! Mimi is always grumpy, but don't let that scare you—unless you like pranks involving firecrackers.",
             price = 700,
             owned = false
@@ -32,6 +35,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1003,
             name = "Yoru",
+            age = "13 Shadows",
             description = "Quiet, mysterious, and probably watching you right now. Yoru shows up when you least expect it.",
             price = 1000,
             owned = false
@@ -39,6 +43,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1004,
             name = "Kuro",
+            age = "15 Thunder Beats",
             description = "Cool jacket, cooler moves. Kuro never backs down from a challenge.",
             price = 3000,
             owned = false
@@ -46,6 +51,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1005,
             name = "Miko",
+            age = "11 Leaf Turns",
             description = "Energetic, cheerful, and faster than a leaf in the wind. Miko can turn any trivia into a giggle-fest.",
             price = 7000,
             owned = false
@@ -53,6 +59,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1006,
             name = "Aori",
+            age = "13 Blade Echoes",
             description = "The sword chooses the wielder—and it chose Aori. Calm, focused.",
             price = 12000,
             owned = false
@@ -60,6 +67,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1007,
             name = "Nara",
+            age = "12 Crystal Songs",
             description = "Part magic, part sass. Nara sparkles even when she's mad.",
             price = 30000,
             owned = false
@@ -67,6 +75,7 @@ class SeedDataProvider {
         CharacterDto(
             id = 1008,
             name = "Renji",
+            age = "11 Hero Coins",
             description = "Small but mighty! Renji dreams of glory, carries a shield too big for him.",
             price = 50000,
             owned = false

@@ -38,9 +38,9 @@ fun toDto(user: User): UserDto =
         streakStartEpochDay = user.streakStartDate?.toEpochDays()?.toLong()
     )
 
-fun CharacterDto.toEntity() = Character(id, name, description, price, owned)
+fun CharacterDto.toEntity() = Character(id, name, age, description, price, owned)
 
-fun Character.toDto() = CharacterDto(id, name, description, price, isOwned)
+fun Character.toDto() = CharacterDto(id, name, age, description, price, isOwned)
 
 fun AchievementDto.toEntity() = Achievement(id, name, description, criteria, unlocked)
 
