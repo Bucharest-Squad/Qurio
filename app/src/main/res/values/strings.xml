@@ -19,4 +19,7 @@
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
     <string name="character">character</string>
     <string name="settings">settings</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 </resources>

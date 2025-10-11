@@ -1,4 +1,4 @@
-package com.bucharest.qurio.component
+package com.bucharest.qurio.presentation.component
 
 import android.app.Dialog
 import android.graphics.Color
