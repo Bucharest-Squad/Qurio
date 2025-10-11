@@ -51,7 +51,8 @@
         <item name="android:paddingEnd">12dp</item>
         <item name="android:textAllCaps">false</item>
     </style>
-    <style name="PlayNowButton">
+
+    <style name="LargePlayNowButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:lineHeight">22dp</item>
@@ -59,7 +60,16 @@
         <item name="android:paddingVertical">12dp</item>
         <item name="android:fontFamily">@font/fredoka_one_regular</item>
         <item name="android:textColor">@color/on_primary</item>
-        <item name="android:background">@drawable/play_now_background</item>
+        <item name="android:background">@drawable/large_play_now_background</item>
+    </style>
+    <style name="SmallPlayNowButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lineHeight">16dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:background">@drawable/small_play_now_background</item>
     </style>
     <!--end region-->
 
