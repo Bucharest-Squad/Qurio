@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="344dp"
+    android:layout_height="360dp">
+
+    <View
+        android:layout_width="328dp"
+        android:layout_height="227dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/result_background_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/rainbow"
+        android:layout_width="344dp"
+        android:layout_height="178dp"
+        android:src="@drawable/result_rainbow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginTop="110dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/result_ribbon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_result_ribbon" />
+
+        <TextView
+            style="@style/Headline.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:shadowColor="#1980B2"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:text="@string/result_great_job"
+            android:textColor="@color/on_primary" />
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/second_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/first_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintEnd_toStartOf="@id/second_result_star"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/third_result_star"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/ic_result_star"
+        app:layout_constraintStart_toEndOf="@id/second_result_star"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reward_tv"
+        style="@style/Title.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:text="@string/result_reward"
+        android:textColor="@color/shade_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rainbow" />
+
+    <TextView
+        android:id="@+id/result_coins_value"
+        style="@style/Title.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:paddingTop="4dp"
+        android:textColor="@color/shade_primary"
+        app:layout_constraintBottom_toBottomOf="@+id/result_coins"
+        app:layout_constraintStart_toEndOf="@+id/result_coins"
+        app:layout_constraintTop_toTopOf="@+id/result_coins"
+        tools:text="500" />
+
+    <ImageView
+        android:id="@+id/result_coins"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="-11dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/ic_points"
+        app:layout_constraintStart_toStartOf="@+id/reward_tv"
+        app:layout_constraintTop_toBottomOf="@id/reward_tv" />
+
+    <LinearLayout
+        android:id="@+id/correct_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView style="@style/ResultStatsLabel.Correct" />
+
+        <TextView
+            android:id="@+id/correctAnswersValue"
+            style="@style/ResultStatsValue"
+            tools:text="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/incorrect_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/correct_answers_layout"
+        app:layout_constraintTop_toTopOf="@+id/correct_answers_layout">
+
+        <TextView style="@style/ResultStatsLabel.Incorrect" />
+
+        <TextView
+            android:id="@+id/incorrectAnswersValue"
+            style="@style/ResultStatsValue"
+            tools:text="4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/skipped_answers_layout"
+        style="@style/ResultStatsContainer"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/incorrect_answers_layout"
+        app:layout_constraintTop_toTopOf="@+id/incorrect_answers_layout">
+
+        <TextView style="@style/ResultStatsLabel.Skipped" />
+
+        <TextView
+            android:id="@+id/skippedAnswersValue"
+            style="@style/ResultStatsValue"
+            tools:text="10" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

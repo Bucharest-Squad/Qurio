@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="144dp"
+    android:layout_height="76dp"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/statistics_points_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ic_crown_image"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/statistics_points_card_crown_icon_description"
+        android:src="@drawable/ic_crown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/points"
+        style="@style/StatisticsCardTitle"
+        android:paddingTop="27dp"
+        android:text="@string/statistics_points_card_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="points" />
+
+    <ImageView
+        android:id="@+id/ic_lives"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-17dp"
+        android:layout_marginTop="1dp"
+        android:contentDescription="@string/statistics_points_card_icon_description"
+        android:src="@drawable/ic_points"
+        app:layout_constraintStart_toStartOf="@+id/points"
+        app:layout_constraintTop_toBottomOf="@+id/points" />
+
+    <TextView
+        android:id="@+id/points_count"
+        style="@style/StatisticsCardValue"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_lives"
+        app:layout_constraintStart_toEndOf="@+id/ic_lives"
+        app:layout_constraintTop_toBottomOf="@+id/points"
+        tools:text="5,400" />
+
+    <include layout="@layout/indicator" />
+    <View
+        android:layout_width="48dp"
+        android:layout_height="5dp"
+        android:background="@drawable/indicator_blue_shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
