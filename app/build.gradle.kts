@@ -73,4 +73,7 @@ dependencies {
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    // Kotlin DateTime
+    implementation(libs.kotlinx.datetime)
 }

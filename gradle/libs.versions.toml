@@ -18,6 +18,7 @@ room = "2.8.1"
 dagger = "2.57.2"
 glide = "5.0.5"
 ksp = "2.2.20-2.0.3"
+kotlinxDatetime = "0.6.1"
 
 compileSdk = "36"
 minSdk = "28"
@@ -55,6 +56,9 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 # Dagger
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+
+# Kotlin DateTime
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

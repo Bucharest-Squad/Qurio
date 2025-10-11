@@ -1,12 +1,8 @@
 package com.bucharest.qurio.domain.repository
 
 import com.bucharest.qurio.domain.entity.Question
+import com.bucharest.qurio.domain.model.QuestionFilter
 
 interface TriviaRepository {
-    suspend fun getQuestions(
-        amount: Int = 10,
-        categoryId: Int? = null,
-        difficulty: String? = null,
-        type: String? = null
-    ): List<Question>
+    suspend fun getQuestions(filter: QuestionFilter = QuestionFilter()): List<Question>
 }

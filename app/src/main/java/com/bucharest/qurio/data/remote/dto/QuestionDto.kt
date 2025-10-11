@@ -4,7 +4,6 @@ import android.text.Html
 import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Difficulty
 import com.bucharest.qurio.domain.entity.Question
-import com.bucharest.qurio.domain.entity.QuestionType
 import com.google.gson.annotations.SerializedName
 import java.util.UUID
 
@@ -24,17 +23,18 @@ data class QuestionDto(
 ) {
     private fun String.fromHtml(): String =
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
-    fun toEntity(): Question {
-        val categoryEnum = Category.entries.firstOrNull { it.displayName == category }
-            ?: Category.GENERAL_KNOWLEDGE
+    
+    fun toEntity(categories: List<Category>): Question {
+        val categoryEntity = categories.firstOrNull { it.name.equals(category, ignoreCase = true) }
+            ?: categories.first { it.id == 9 }
 
         val answers = incorrectAnswers.map { Question.Answer(it.fromHtml(), false) } +
                 Question.Answer(correctAnswer.fromHtml(), true)
 
         return Question(
             id = UUID.randomUUID().toString(),
-            category = categoryEnum,
-            type = QuestionType.fromString(type),
+            category = categoryEntity,
+            type = Question.Type.fromString(type),
             difficulty = Difficulty.fromString(difficulty),
             question = question.fromHtml(),
             answers = answers.shuffled()
