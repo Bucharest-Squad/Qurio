@@ -29,4 +29,5 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         return navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
     }
+
 }
