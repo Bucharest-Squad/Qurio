@@ -33,4 +33,7 @@
     <string name="easy">سهل</string>
     <string name="medium">متوسط</string>
     <string name="hard">صعب</string>
+
+    <string name="character">الشخصيات</string>
+    <string name="settings">الاعدادات</string>
 </resources>

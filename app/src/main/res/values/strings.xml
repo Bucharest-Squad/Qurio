@@ -12,7 +12,6 @@
     <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
     <string name="category_title_history">History</string>
     <string name="category_title_arts_literature">Arts &amp; Literature</string>
-    <string name="app_name" translatable="false">Qurio</string>
     <string name="statistics_awards_card_title">Awards</string>
     <string name="statistics_awards_card_icon_description">Awards icon</string>
     <string name="statistics_awards_card_next_arrow_description">Next arrow icon</string>
