@@ -12,7 +12,6 @@
     <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
     <string name="category_title_history">History</string>
     <string name="category_title_arts_literature">Arts &amp; Literature</string>
-    <string name="app_name" translatable="false">Qurio</string>
     <string name="statistics_awards_card_title">Awards</string>
     <string name="statistics_awards_card_icon_description">Awards icon</string>
     <string name="statistics_awards_card_next_arrow_description">Next arrow icon</string>
@@ -30,9 +29,16 @@
     <string name="result_label_skipped">Skipped</string>
 
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
-    <string name="character">character</string>
-    <string name="settings">settings</string>
+    <string name="character" translatable="false">character</string>
+    <string name="settings" translatable="false">settings</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+
+    <!-- Home Screen -->
+    <string name="games_section_title" translatable="false">Games</string>
+    <string name="last_games_section_title" translatable="false">Last Games</string>
+    <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
+    <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
+    <string name="streak_description" translatable="false">Every day count!</string>
 </resources>
