@@ -15,4 +15,6 @@
     <string name="result_label_correct">صحيح</string>
     <string name="result_label_incorrect">غير صحيح</string>
     <string name="result_label_skipped">تم تخطيه</string>
+
+    <string name="welcome_qurio_explorer">أهلا بك أيها المستكشف في كويريو</string>
 </resources>

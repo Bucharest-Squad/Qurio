@@ -15,4 +15,8 @@
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
+
+    <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
+    <string name="character">character</string>
+    <string name="settings">settings</string>
 </resources>
