@@ -1,5 +1,6 @@
 package com.bucharest.qurio.ui.homeScreen.components.carousel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ class CategoryCarouselAdapter(
 
     private var categories: List<CategoryUiModel> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(categoryList: List<CategoryUiModel>) {
         Log.d(TAG, "submitList called with ${categoryList.size} categories")
         this.categories = categoryList
@@ -22,7 +24,6 @@ class CategoryCarouselAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolder {
         Log.d(TAG, "onCreateViewHolder called")
         val gameCard = GameCard(parent.context)
-        // ViewPager2 requires match_parent for both dimensions
         gameCard.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
