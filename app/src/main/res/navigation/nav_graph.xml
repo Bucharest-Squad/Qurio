@@ -9,15 +9,6 @@
         android:id="@+id/mainHomeFragment"
         android:name="com.bucharest.qurio.presentation.home.MainHomeFragment"
         android:label="Qurio"
-        tools:layout="@layout/fragment_main_home">
-        <action
-            android:id="@+id/action_mainHomeFragment_to_quizFragment"
-            app:destination="@id/quizFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/quizFragment"
-        android:name="com.bucharest.qurio.presentation.quiz.QuizFragment"
-        android:label="Quiz" />
+        tools:layout="@layout/fragment_main_home" />
 
 </navigation>
