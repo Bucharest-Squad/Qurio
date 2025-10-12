@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Qurio</string>
 
-    <!-- Category Titles -->
     <string name="category_title_geography">Geography</string>
     <string name="category_title_science">Science</string>
     <string name="category_title_general_knowledge">General Knowledge</string>
@@ -21,19 +20,26 @@
     <string name="statistics_points_card_title">Points</string>
     <string name="statistics_points_card_icon_description">Points icon</string>
     <string name="statistics_points_card_crown_icon_description">Crown icon</string>
-    <!-- item_result.xml -->
     <string name="result_great_job">Great Job</string>
     <string name="result_reward">Reward</string>
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
-
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
     <string name="character" translatable="false">character</string>
     <string name="settings" translatable="false">settings</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="last_game_card">last game card</string>
+    <string name="coins">coins</string>
+    <string name="star">star</string>
+    <string name="clock">clock</string>
+    <string name="science_amp_natural"><![CDATA[Science & Natural]]></string>
+    <string name="_100">-100</string>
+    <string name="_2m_23sec">2m 23sec</string>
+    <string name="_0">0</string>
+    <string name="date_shampe">date shampe</string>
 
     <!-- Home Screen -->
     <string name="games_section_title" translatable="false">Games</string>
