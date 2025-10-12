@@ -65,11 +65,22 @@ class MainHomePresenter(
 
                     // Show recent games
                     val gameStates = recentGames.map { session ->
+                        val duration = if (session.finishedAt != null) {
+                            java.time.Duration.between(session.startedAt, session.finishedAt).seconds.toInt()
+                        } else {
+                            0
+                        }
+                        val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                        val playedDate = session.startedAt.atZone(java.time.ZoneId.systemDefault()).format(dateFormatter)
+                        
                         GameSessionState(
                             categoryName = session.category.name,
                             difficulty = session.difficulty.name,
                             score = session.totalScore,
-                            starsEarned = session.starsEarned
+                            starsEarned = session.starsEarned,
+                            coinsEarned = session.coinsEarned,
+                            durationSeconds = duration,
+                            playedDate = playedDate
                         )
                     }
                     showRecentGames(gameStates)
@@ -127,6 +138,13 @@ class MainHomePresenter(
 
     fun onRefresh() {
         loadHomeData()
+    }
+    
+    fun onLastGameClicked(game: GameSessionState) {
+        executeIfViewAttached {
+            showMessage("Game: ${game.categoryName} - ${game.score} pts")
+            // TODO: Navigate to game details or replay
+        }
     }
 }
 

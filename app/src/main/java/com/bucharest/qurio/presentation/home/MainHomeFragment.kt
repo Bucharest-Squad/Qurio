@@ -27,6 +27,12 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             presenter.onCategoryClicked(categoryId)
         }
     }
+    
+    private val lastGamesAdapter by lazy {
+        LastGamesAdapter { game ->
+            presenter.onLastGameClicked(game)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,6 +50,13 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         updateToolbar(title = "Qurio", showToolbar = false)
         setupSectionHeader()
         setupCategoriesCarousel()
+        setupLastGamesRecyclerView()
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        // Refresh data every time user returns to this screen
+        presenter.onRefresh()
     }
 
     private fun setupSectionHeader() {
@@ -99,6 +112,16 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         }
         Log.d(TAG, "Carousel setup complete")
     }
+    
+    private fun setupLastGamesRecyclerView() {
+        Log.d(TAG, "Setting up last games RecyclerView...")
+        binding.lastGamesRecyclerView.apply {
+            adapter = lastGamesAdapter
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+            setHasFixedSize(false)
+        }
+        Log.d(TAG, "Last games RecyclerView setup complete")
+    }
 
     override fun showUserStats(coins: Int, lives: Int, awards: Int) {
         Log.d(TAG, "showUserStats: coins=$coins, lives=$lives, awards=$awards")
@@ -153,8 +176,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun showRecentGames(games: List<GameSessionState>) {
-        // Can be implemented if you want to show recent games below the carousel
-        // For now, we're just showing the categories carousel
+        Log.d(TAG, "showRecentGames: ${games.size} games")
+        lastGamesAdapter.submitList(games)
     }
 
     override fun navigateToCategoryGame(categoryId: Int) {
