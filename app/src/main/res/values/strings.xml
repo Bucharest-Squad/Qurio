@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Qurio</string>
 
-    <!-- Category Titles -->
     <string name="category_title_geography">Geography</string>
     <string name="category_title_science">Science</string>
     <string name="category_title_general_knowledge">General Knowledge</string>
@@ -12,7 +11,6 @@
     <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
     <string name="category_title_history">History</string>
     <string name="category_title_arts_literature">Arts &amp; Literature</string>
-    <string name="app_name" translatable="false">Qurio</string>
     <string name="statistics_awards_card_title">Awards</string>
     <string name="statistics_awards_card_icon_description">Awards icon</string>
     <string name="statistics_awards_card_next_arrow_description">Next arrow icon</string>
@@ -22,17 +20,24 @@
     <string name="statistics_points_card_title">Points</string>
     <string name="statistics_points_card_icon_description">Points icon</string>
     <string name="statistics_points_card_crown_icon_description">Crown icon</string>
-    <!-- item_result.xml -->
     <string name="result_great_job">Great Job</string>
     <string name="result_reward">Reward</string>
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
-
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
     <string name="character">character</string>
     <string name="settings">settings</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="last_game_card">last game card</string>
+    <string name="coins">coins</string>
+    <string name="star">star</string>
+    <string name="clock">clock</string>
+    <string name="science_amp_natural"><![CDATA[Science & Natural]]></string>
+    <string name="_100">-100</string>
+    <string name="_2m_23sec">2m 23sec</string>
+    <string name="_0">0</string>
+    <string name="date_shampe">date shampe</string>
 </resources>
