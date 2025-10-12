@@ -26,18 +26,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): AppDatabase {
-        lateinit var database: AppDatabase
-        database = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onCreate(db: SupportSQLiteDatabase) {
-                    super.onCreate(db)
-                    CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
-                        DataSeeder(database, SeedDataProvider()).seedIfEmpty()
-                    }
-                }
-            })
+        return Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
             .build()
-        return database
     }
 
     @Provides

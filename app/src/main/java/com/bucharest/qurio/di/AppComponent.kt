@@ -1,6 +1,7 @@
 package com.bucharest.qurio.di
 
 import android.app.Application
+import com.bucharest.qurio.data.local.AppDatabase
 import com.bucharest.qurio.presentation.home.MainHomeFragment
 import com.bucharest.qurio.presentation.quiz.QuizFragment
 import dagger.BindsInstance
@@ -21,6 +22,8 @@ interface AppComponent {
 
     fun inject(fragment: MainHomeFragment)
     fun inject(fragment: QuizFragment)
+    
+    fun getDatabase(): AppDatabase
 
     @Component.Builder
     interface Builder {
