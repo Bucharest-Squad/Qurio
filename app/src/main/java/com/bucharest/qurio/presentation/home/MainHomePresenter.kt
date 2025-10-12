@@ -1,14 +1,15 @@
 package com.bucharest.qurio.presentation.home
 
 import android.content.Context
-import android.util.Log
+import com.bucharest.qurio.domain.entity.Category
+import com.bucharest.qurio.domain.entity.GameSession
+import com.bucharest.qurio.domain.entity.User
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.base.BasePresenter
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.*
+import kotlin.time.Duration.Companion.milliseconds
 
 class MainHomePresenter(
     private val userRepository: UserRepository,
@@ -19,96 +20,13 @@ class MainHomePresenter(
 
     override fun onViewAttached() {
         super.onViewAttached()
-        Log.d(TAG, "View attached, loading home data...")
         loadHomeData()
     }
 
-    fun loadHomeData() {
-        Log.d(TAG, "Starting to load home data...")
-        tryToExecute(
-            execute = {
-                Log.d(TAG, "Fetching user data...")
-                val user = userRepository.getUser()
-                Log.d(TAG, "User: coins=${user.coins}, lives=${user.lives}, streak=${user.currentDailyStreak}")
-                
-                Log.d(TAG, "Fetching categories...")
-                val categories = categoryRepository.getAllCategories()
-                Log.d(TAG, "Found ${categories.size} categories")
-                
-                Log.d(TAG, "Fetching recent games...")
-                val recentGames = gameRepository.getRecentSessions(limit = 5)
-                Log.d(TAG, "Found ${recentGames.size} recent games")
-                
-                Triple(user, categories, recentGames)
-            },
-            onSuccess = { (user, categories, recentGames) ->
-                Log.d(TAG, "Data loaded successfully!")
-                executeIfViewAttached {
-                    // Show user stats
-                    Log.d(TAG, "Showing user stats...")
-                    showUserStats(
-                        coins = user.coins,
-                        lives = user.lives,
-                        awards = recentGames.sumOf { it.starsEarned }
-                    )
-
-                    // Show streak
-                    Log.d(TAG, "Showing streak...")
-                    val streakDays = generateStreakDays(user.currentDailyStreak)
-                    showStreak(user.currentDailyStreak, streakDays)
-
-                    // Show categories with proper UI mapping
-                    Log.d(TAG, "Mapping ${categories.size} categories to UI...")
-                    val categoryStates = CategoryMapper.toUiState(categories, context)
-                    Log.d(TAG, "Mapped to ${categoryStates.size} UI categories")
-                    showCategories(categoryStates)
-
-                    // Show recent games
-                    val gameStates = recentGames.map { session ->
-                        val duration = if (session.finishedAt != null) {
-                            java.time.Duration.between(session.startedAt, session.finishedAt).seconds.toInt()
-                        } else {
-                            0
-                        }
-                        val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                        val playedDate = session.startedAt.atZone(java.time.ZoneId.systemDefault()).format(dateFormatter)
-                        
-                        GameSessionState(
-                            categoryName = session.category.name,
-                            difficulty = session.difficulty.name,
-                            score = session.totalScore,
-                            starsEarned = session.starsEarned,
-                            coinsEarned = session.coinsEarned,
-                            durationSeconds = duration,
-                            playedDate = playedDate
-                        )
-                    }
-                    showRecentGames(gameStates)
-                    
-                    Log.d(TAG, "All data displayed!")
-                }
-            },
-            onError = { throwable ->
-                Log.e(TAG, "Error loading home data: ${throwable.message}", throwable)
-                executeIfViewAttached {
-                    showError(throwable.message ?: "Failed to load home data")
-                }
-            },
-            onStart = {
-                Log.d(TAG, "onStart - showing loading...")
-                executeIfViewAttached { showLoading() }
-            },
-            onFinally = {
-                Log.d(TAG, "onFinally - hiding loading...")
-                executeIfViewAttached { hideLoading() }
-            }
-        )
+    fun onRefresh() {
+        loadHomeData()
     }
-
-    companion object {
-        private const val TAG = "MainHomePresenter"
-    }
-
+    
     fun onCategoryClicked(categoryId: Int) {
         executeIfViewAttached {
             navigateToCategoryGame(categoryId)
@@ -120,31 +38,150 @@ class MainHomePresenter(
             navigateToAllGames()
         }
     }
-
-    private fun generateStreakDays(currentStreak: Int): List<StreakDayState> {
-        val dayLabels = listOf("S", "M", "T", "W", "T", "F", "S")
-        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).dayOfWeek.value
-        
-        return dayLabels.mapIndexed { index, label ->
-            // Simple logic: mark days as in streak based on current streak count
-            val isInStreak = when {
-                currentStreak == 0 -> false
-                currentStreak >= 7 -> true
-                else -> index < currentStreak
-            }
-            StreakDayState(label, isInStreak)
-        }
-    }
-
-    fun onRefresh() {
-        loadHomeData()
-    }
     
     fun onLastGameClicked(game: GameSessionState) {
         executeIfViewAttached {
             showMessage("Game: ${game.categoryName} - ${game.score} pts")
-            // TODO: Navigate to game details or replay
         }
     }
-}
 
+    fun loadHomeData() {
+        tryToExecute(
+            execute = ::fetchAllHomeData,
+            onSuccess = ::handleHomeDataSuccess,
+            onError = ::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+    }
+    
+    private suspend fun fetchAllHomeData(): HomeData {
+        val user = userRepository.getUser()
+        val categories = categoryRepository.getAllCategories().shuffled()
+        val recentGames = gameRepository.getRecentSessions(limit = RECENT_GAMES_LIMIT)
+        
+        return HomeData(user, categories, recentGames)
+    }
+    
+    private fun handleHomeDataSuccess(homeData: HomeData) {
+        executeIfViewAttached {
+            displayUserStats(homeData.user, homeData.recentGames)
+            displayStreak(homeData.user)
+            displayCategories(homeData.categories)
+            displayRecentGames(homeData.recentGames)
+        }
+    }
+    
+    private fun handleHomeDataError(throwable: Throwable) {
+        executeIfViewAttached {
+            showError(throwable.message ?: ERROR_LOADING_DATA)
+        }
+    }
+    
+    private fun displayUserStats(user: User, recentGames: List<GameSession>) {
+        val totalAwards = calculateTotalAwards(recentGames)
+        executeIfViewAttached {
+            showUserStats(
+                coins = user.coins,
+                lives = user.lives,
+                awards = totalAwards
+            )
+        }
+    }
+    
+    private fun calculateTotalAwards(recentGames: List<GameSession>): Int {
+        return recentGames.sumOf { it.starsEarned }
+    }
+    
+    private fun displayStreak(user: User) {
+        val streakDays = generateStreakDays(user.currentDailyStreak)
+        executeIfViewAttached {
+            showStreak(user.currentDailyStreak, streakDays)
+        }
+    }
+    
+    private fun displayCategories(categories: List<Category>) {
+        val categoryStates = CategoryMapper.toUiState(categories, context)
+        executeIfViewAttached {
+            showCategories(categoryStates)
+        }
+    }
+    
+    private fun displayRecentGames(recentGames: List<GameSession>) {
+        val gameStates = mapGameSessionsToStates(recentGames)
+        executeIfViewAttached {
+            showRecentGames(gameStates)
+        }
+    }
+    
+    private fun mapGameSessionsToStates(sessions: List<GameSession>): List<GameSessionState> {
+        return sessions.map { session -> mapGameSessionToState(session) }
+    }
+    
+    private fun mapGameSessionToState(session: GameSession): GameSessionState {
+        return GameSessionState(
+            categoryName = session.category.name,
+            difficulty = session.difficulty.name,
+            score = session.totalScore,
+            starsEarned = session.starsEarned,
+            coinsEarned = session.coinsEarned,
+            durationSeconds = calculateDuration(session),
+            playedDate = formatPlayedDate(session)
+        )
+    }
+    
+    private fun calculateDuration(session: GameSession): Int {
+        return if (session.finishedAt != null) {
+            val startMillis = session.startedAt.toEpochMilli()
+            val endMillis = session.finishedAt.toEpochMilli()
+            ((endMillis - startMillis).milliseconds.inWholeSeconds).toInt()
+        } else {
+            DEFAULT_DURATION_SECONDS
+        }
+    }
+    
+    private fun formatPlayedDate(session: GameSession): String {
+        val instant = Instant.fromEpochMilliseconds(session.startedAt.toEpochMilli())
+        val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+        return formatDate(localDateTime)
+    }
+    
+    private fun formatDate(dateTime: LocalDateTime): String {
+        val day = dateTime.dayOfMonth.toString().padStart(DATE_PADDING_LENGTH, DATE_PADDING_CHAR)
+        val month = dateTime.monthNumber.toString().padStart(DATE_PADDING_LENGTH, DATE_PADDING_CHAR)
+        val year = dateTime.year
+        return "$day-$month-$year"
+    }
+
+    private fun generateStreakDays(currentStreak: Int): List<StreakDayState> {
+        val dayLabels = listOf("S", "M", "T", "W", "T", "F", "S")
+        
+        return dayLabels.mapIndexed { index, label ->
+            StreakDayState(label, isDayInStreak(index, currentStreak))
+        }
+    }
+    
+    private fun isDayInStreak(dayIndex: Int, currentStreak: Int): Boolean {
+        return when {
+            currentStreak == NO_STREAK -> false
+            currentStreak >= DAYS_IN_WEEK -> true
+            else -> dayIndex < currentStreak
+        }
+    }
+
+    private data class HomeData(
+        val user: User,
+        val categories: List<Category>,
+        val recentGames: List<GameSession>
+    )
+
+    companion object {
+        private const val RECENT_GAMES_LIMIT = 5
+        private const val DEFAULT_DURATION_SECONDS = 0
+        private const val DATE_PADDING_LENGTH = 2
+        private const val DATE_PADDING_CHAR = '0'
+        private const val NO_STREAK = 0
+        private const val DAYS_IN_WEEK = 7
+        private const val ERROR_LOADING_DATA = "Failed to load home data"
+    }
+}

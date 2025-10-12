@@ -3,20 +3,16 @@ package com.bucharest.qurio.presentation.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.LastGameCardBinding
 
 class LastGamesAdapter(
     private val onGameClicked: (GameSessionState) -> Unit
-) : RecyclerView.Adapter<LastGamesAdapter.LastGameViewHolder>() {
-
-    private var games: List<GameSessionState> = emptyList()
-
-    fun submitList(gamesList: List<GameSessionState>) {
-        this.games = gamesList
-        notifyDataSetChanged()
-    }
+) : ListAdapter<GameSessionState, LastGamesAdapter.LastGameViewHolder>(GameSessionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LastGameViewHolder {
         val binding = LastGameCardBinding.inflate(
@@ -24,67 +20,101 @@ class LastGamesAdapter(
             parent,
             false
         )
-        return LastGameViewHolder(binding)
+        return LastGameViewHolder(binding, onGameClicked)
     }
 
     override fun onBindViewHolder(holder: LastGameViewHolder, position: Int) {
-        holder.bind(games[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = games.size
-
-    inner class LastGameViewHolder(
-        private val binding: LastGameCardBinding
+    class LastGameViewHolder(
+        private val binding: LastGameCardBinding,
+        private val onGameClicked: (GameSessionState) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        // Manually find views from merged includes
-        private val coinsText: TextView = binding.root.findViewById(R.id.coins)
-        private val starsText: TextView = binding.root.findViewById(R.id.stars)
-        private val timeText: TextView = binding.root.findViewById(R.id.time)
-        private val dateText: TextView = binding.root.findViewById(R.id.date)
+        private val statsViews by lazy { StatsViews.from(binding.root) }
 
         fun bind(game: GameSessionState) {
-            // Set game title
+            bindGameInfo(game)
+            bindStats(game)
+            bindClickListener(game)
+        }
+        
+        private fun bindGameInfo(game: GameSessionState) {
             binding.gameTitle.text = game.categoryName
-            
-            // Set stats using findViewById (since merge includes don't expose in binding)
-            coinsText.text = game.coinsEarned.toString()
-            starsText.text = game.starsEarned.toString()
-            timeText.text = formatDuration(game.durationSeconds)
-            dateText.text = game.playedDate
-            
-            // Set coins color based on value
-            if (game.coinsEarned >= 0) {
-                coinsText.setTextColor(
-                    androidx.core.content.ContextCompat.getColor(
-                        binding.root.context,
-                        R.color.shade_primary
-                    )
-                )
+        }
+        
+        private fun bindStats(game: GameSessionState) {
+            with(statsViews) {
+                coinsText.text = game.coinsEarned.toString()
+                starsText.text = game.starsEarned.toString()
+                timeText.text = formatDuration(game.durationSeconds)
+                dateText.text = game.playedDate
+            }
+            updateCoinsColor(game.coinsEarned)
+        }
+        
+        private fun updateCoinsColor(coinsEarned: Int) {
+            val colorRes = if (coinsEarned >= MIN_POSITIVE_COINS) {
+                R.color.shade_primary
             } else {
-                // Keep original color (red) for negative values
-                coinsText.setTextColor(
-                    androidx.core.content.ContextCompat.getColor(
-                        binding.root.context,
-                        R.color.red
-                    )
-                )
+                R.color.red
             }
             
+            statsViews.coinsText.setTextColor(
+                ContextCompat.getColor(binding.root.context, colorRes)
+            )
+        }
+        
+        private fun bindClickListener(game: GameSessionState) {
             binding.root.setOnClickListener {
                 onGameClicked(game)
             }
         }
 
         private fun formatDuration(seconds: Int): String {
-            val minutes = seconds / 60
-            val secs = seconds % 60
-            return if (minutes > 0) {
-                "${minutes}m ${secs}sec"
-            } else {
-                "${secs}sec"
+            val minutes = seconds / SECONDS_PER_MINUTE
+            val remainingSeconds = seconds % SECONDS_PER_MINUTE
+            
+            return when {
+                minutes > MIN_MINUTES_TO_SHOW -> "${minutes}m ${remainingSeconds}sec"
+                else -> "${remainingSeconds}sec"
             }
+        }
+        
+        private data class StatsViews(
+            val coinsText: TextView,
+            val starsText: TextView,
+            val timeText: TextView,
+            val dateText: TextView
+        ) {
+            companion object {
+                fun from(root: android.view.View): StatsViews {
+                    return StatsViews(
+                        coinsText = root.findViewById(R.id.coins),
+                        starsText = root.findViewById(R.id.stars),
+                        timeText = root.findViewById(R.id.time),
+                        dateText = root.findViewById(R.id.date)
+                    )
+                }
+            }
+        }
+        
+        companion object {
+            private const val SECONDS_PER_MINUTE = 60
+            private const val MIN_MINUTES_TO_SHOW = 0
+            private const val MIN_POSITIVE_COINS = 0
+        }
+    }
+
+    private class GameSessionDiffCallback : DiffUtil.ItemCallback<GameSessionState>() {
+        override fun areItemsTheSame(oldItem: GameSessionState, newItem: GameSessionState): Boolean {
+            return oldItem.categoryName == newItem.categoryName && 
+                   oldItem.playedDate == newItem.playedDate
+        }
+
+        override fun areContentsTheSame(oldItem: GameSessionState, newItem: GameSessionState): Boolean {
+            return oldItem == newItem
         }
     }
 }
-

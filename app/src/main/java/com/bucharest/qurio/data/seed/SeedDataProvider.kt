@@ -189,8 +189,8 @@ class SeedDataProvider {
         CategoryDto(28, "Vehicles"),
         CategoryDto(29, "Entertainment: Comics"),
         CategoryDto(30, "Science: Gadgets"),
-        CategoryDto(31, "Entertainment: Japanese Anime & Manga"),
-        CategoryDto(32, "Entertainment: Cartoon & Animations")
+        CategoryDto(31, "Entertainment: Anime & Manga"),
+        CategoryDto(32, "Entertainment: Cartoon")
     )
     
     fun gameSessions(): List<GameSessionDto> {
