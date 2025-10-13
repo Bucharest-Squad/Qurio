@@ -23,15 +23,21 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
     }
 
     private fun calculateScale(absPosition: Float): Float {
-        val scaleFactor = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * (MAX_SCALE - absPosition).coerceIn(
-            MIN_POSITION,
-            MAX_POSITION
-        )
-        return scaleFactor.coerceIn(MIN_SCALE, MAX_SCALE)
+        // Ensure center item is always at full scale
+        return if (absPosition < CENTER_THRESHOLD) {
+            MAX_SCALE
+        } else {
+            val scaleFactor = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * (MAX_SCALE - absPosition).coerceIn(
+                MIN_POSITION,
+                MAX_POSITION
+            )
+            scaleFactor.coerceIn(MIN_SCALE, MAX_SCALE)
+        }
     }
 
     private fun calculateAlpha(absPosition: Float): Float {
         return when {
+            absPosition < CENTER_THRESHOLD -> MAX_ALPHA
             absPosition <= ALWAYS_VISIBLE_THRESHOLD -> MAX_ALPHA
             else -> {
                 val alphaFactor =
@@ -49,7 +55,12 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
     }
 
     private fun calculateRotation(position: Float): Float {
-        return (position * MAX_ROTATION).coerceIn(-MAX_ROTATION, MAX_ROTATION)
+        // Don't rotate the center item (position close to 0)
+        return if (abs(position) < CENTER_THRESHOLD) {
+            0f
+        } else {
+            (position * MAX_ROTATION).coerceIn(-MAX_ROTATION, MAX_ROTATION)
+        }
     }
 
     private companion object {
@@ -64,5 +75,6 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
         private const val MIN_POSITION = 0f
         private const val MAX_POSITION = 1f
         private const val ALWAYS_VISIBLE_THRESHOLD = 2f
+        private const val CENTER_THRESHOLD = 0.1f
     }
 }

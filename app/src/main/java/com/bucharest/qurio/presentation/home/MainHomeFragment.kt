@@ -157,6 +157,13 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     override fun showCategories(categories: List<CategoryUiModel>) {
         val categoryModels = mapCategoriesToUiModels(categories)
         carouselAdapter.submitList(categoryModels)
+        
+        // Ensure the first item is properly positioned
+        binding.categoriesCarousel.post {
+            if (categoryModels.isNotEmpty()) {
+                binding.categoriesCarousel.setCurrentItem(0, false)
+            }
+        }
     }
 
     private fun mapCategoriesToUiModels(categories: List<CategoryUiModel>): List<CategoryUiModel> {
