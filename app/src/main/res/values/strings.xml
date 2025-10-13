@@ -26,8 +26,8 @@
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
-    <string name="character">character</string>
-    <string name="settings">settings</string>
+    <string name="character" translatable="false">character</string>
+    <string name="settings" translatable="false">settings</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
@@ -40,4 +40,11 @@
     <string name="_2m_23sec">2m 23sec</string>
     <string name="_0">0</string>
     <string name="date_shampe">date shampe</string>
+
+    <!-- Home Screen -->
+    <string name="games_section_title" translatable="false">Games</string>
+    <string name="last_games_section_title" translatable="false">Last Games</string>
+    <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
+    <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
+    <string name="streak_description" translatable="false">Every day count!</string>
 </resources>

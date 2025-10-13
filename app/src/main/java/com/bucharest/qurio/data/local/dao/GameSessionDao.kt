@@ -9,6 +9,9 @@ import com.bucharest.qurio.data.local.dto.GameSessionDto
 
 @Dao
 interface GameSessionDao {
+    @Query("SELECT * FROM game_session ORDER BY started_at DESC")
+    suspend fun getAll(): List<GameSessionDto>
+    
     @Query("SELECT * FROM game_session ORDER BY started_at DESC LIMIT :limit")
     suspend fun getRecent(limit: Int): List<GameSessionDto>
 
@@ -17,6 +20,9 @@ interface GameSessionDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(entity: GameSessionDto)
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(list: List<GameSessionDto>)
 
     @Update
     suspend fun update(entity: GameSessionDto)

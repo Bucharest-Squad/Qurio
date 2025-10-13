@@ -22,11 +22,30 @@ class StatisticsBar @JvmOverloads constructor(
         onAddLivesClicked: () -> Unit,
         onNextArrowClicked: () -> Unit
     ) {
-        binding.statisticsLivesCard.livesCount.text = livesCount.toString()
-        binding.statisticsPointsCard.pointsCount.text = pointsCount.toString()
-        binding.statisticsAwardsCard.awardsCount.text = awardsCount.toString()
+        updateStatsCounts(livesCount, pointsCount, awardsCount)
+        updateWinnerCrown(isWinner)
+        setupClickListeners(onAddLivesClicked, onNextArrowClicked)
+    }
+
+    private fun updateStatsCounts(livesCount: Int, pointsCount: Int, awardsCount: Int) {
+        with(binding) {
+            statisticsLivesCard.livesCount.text = livesCount.toString()
+            statisticsPointsCard.pointsCount.text = pointsCount.toString()
+            statisticsAwardsCard.awardsCount.text = awardsCount.toString()
+        }
+    }
+
+    private fun updateWinnerCrown(isWinner: Boolean) {
         binding.statisticsPointsCard.icCrownImage.visibility = if (isWinner) VISIBLE else GONE
-        binding.statisticsLivesCard.addLiveButton.setOnClickListener { onAddLivesClicked() }
-        binding.statisticsAwardsCard.nextButton.setOnClickListener { onNextArrowClicked() }
+    }
+
+    private fun setupClickListeners(
+        onAddLivesClicked: () -> Unit,
+        onNextArrowClicked: () -> Unit
+    ) {
+        with(binding) {
+            statisticsLivesCard.addLiveButton.setOnClickListener { onAddLivesClicked() }
+            statisticsAwardsCard.nextButton.setOnClickListener { onNextArrowClicked() }
+        }
     }
 }

@@ -5,6 +5,16 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:disabledAlpha">1.0</item>
 
+        <!-- System Bar Colors -->
+        <item name="android:statusBarColor">@color/surface</item>
+        <item name="android:navigationBarColor">@color/surface</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        
+        <!-- Make system bars transparent -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+
         <item name="android:textViewStyle">@style/GlobalTextViewStyle</item>
     </style>
 
