@@ -1,6 +1,5 @@
 package com.bucharest.qurio.presentation.home
 
-import StreakDayAdapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,15 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
-import com.bucharest.qurio.component.adapter.CategoryUiModel
 import com.bucharest.qurio.databinding.FragmentMainHomeBinding
 import com.bucharest.qurio.presentation.base.BaseFragment
-import com.bucharest.qurio.ui.homeScreen.HomeUiState
-import com.bucharest.qurio.ui.homeScreen.components.carousel.CategoryCarouselAdapter
-import com.bucharest.qurio.ui.homeScreen.components.carousel.CategoryCarouselTransformer
+import com.bucharest.qurio.presentation.home.adapter.LastGamesAdapter
+import com.bucharest.qurio.presentation.home.adapter.StreakDayAdapter
+import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
+import com.bucharest.qurio.presentation.home.components.CategoryCarouselTransformer
+import com.bucharest.qurio.presentation.home.state.CategoryUiModel
+import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
+import com.bucharest.qurio.presentation.home.state.HomeUiState
+import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import javax.inject.Inject
 
-class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(), MainHomeView {
+class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(),
+    MainHomeView {
 
     @Inject
     override lateinit var presenter: MainHomePresenter
@@ -27,7 +31,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             presenter.onCategoryClicked(categoryId)
         }
     }
-    
+
     private val lastGamesAdapter by lazy {
         LastGamesAdapter { game ->
             presenter.onLastGameClicked(game)
@@ -50,7 +54,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         setupCategoriesCarousel()
         setupLastGamesRecyclerView()
     }
-    
+
     override fun onResume() {
         super.onResume()
         presenter.onRefresh()
@@ -60,18 +64,18 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         setupGamesHeader()
         setupLastGamesHeader()
     }
-    
+
     private fun setupGamesHeader() {
         with(binding.includeGamesHeader) {
             sectionTitle.text = getString(R.string.games_section_title)
             viewAllButton.setOnClickListener { presenter.onViewAllClicked() }
         }
     }
-    
+
     private fun setupLastGamesHeader() {
         with(binding.includeLastGamesHeader) {
             sectionTitle.text = getString(R.string.last_games_section_title)
-            viewAllButton.setOnClickListener { presenter.onViewAllClicked() }
+            viewAllButton.setOnClickListener { presenter.onViewAllRecentGamesClicked() }
         }
     }
 
@@ -82,13 +86,13 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             setPageTransformer(CategoryCarouselTransformer())
         }
     }
-    
+
     private fun ViewPager2.configureCarouselBasics() {
         orientation = ViewPager2.ORIENTATION_HORIZONTAL
         adapter = carouselAdapter
         offscreenPageLimit = CAROUSEL_OFFSCREEN_PAGE_LIMIT
     }
-    
+
     private fun ViewPager2.configureCarouselScrolling() {
         (getChildAt(FIRST_CHILD_INDEX) as? androidx.recyclerview.widget.RecyclerView)?.apply {
             clipToPadding = false
@@ -97,7 +101,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             isNestedScrollingEnabled = true
         }
     }
-    
+
     private fun setupLastGamesRecyclerView() {
         with(binding.lastGamesRecyclerView) {
             adapter = lastGamesAdapter
@@ -114,12 +118,12 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         }
     }
 
-    override fun showStreak(currentStreak: Int, streakDays: List<StreakDayState>) {
+    override fun showStreak(currentStreak: Int, streakDays: List<StreakDayUiModel>) {
         val streakUiStates = mapStreakDaysToUiStates(streakDays)
         updateStreakCard(currentStreak, streakUiStates)
     }
-    
-    private fun mapStreakDaysToUiStates(streakDays: List<StreakDayState>): List<HomeUiState.StreakDayUiState> {
+
+    private fun mapStreakDaysToUiStates(streakDays: List<StreakDayUiModel>): List<HomeUiState.StreakDayUiState> {
         return streakDays.map { state ->
             HomeUiState.StreakDayUiState(
                 day = state.dayLabel,
@@ -127,28 +131,35 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             )
         }
     }
-    
-    private fun updateStreakCard(currentStreak: Int, streakUiStates: List<HomeUiState.StreakDayUiState>) {
+
+    private fun updateStreakCard(
+        currentStreak: Int,
+        streakUiStates: List<HomeUiState.StreakDayUiState>
+    ) {
         with(binding.includeStreakCard) {
             streakRecyclerView.adapter = StreakDayAdapter(streakUiStates)
             title.text = getStreakMessage(currentStreak)
             description.text = getString(R.string.streak_description)
         }
     }
-    
+
     private fun getStreakMessage(currentStreak: Int): String {
         return when {
-            currentStreak > MIN_ACTIVE_STREAK -> getString(R.string.streak_active_message, currentStreak)
+            currentStreak > MIN_ACTIVE_STREAK -> getString(
+                R.string.streak_active_message,
+                currentStreak
+            )
+
             else -> getString(R.string.streak_inactive_message)
         }
     }
 
-    override fun showCategories(categories: List<CategoryState>) {
+    override fun showCategories(categories: List<CategoryUiModel>) {
         val categoryModels = mapCategoriesToUiModels(categories)
         carouselAdapter.submitList(categoryModels)
     }
-    
-    private fun mapCategoriesToUiModels(categories: List<CategoryState>): List<CategoryUiModel> {
+
+    private fun mapCategoriesToUiModels(categories: List<CategoryUiModel>): List<CategoryUiModel> {
         return categories.map { category ->
             CategoryUiModel(
                 id = category.id,
@@ -160,7 +171,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         }
     }
 
-    override fun showRecentGames(games: List<GameSessionState>) {
+    override fun showRecentGames(games: List<GameSessionUiModel>) {
         lastGamesAdapter.submitList(games)
     }
 
@@ -169,7 +180,11 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToAllGames() {
-        showMessage("View All clicked - implement navigation")
+        showMessage("View All Games clicked - implement navigation")
+    }
+
+    override fun navigateToAllRecentGames() {
+        showMessage("View All Recent Games clicked - implement navigation")
     }
 
     override fun showLoading() {}

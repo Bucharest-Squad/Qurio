@@ -1,37 +1,16 @@
 package com.bucharest.qurio.presentation.home
 
 import com.bucharest.qurio.presentation.base.BaseView
+import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.home.state.CategoryUiModel
+import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 
 interface MainHomeView : BaseView {
     fun showUserStats(coins: Int, lives: Int, awards: Int)
-    fun showStreak(currentStreak: Int, streakDays: List<StreakDayState>)
-    fun showCategories(categories: List<CategoryState>)
-    fun showRecentGames(games: List<GameSessionState>)
+    fun showStreak(currentStreak: Int, streakDays: List<StreakDayUiModel>)
+    fun showCategories(categories: List<CategoryUiModel>)
+    fun showRecentGames(games: List<GameSessionUiModel>)
     fun navigateToCategoryGame(categoryId: Int)
     fun navigateToAllGames()
+    fun navigateToAllRecentGames()
 }
-
-data class StreakDayState(
-    val dayLabel: String,
-    val isInStreak: Boolean
-)
-
-data class CategoryState(
-    val id: Int,
-    val title: String,
-    val imageRes: Int,
-    val startColor: Int,
-    val endColor: Int
-)
-
-data class GameSessionState(
-    val categoryName: String,
-    val difficulty: String,
-    val score: Int,
-    val starsEarned: Int,
-    val coinsEarned: Int,
-    val durationSeconds: Int,
-    val playedDate: String
-)
-
-

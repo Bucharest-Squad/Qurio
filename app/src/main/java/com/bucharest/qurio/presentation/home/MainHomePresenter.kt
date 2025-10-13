@@ -8,6 +8,9 @@ import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.base.BasePresenter
+import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
+import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import kotlinx.datetime.*
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -39,7 +42,13 @@ class MainHomePresenter(
         }
     }
     
-    fun onLastGameClicked(game: GameSessionState) {
+    fun onViewAllRecentGamesClicked() {
+        executeIfViewAttached {
+            navigateToAllRecentGames()
+        }
+    }
+    
+    fun onLastGameClicked(game: GameSessionUiModel) {
         executeIfViewAttached {
             showMessage("Game: ${game.categoryName} - ${game.score} pts")
         }
@@ -114,12 +123,12 @@ class MainHomePresenter(
         }
     }
     
-    private fun mapGameSessionsToStates(sessions: List<GameSession>): List<GameSessionState> {
+    private fun mapGameSessionsToStates(sessions: List<GameSession>): List<GameSessionUiModel> {
         return sessions.map { session -> mapGameSessionToState(session) }
     }
     
-    private fun mapGameSessionToState(session: GameSession): GameSessionState {
-        return GameSessionState(
+    private fun mapGameSessionToState(session: GameSession): GameSessionUiModel {
+        return GameSessionUiModel(
             categoryName = session.category.name,
             difficulty = session.difficulty.name,
             score = session.totalScore,
@@ -153,11 +162,11 @@ class MainHomePresenter(
         return "$day-$month-$year"
     }
 
-    private fun generateStreakDays(currentStreak: Int): List<StreakDayState> {
+    private fun generateStreakDays(currentStreak: Int): List<StreakDayUiModel> {
         val dayLabels = listOf("S", "M", "T", "W", "T", "F", "S")
         
         return dayLabels.mapIndexed { index, label ->
-            StreakDayState(label, isDayInStreak(index, currentStreak))
+            StreakDayUiModel(label, isDayInStreak(index, currentStreak))
         }
     }
     

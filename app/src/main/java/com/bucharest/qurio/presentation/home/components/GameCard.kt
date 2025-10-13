@@ -1,4 +1,4 @@
-package com.bucharest.qurio.component
+package com.bucharest.qurio.presentation.home.components
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
@@ -16,9 +16,8 @@ class GameCard @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding = ItemGameCardBinding.inflate(LayoutInflater.from(context), this, true)
-    
+
     init {
-        // Enable hardware acceleration for smooth animations
         setLayerType(LAYER_TYPE_HARDWARE, null)
     }
 
@@ -30,7 +29,7 @@ class GameCard @JvmOverloads constructor(
     ) {
         setTitle(title)
         setImage(imageRes)
-        setGradientColors(startColor,endColor)
+        setGradientColors(startColor, endColor)
     }
 
     private fun setTitle(title: String) {
@@ -54,4 +53,5 @@ class GameCard @JvmOverloads constructor(
         binding.gradientOverlay.background = gradient
     }
 
-    private val Float.dp: Float get() = this * resources.displayMetrics.density}
+    private val Float.dp: Float get() = this * resources.displayMetrics.density
+}

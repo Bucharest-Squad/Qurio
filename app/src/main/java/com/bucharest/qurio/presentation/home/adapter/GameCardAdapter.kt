@@ -1,31 +1,41 @@
-package com.bucharest.qurio.component.adapter
+package com.bucharest.qurio.presentation.home.adapter
 
+import android.annotation.SuppressLint
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bucharest.qurio.component.GameCard
+import com.bucharest.qurio.presentation.home.components.GameCard
+import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 
-class GameCardAdapter
-    (
-     private val onGameCardClicked: (id:Int) -> Unit,
+class GameCardAdapter(
+    private val onGameCardClicked: (id: Int) -> Unit,
 ) : RecyclerView.Adapter<GameCardAdapter.GameCardAdapterViewHolder>() {
 
     private var categoryList: List<CategoryUiModel> = emptyList()
+
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(categoryList: List<CategoryUiModel>) {
-        this.categoryList=categoryList
+        this.categoryList = categoryList
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(
-        parent: android.view.ViewGroup, viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): GameCardAdapterViewHolder {
-        return GameCardAdapterViewHolder(GameCard(parent.context))
+        return GameCardAdapterViewHolder(GameCard(parent.context), onGameCardClicked)
     }
 
     override fun onBindViewHolder(holder: GameCardAdapterViewHolder, position: Int) {
         holder.bind(categoryList[position])
     }
 
-    override fun getItemCount(): Int =categoryList.size
+    override fun getItemCount(): Int = categoryList.size
 
-    inner class GameCardAdapterViewHolder(val gameCard: GameCard) : RecyclerView.ViewHolder(gameCard) {
+    class GameCardAdapterViewHolder(
+        private val gameCard: GameCard,
+        private val onGameCardClicked: (id: Int) -> Unit
+    ) : RecyclerView.ViewHolder(gameCard) {
+        
         fun bind(categoryUiModel: CategoryUiModel) {
             gameCard.setState(
                 title = categoryUiModel.title,
@@ -35,10 +45,5 @@ class GameCardAdapter
             )
             gameCard.setOnClickListener { onGameCardClicked(categoryUiModel.id) }
         }
-
     }
 }
-
-data class CategoryUiModel(
-    val id:Int,val title: String, val imageRes: Int, val startColor: Int, val endColor: Int
-)

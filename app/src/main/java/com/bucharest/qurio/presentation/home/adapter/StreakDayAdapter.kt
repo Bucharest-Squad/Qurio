@@ -1,3 +1,5 @@
+package com.bucharest.qurio.presentation.home.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -5,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.StreakDayCardBinding
-import com.bucharest.qurio.ui.homeScreen.HomeUiState
+import com.bucharest.qurio.presentation.home.state.HomeUiState
 
 class StreakDayAdapter(
     private val items: List<HomeUiState.StreakDayUiState>

@@ -1,4 +1,4 @@
-package com.bucharest.qurio.presentation.home
+package com.bucharest.qurio.presentation.home.mapper
 
 import android.content.Context
 import androidx.annotation.ColorRes
@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.bucharest.qurio.R
 import com.bucharest.qurio.domain.entity.Category
+import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 
 object CategoryMapper {
 
@@ -36,17 +37,17 @@ object CategoryMapper {
 
     private const val CATEGORY_SEPARATOR = ":"
 
-    fun toUiState(categories: List<Category>, context: Context): List<CategoryState> {
+    fun toUiState(categories: List<Category>, context: Context): List<CategoryUiModel> {
         return categories.map { category ->
             mapCategoryToUiState(category, context)
         }
     }
 
-    private fun mapCategoryToUiState(category: Category, context: Context): CategoryState {
+    private fun mapCategoryToUiState(category: Category, context: Context): CategoryUiModel {
         val uiResources = getCategoryResources(category.id)
         val displayTitle = extractDisplayTitle(category.name)
-        
-        return CategoryState(
+
+        return CategoryUiModel(
             id = category.id,
             title = displayTitle,
             imageRes = uiResources.imageRes,

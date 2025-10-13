@@ -1,4 +1,4 @@
-package com.bucharest.qurio.ui.homeScreen.components.carousel
+package com.bucharest.qurio.presentation.home.components
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
@@ -23,7 +23,10 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
     }
 
     private fun calculateScale(absPosition: Float): Float {
-        val scaleFactor = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * (MAX_SCALE - absPosition).coerceIn(MIN_POSITION, MAX_POSITION)
+        val scaleFactor = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * (MAX_SCALE - absPosition).coerceIn(
+            MIN_POSITION,
+            MAX_POSITION
+        )
         return scaleFactor.coerceIn(MIN_SCALE, MAX_SCALE)
     }
 
@@ -31,7 +34,11 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
         return when {
             absPosition <= ALWAYS_VISIBLE_THRESHOLD -> MAX_ALPHA
             else -> {
-                val alphaFactor = MIN_ALPHA + (MAX_ALPHA - MIN_ALPHA) * (MAX_SCALE - absPosition).coerceIn(MIN_POSITION, MAX_POSITION)
+                val alphaFactor =
+                    MIN_ALPHA + (MAX_ALPHA - MIN_ALPHA) * (MAX_SCALE - absPosition).coerceIn(
+                        MIN_POSITION,
+                        MAX_POSITION
+                    )
                 alphaFactor.coerceIn(MIN_ALPHA, MAX_ALPHA)
             }
         }
