@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Qurio</string>
-
-    <!-- Category Titles -->
+    <string name="app_name">كويريو</string>
     <string name="category_title_geography">الجغرافيا</string>
     <string name="category_title_science">العلوم</string>
-    <string name="category_title_general_knowledge">معلومات عامة</string>
+    <string name="category_title_general_knowledge">المعرفة العامة</string>
     <string name="category_title_music">الموسيقى</string>
-    <string name="category_title_film_tv">الأفلام والتلفزيون</string>
+    <string name="category_title_film_tv">الأفلام والتلفاز</string>
     <string name="category_title_food_drink">الطعام والشراب</string>
     <string name="category_title_society_culture">المجتمع والثقافة</string>
     <string name="category_title_sport_leisure">الرياضة والترفيه</string>
@@ -15,25 +13,31 @@
     <string name="category_title_arts_literature">الفنون والآداب</string>
     <string name="statistics_awards_card_title">الجوائز</string>
     <string name="statistics_awards_card_icon_description">أيقونة الجوائز</string>
-    <string name="statistics_awards_card_next_arrow_description">أيقونة سهم الترقية</string>
+    <string name="statistics_awards_card_next_arrow_description">أيقونة السهم التالي</string>
     <string name="statistics_lives_card_upgrade_icon_description">أيقونة الترقية</string>
-    <string name="statistics_lives_card_title">الحياة</string>
-    <string name="statistics_lives_card_lives_icon_description">أيقونة الحياة</string>
+    <string name="statistics_lives_card_title">الأرواح</string>
+    <string name="statistics_lives_card_lives_icon_description">أيقونة الأرواح</string>
     <string name="statistics_points_card_title">النقاط</string>
     <string name="statistics_points_card_icon_description">أيقونة النقاط</string>
     <string name="statistics_points_card_crown_icon_description">أيقونة التاج</string>
-    <!-- item_result.xml -->
     <string name="result_great_job">عمل رائع</string>
     <string name="result_reward">المكافأة</string>
     <string name="result_label_correct">صحيح</string>
     <string name="result_label_incorrect">غير صحيح</string>
     <string name="result_label_skipped">تم تخطيه</string>
-
-    <string name="welcome_qurio_explorer">أهلا بك أيها المستكشف في كويريو</string>
+    <string name="welcome_qurio_explorer">مرحبًا أيها المستكشف في كويريو</string>
+    <string name="character">الشخصية</string>
+    <string name="settings">الإعدادات</string>
     <string name="easy">سهل</string>
     <string name="medium">متوسط</string>
     <string name="hard">صعب</string>
-
-    <string name="character">الشخصيات</string>
-    <string name="settings">الاعدادات</string>
+    <string name="last_game_card">بطاقة آخر لعبة</string>
+    <string name="coins">العملات</string>
+    <string name="star">نجمة</string>
+    <string name="clock">الساعة</string>
+    <string name="science_amp_natural">العلوم والطبيعة</string>
+    <string name="_100">-١٠٠</string>
+    <string name="_2m_23sec">٢ دقيقة و٢٣ ثانية</string>
+    <string name="_0">٠</string>
+    <string name="date_shampe">تاريخ تجريبي</string>
 </resources>

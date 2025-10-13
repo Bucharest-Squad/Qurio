@@ -1,55 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/home_app_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/surface">
 
-    <ImageView
-        android:id="@+id/image_selected_character"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_app_bar_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:contentDescription="@string/character"
-        android:src="@drawable/rika"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/text_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_qurio_explorer"
-        style="@style/Body.Small"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:textColor="@color/shade_secondary"
-        app:layout_constraintTop_toTopOf="@id/image_selected_character"
-        app:layout_constraintBottom_toTopOf="@id/text_character_name"
-        app:layout_constraintStart_toEndOf="@id/image_selected_character"/>
+        <ImageView
+            android:id="@+id/image_selected_character"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/character"
+            android:src="@drawable/rika"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
-        android:id="@+id/text_character_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rika"
-        style="@style/Label.Medium"
-        android:textColor="@color/shade_primary"
-        app:layout_constraintStart_toStartOf="@id/text_welcome"
-        app:layout_constraintTop_toBottomOf="@+id/text_welcome"
-        app:layout_constraintBottom_toBottomOf="@id/image_selected_character"
-        app:layout_constraintStart_toEndOf="@id/image_selected_character"/>
+        <TextView
+            android:id="@+id/text_welcome"
+            style="@style/Body.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/welcome_qurio_explorer"
+            android:textColor="@color/shade_secondary"
+            app:layout_constraintStart_toEndOf="@id/image_selected_character"
+            app:layout_constraintTop_toTopOf="@id/image_selected_character" />
 
+        <TextView
+            android:id="@+id/text_character_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rika"
+            style="@style/Label.Medium"
+            android:textColor="@color/shade_primary"
+            app:layout_constraintStart_toStartOf="@id/text_welcome"
+            app:layout_constraintTop_toBottomOf="@id/text_welcome"
+            app:layout_constraintBottom_toBottomOf="@id/image_selected_character" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/settings"
-        android:src="@drawable/ic_setting"
+        <ImageView
+            android:id="@+id/settings_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/settings"
+            android:src="@drawable/ic_setting"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/bottom_border"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/home_app_bar_content"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/appbar_bottom_border" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

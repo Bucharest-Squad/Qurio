@@ -16,6 +16,8 @@
         android:padding="3dp"
         android:background="@drawable/circle_button_background"
         android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
             />
