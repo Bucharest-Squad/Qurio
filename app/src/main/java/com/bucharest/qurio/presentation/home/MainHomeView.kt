@@ -1,6 +1,7 @@
 package com.bucharest.qurio.presentation.home
 
 import com.bucharest.qurio.presentation.base.BaseView
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
@@ -14,7 +15,7 @@ interface MainHomeView : BaseView {
     fun navigateToAllGames()
     fun navigateToAllRecentGames()
     fun showSettingsDialog()
-    fun showCharacterSelectionDialog()
+    fun showCharacterSelectionDialog(currentCharacterId:Int,charactersUiModel: List<CharacterUiModel>)
     fun showPurchaseLivesDialog()
     fun showAchievementsDialog()
 }

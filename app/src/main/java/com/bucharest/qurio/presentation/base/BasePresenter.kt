@@ -35,7 +35,28 @@ abstract class BasePresenter<V : BaseView> {
     protected fun executeIfViewAttached(action: V.() -> Unit) {
         _view?.let { action(it) }
     }
-
+    protected fun  tryToExecute(
+        execute: suspend () -> Unit,
+        onSuccess: (suspend () -> Unit),
+        onError: (suspend (Throwable) -> Unit),
+        onStart: (suspend () -> Unit)? = null,
+        onFinally: (suspend () -> Unit)? = null,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ): Job {
+        return presenterScope.launch {
+            try {
+                onStart?.invoke()
+               withContext(dispatcher) {
+                    execute()
+                }
+                onSuccess()
+            } catch (throwable: Throwable) {
+                onError(throwable)
+            } finally {
+                onFinally?.invoke()
+            }
+        }
+    }
     protected fun <T> tryToExecute(
         execute: suspend () -> T,
         onSuccess: (suspend (T) -> Unit),

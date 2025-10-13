@@ -5,9 +5,11 @@ import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.User
 import com.bucharest.qurio.domain.repository.CategoryRepository
+import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.base.BasePresenter
+import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
@@ -17,6 +19,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class MainHomePresenter(
     private val userRepository: UserRepository,
     private val gameRepository: GameRepository,
+    private val characterRepository: CharacterRepository,
     private val categoryRepository: CategoryRepository,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
@@ -53,11 +56,50 @@ class MainHomePresenter(
             showSettingsDialog()
         }
     }
-    
+
+    fun updateCurrentCharacter(characterId:Int){
+        tryToExecute(
+            execute = { userRepository.setActiveCharacter(characterId) },
+            onSuccess = {},
+            onError =::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
+    }
+    fun onBuyClicked(characterId:Int){
+        tryToExecute(
+            execute = { characterRepository.unlockCharacter(characterId) },
+            onSuccess = {},
+            onError =::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
+    }
     fun onCharacterClicked() {
-        executeIfViewAttached {
-            showCharacterSelectionDialog()
-        }
+        tryToExecute(
+            execute = { userRepository.getUser().currentCharacterId },
+            onSuccess = ::setCurrentCharacter,
+            onError = ::handleHomeDataError ,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
+    }
+    fun setCurrentCharacter(id: Int){
+        tryToExecute(
+            execute = {characterRepository.getAllCharacters() },
+            onSuccess = {characters->
+                executeIfViewAttached {
+                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it) })
+                }
+            },
+            onError = ::handleHomeDataError ,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
     }
     
     fun onPurchaseLivesClicked() {

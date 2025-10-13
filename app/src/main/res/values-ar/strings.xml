@@ -40,4 +40,50 @@
     <string name="_2m_23sec">٢ دقيقة و٢٣ ثانية</string>
     <string name="_0">٠</string>
     <string name="date_shampe">تاريخ تجريبي</string>
+
+    <!-- Rika -->
+    <string name="rika_name">ريكا</string>
+    <string name="rika_age">العمر: 12 زهرة شمس</string>
+    <string name="rika_description">مستكشفة الطبيعة الصغيرة! ريكا تتحدث إلى الفطر وتقسم أن السناجب تعطيها نصائح للمعركة. مستعدة دائمًا للمغامرة.</string>
+
+    <!-- Kaiyo -->
+    <string name="kaiyo_name">كايو</string>
+    <string name="kaiyo_age">العمر: 14 عاصفة</string>
+    <string name="kaiyo_description">عاصفة هادئة في شكل إنسان. يتدرب كايو على المخطوطات القديمة نهارًا ويشرب الشاي الحار ليلاً. سيفه حاد وقلبه أحد.</string>
+
+    <!-- Mimi -->
+    <string name="mimi_name">ميمي</string>
+    <string name="mimi_age">العمر: 10 نفثات بركان</string>
+    <string name="mimi_description">صغيرة ولكنها مرعبة! ميمي دائمًا عابسة، لكن لا تدع ذلك يخيفك - إلا إذا كنت تحب المقالب التي تتضمن المفرقعات النارية.</string>
+
+    <!-- Yoru -->
+    <string name="yoru_name">يورو</string>
+    <string name="yoru_age">العمر: 13 ظلاً</string>
+    <string name="yoru_description">هادئ وغامض، وربما يراقبك الآن. يظهر يورو عندما لا تتوقعه على الإطلاق.</string>
+
+    <!-- Kuro -->
+    <string name="kuro_name">كورو</string>
+    <string name="kuro_age">العمر: 15 دقة رعد</string>
+    <string name="kuro_description">سترة رائعة، حركات أروع. لا يتراجع كورو أبدًا عن أي تحد.</string>
+
+    <!-- Miko -->
+    <string name="miko_name">ميكو</string>
+    <string name="miko_age">العمر: 11 دورة ورق</string>
+    <string name="miko_description">مفعمة بالحيوية والبهجة، وأسرع من ورقة في مهب الريح. يمكن لميكو تحويل أي معلومة تافهة إلى مهرجان من الضحك.</string>
+
+    <!-- Aori -->
+    <string name="aori_name">آوري</string>
+    <string name="aori_age">العمر: 13 صدى نصل</string>
+    <string name="aori_description">السيف يختار حامله - وقد اختار آوري. هادئة ومركزة.</string>
+
+    <!-- Nara -->
+    <string name="nara_name">نارا</string>
+    <string name="nara_age">العمر: 12 أغنية كريستال</string>
+    <string name="nara_description">جزء من السحر وجزء من الجرأة. تتلألأ نارا حتى عندما تكون غاضبة.</string>
+
+    <!-- Renji -->
+    <string name="renji_name">رينجي</string>
+    <string name="renji_age">العمر: 11 عملة بطل</string>
+    <string name="renji_description">صغير ولكنه جبار! يحلم رينجي بالمجد، ويحمل درعًا أكبر من حجمه.</string>
+
 </resources>

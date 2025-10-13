@@ -47,4 +47,50 @@
     <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
     <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
     <string name="streak_description" translatable="false">Every day count!</string>
+
+    <!-- Rika -->
+    <string name="rika_name">Rika</string>
+    <string name="rika_age">Age: 12 Sunblooms</string>
+    <string name="rika_description">Nature’s little explorer! Rika talks to mushrooms and swears squirrels give her battle advice. Always ready for an adventure.</string>
+
+    <!-- Kaiyo -->
+    <string name="kaiyo_name">Kaiyo</string>
+    <string name="kaiyo_age">Age: 14 Storms</string>
+    <string name="kaiyo_description">A calm storm in human form. Kaiyo trains with ancient scrolls by day and drinks spicy tea by night. Sword sharp, heart sharper.</string>
+
+    <!-- Mimi -->
+    <string name="mimi_name">Mimi</string>
+    <string name="mimi_age">Age: 10 Volcano Puffs</string>
+    <string name="mimi_description">Tiny but terrifying! Mimi is always grumpy, but don’t let that scare you—unless you like pranks involving firecrackers.</string>
+
+    <!-- Yoru -->
+    <string name="yoru_name">Yoru</string>
+    <string name="yoru_age">Age: 13 Shadows</string>
+    <string name="yoru_description">Quiet, mysterious, and probably watching you right now. Yoru shows up when you least expect it.</string>
+
+    <!-- Kuro -->
+    <string name="kuro_name">Kuro</string>
+    <string name="kuro_age">Age: 15 Thunder Beats</string>
+    <string name="kuro_description">Cool jacket, cooler moves. Kuro never backs down from a challenge.</string>
+
+    <!-- Miko -->
+    <string name="miko_name">Miko</string>
+    <string name="miko_age">Age: 11 Leaf Turns</string>
+    <string name="miko_description">Energetic, cheerful, and faster than a leaf in the wind. Miko can turn any trivia into a giggle-fest.</string>
+
+    <!-- Aori -->
+    <string name="aori_name">Aori</string>
+    <string name="aori_age">Age: 13 Blade Echoes</string>
+    <string name="aori_description">The sword chooses the wielder—and it chose Aori. Calm, focused.</string>
+
+    <!-- Nara -->
+    <string name="nara_name">Nara</string>
+    <string name="nara_age">Age: 12 Crystal Songs</string>
+    <string name="nara_description">Part magic, part sass. Nara sparkles even when she’s mad.</string>
+
+    <!-- Renji -->
+    <string name="renji_name">Renji</string>
+    <string name="renji_age">Age: 11 Hero Coins</string>
+    <string name="renji_description">Small but mighty! Renji dreams of glory, carries a shield too big for him.</string>
+
 </resources>

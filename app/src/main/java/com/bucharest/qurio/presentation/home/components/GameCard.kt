@@ -17,9 +17,7 @@ class GameCard @JvmOverloads constructor(
 
     private val binding = ItemGameCardBinding.inflate(LayoutInflater.from(context), this, true)
 
-    init {
-        setLayerType(LAYER_TYPE_HARDWARE, null)
-    }
+
 
     fun setState(
         title: String,
@@ -50,7 +48,7 @@ class GameCard @JvmOverloads constructor(
                 28f.dp, 28f.dp, 28f.dp, 28f.dp
             )
         }
-        binding.gradientOverlay.background = gradient
+        //binding.gradientOverlay.background = gradient
     }
 
     private val Float.dp: Float get() = this * resources.displayMetrics.density

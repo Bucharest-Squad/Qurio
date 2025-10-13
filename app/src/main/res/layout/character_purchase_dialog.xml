@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="328dp"
+    android:layout_height="273dp">
+
+    <View
+        android:id="@+id/edges_background"
+        android:layout_width="328dp"
+        android:layout_height="260dp"
+        android:background="@drawable/characters_dialog_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        android:id="@+id/character"
+        layout="@layout/item_character_card"
+        android:layout_width="48dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="56dp"
+        app:layout_constraintBottom_toTopOf="@id/buy_button"
+         />
+
+    <ImageView
+        android:id="@+id/coin_icons"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+
+        android:contentDescription="@string/statistics_points_card_icon_description"
+        android:src="@drawable/ic_points"
+        app:layout_constraintBottom_toBottomOf="@+id/multiply_sign"
+        app:layout_constraintStart_toEndOf="@id/multiply_sign"
+        app:layout_constraintTop_toTopOf="@+id/multiply_sign" />
+    <TextView
+        android:id="@+id/equals_sign"
+        style="@style/Headline.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary"
+        app:layout_constraintBottom_toBottomOf="@id/character"
+        app:layout_constraintStart_toEndOf="@+id/character"
+        app:layout_constraintTop_toTopOf="@+id/character"
+        android:layout_marginStart="19dp"
+        android:text="="
+         />
+    <TextView
+        android:id="@+id/price"
+        style="@style/Headline.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary"
+        app:layout_constraintStart_toEndOf="@+id/equals_sign"
+        app:layout_constraintTop_toTopOf="@+id/equals_sign"
+        android:layout_marginStart="19dp"
+        android:text="300"
+         />
+    <TextView
+        android:id="@+id/multiply_sign"
+        style="@style/Headline.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary"
+        app:layout_constraintBottom_toBottomOf="@id/price"
+        app:layout_constraintStart_toEndOf="@+id/price"
+        app:layout_constraintTop_toTopOf="@+id/price"
+        android:layout_marginStart="6dp"
+        android:text="X"
+        />
+
+    <ImageView
+        android:id="@+id/character_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/character_dialog_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="22dp"
+        android:layout_height="26dp"
+        android:src="@drawable/ic_close_character_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edges_background" />
+
+
+    <TextView
+        style="@style/Title.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy Character"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/on_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buy_button"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:text="Buy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cancel_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel_button"
+        style="@style/SecondaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="36dp"
+        android:text="cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buy_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

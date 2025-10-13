@@ -15,4 +15,9 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override suspend fun getOwnedCharacters(): List<Character> = 
         characterDao.getAll().mapNotNull { it.takeIf { dto -> dto.owned }?.toEntity() }
+
+    override suspend fun unlockCharacter(characterId: Int) {
+        characterDao.updateOwnership(characterId,true)
+
+    }
 }
