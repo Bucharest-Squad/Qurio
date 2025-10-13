@@ -48,6 +48,30 @@ class MainHomePresenter(
         }
     }
     
+    fun onSettingsClicked() {
+        executeIfViewAttached {
+            showSettingsDialog()
+        }
+    }
+    
+    fun onCharacterClicked() {
+        executeIfViewAttached {
+            showCharacterSelectionDialog()
+        }
+    }
+    
+    fun onPurchaseLivesClicked() {
+        executeIfViewAttached {
+            showPurchaseLivesDialog()
+        }
+    }
+    
+    fun onAchievementsClicked() {
+        executeIfViewAttached {
+            showAchievementsDialog()
+        }
+    }
+    
     fun onLastGameClicked(game: GameSessionUiModel) {
         executeIfViewAttached {
             showMessage("Game: ${game.categoryName} - ${game.score} pts")

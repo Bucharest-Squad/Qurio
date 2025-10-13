@@ -21,6 +21,9 @@
             android:layout_height="50dp"
             android:contentDescription="@string/character"
             android:src="@drawable/rika"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -49,10 +52,14 @@
             app:layout_constraintBottom_toBottomOf="@id/image_selected_character" />
 
         <ImageView
+            android:id="@+id/settings_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="@string/settings"
             android:src="@drawable/ic_setting"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

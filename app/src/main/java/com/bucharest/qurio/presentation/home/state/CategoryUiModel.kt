@@ -7,3 +7,4 @@ data class CategoryUiModel(
     val startColor: Int,
     val endColor: Int
 )
+

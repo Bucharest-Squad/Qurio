@@ -13,4 +13,8 @@ interface MainHomeView : BaseView {
     fun navigateToCategoryGame(categoryId: Int)
     fun navigateToAllGames()
     fun navigateToAllRecentGames()
+    fun showSettingsDialog()
+    fun showCharacterSelectionDialog()
+    fun showPurchaseLivesDialog()
+    fun showAchievementsDialog()
 }

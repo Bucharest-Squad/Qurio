@@ -45,6 +45,8 @@
             android:background="@drawable/circle_button_background"
             android:src="@drawable/right_arrow"
             android:contentDescription="@string/statistics_lives_card_upgrade_icon_description"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintStart_toEndOf="@id/awards_count"
             app:layout_constraintTop_toTopOf="@id/awards_count"/>
     <include layout="@layout/indicator" />

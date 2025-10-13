@@ -53,6 +53,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         setupSectionHeaders()
         setupCategoriesCarousel()
         setupLastGamesRecyclerView()
+        setupClickListeners()
     }
 
     override fun onResume() {
@@ -107,6 +108,33 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             adapter = lastGamesAdapter
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(false)
+        }
+    }
+    
+    private fun setupClickListeners() {
+        setupTopBarClickListeners()
+        setupStatisticsClickListeners()
+    }
+    
+    private fun setupTopBarClickListeners() {
+        with(binding.includeHomeAppBar) {
+            settingsIcon.setOnClickListener { 
+                presenter.onSettingsClicked() 
+            }
+            imageSelectedCharacter.setOnClickListener { 
+                presenter.onCharacterClicked() 
+            }
+        }
+    }
+    
+    private fun setupStatisticsClickListeners() {
+        with(binding.includeStatisticsSection) {
+            statisticsLivesCard.addLiveButton.setOnClickListener {
+                presenter.onPurchaseLivesClicked()
+            }
+            statisticsAwardsCard.nextButton.setOnClickListener {
+                presenter.onAchievementsClicked()
+            }
         }
     }
 
@@ -192,6 +220,22 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun navigateToAllRecentGames() {
         showMessage("View All Recent Games clicked - implement navigation")
+    }
+
+    override fun showSettingsDialog() {
+        showMessage("Settings Dialog - implement settings screen")
+    }
+
+    override fun showCharacterSelectionDialog() {
+        showMessage("Character Selection Dialog - implement character selection")
+    }
+
+    override fun showPurchaseLivesDialog() {
+        showMessage("Purchase Lives Dialog - implement lives purchase")
+    }
+
+    override fun showAchievementsDialog() {
+        showMessage("Achievements Dialog - implement achievements screen")
     }
 
     override fun showLoading() {}

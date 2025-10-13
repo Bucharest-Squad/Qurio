@@ -8,3 +8,4 @@ data class HomeUiState(
         val isInStreak: Boolean
     )
 }
+
