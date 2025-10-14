@@ -13,6 +13,7 @@ class QurioApp: Application() {
     lateinit var appComponent: AppComponent
         private set
 
+
     override fun onCreate() {
         super.onCreate()
         initDagger()

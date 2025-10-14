@@ -47,4 +47,5 @@
     <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
     <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
     <string name="streak_description" translatable="false">Every day count!</string>
+
 </resources>
