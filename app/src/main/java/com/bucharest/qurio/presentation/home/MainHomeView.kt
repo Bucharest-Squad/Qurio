@@ -18,4 +18,5 @@ interface MainHomeView : BaseView {
     fun showCharacterSelectionDialog(currentCharacterId:Int,charactersUiModel: List<CharacterUiModel>)
     fun showPurchaseLivesDialog()
     fun showAchievementsDialog()
+    fun showCurrentCharacter(characterUiModel: CharacterUiModel)
 }

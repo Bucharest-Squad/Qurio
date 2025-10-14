@@ -14,18 +14,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <include
+
+    <ImageView
         android:id="@+id/character"
-        layout="@layout/item_character_card"
         android:layout_width="48dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="24dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="56dp"
-        app:layout_constraintBottom_toTopOf="@id/buy_button"
-         />
+        android:layout_marginBottom="24dp"
+        tools:src="@drawable/kaiyo_no_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buy_button" />
 
+    <ImageView
+        android:id="@+id/locked_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/ic_character_locked"
+        app:layout_constraintStart_toStartOf="@id/character"
+        app:layout_constraintBottom_toBottomOf="@id/character"
+        app:layout_constraintEnd_toEndOf="@id/character"
+
+        tools:visibility="visible" />
     <ImageView
         android:id="@+id/coin_icons"
         android:layout_width="40dp"

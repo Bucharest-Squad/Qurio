@@ -1,11 +1,7 @@
 package com.bucharest.qurio.presentation.character_dialog
 
-import android.content.Context
-import androidx.core.content.ContextCompat
 import com.bucharest.qurio.R
-import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Character
-import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 
 object CharacterMapper {
 
@@ -19,44 +15,52 @@ object CharacterMapper {
     private const val CHARACTER_ID_NARA = 1007
     private const val CHARACTER_ID_RENJI = 1008
 
-
-    private fun getCharacterImage(characterId: Int): Int {
-        return characterResourcesMap[characterId] ?: R.drawable.character_rika
+    private fun getCharacterImages(characterId: Int): Pair<Int, Int> {
+        return characterResourcesMap[characterId] ?: Pair(R.drawable.character_rika, R.drawable.rika_no_bg)
     }
+
     private fun getCharacterPrice(price: Int): String {
         return when {
             price < 1000 -> price.toString()
-            price > 1000 -> {
-                val parsedPrice = price.toString().substring(0,2)+"k"
-                parsedPrice
-            }
+            price >= 1000 -> "${price / 1000}k"
             else -> "0"
         }
-
     }
-     fun mapCharacterToUiState(character: Character): CharacterUiModel {
-        val uiResources =getCharacterImage(character.id)
+
+    fun mapCharacterToUiState(character: Character): CharacterUiModel {
+        val uiResources = getCharacterImages(character.id)
         return CharacterUiModel(
             id = character.id,
             imageRes = uiResources,
-            characterName =character.name,
+            characterName = character.name,
             characterDescription = character.description,
             characterPrice = getCharacterPrice(character.price),
             characterAge = character.age,
             isOwned = character.isOwned,
         )
     }
+    fun getCharacterName(character: Character): CharacterUiModel {
+        val uiResources = getCharacterImages(character.id)
+        return CharacterUiModel(
+            id = character.id,
+            imageRes = uiResources,
+            characterName = character.name,
+            characterDescription = character.description,
+            characterPrice = getCharacterPrice(character.price),
+            characterAge = character.age,
+            isOwned = character.isOwned,
+        )
+    }
+
     private val characterResourcesMap = mapOf(
-        CHARACTER_ID_RIKA to R.drawable.character_rika,
-        CHARACTER_ID_KAIYO to R.drawable.character_kaiyo,
-        CHARACTER_ID_MIMI to R.drawable.character_mimi,
-        CHARACTER_ID_YORU to R.drawable.character_youru,
-        CHARACTER_ID_KURO to R.drawable.character_kuro,
-        CHARACTER_ID_MIKO to R.drawable.character_miko,
-        CHARACTER_ID_AORI to R.drawable.character_aori,
-        CHARACTER_ID_NARA to R.drawable.character_nara,
-        CHARACTER_ID_RENJI to R.drawable.character_renji
+        CHARACTER_ID_RIKA to Pair(R.drawable.character_rika, R.drawable.rika_no_bg),
+        CHARACTER_ID_KAIYO to Pair(R.drawable.character_kaiyo, R.drawable.kaiyo_no_bg),
+        CHARACTER_ID_MIMI to Pair(R.drawable.character_mimi, R.drawable.mimi_no_bg),
+        CHARACTER_ID_YORU to Pair(R.drawable.character_youru, R.drawable.yoru_no_bg),
+        CHARACTER_ID_KURO to Pair(R.drawable.character_kuro, R.drawable.kuro_no_bg),
+        CHARACTER_ID_MIKO to Pair(R.drawable.character_miko, R.drawable.miko_no_bg),
+        CHARACTER_ID_AORI to Pair(R.drawable.character_aori, R.drawable.aori_no_bg),
+        CHARACTER_ID_NARA to Pair(R.drawable.character_nara, R.drawable.nara_no_bg),
+        CHARACTER_ID_RENJI to Pair(R.drawable.character_renji, R.drawable.renji_no_bg)
     )
-
-
 }

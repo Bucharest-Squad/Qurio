@@ -36,7 +36,6 @@ class CharactersDialog(
             onCharacterCardDoubleClicked = { character ->
                 CharacterDetailsDialog(
                     characterUiModel = character,
-
                     onOkButtonClicked = {
                         dialog.show()
                     },

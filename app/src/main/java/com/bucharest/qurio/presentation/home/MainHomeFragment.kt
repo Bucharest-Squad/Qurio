@@ -12,6 +12,7 @@ import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentMainHomeBinding
 import com.bucharest.qurio.presentation.base.BaseFragment
+import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.component.CharactersDialog
 import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
@@ -248,6 +249,15 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showAchievementsDialog() {
         showMessage("Achievements Dialog - implement achievements screen")
+    }
+
+    override fun showCurrentCharacter(characterUiModel : CharacterUiModel) {
+        with(binding.includeHomeAppBar){
+            imageSelectedCharacter.setImageResource(
+                characterUiModel.imageRes.first
+            )
+            textCharacterName.text=characterUiModel.characterName
+        }
     }
 
     override fun showLoading() {}

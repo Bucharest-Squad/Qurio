@@ -52,15 +52,11 @@ class CharacterDetailsDialog(
                 }
             ).show(parentFragmentManager,"CharacterPurchaseDialog")
         }
-        binding.character.lockedIcon.visibility = if (characterUiModel.isOwned)  GONE else VISIBLE
-        binding.character.lockedOverlay.visibility = if (characterUiModel.isOwned)  GONE else VISIBLE
-        binding.character.pointsCount.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
-        binding.character.coinIcons.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
+        binding.lockedIcon.visibility = if (characterUiModel.isOwned)  GONE else VISIBLE
         binding.characterName.text = characterUiModel.characterName
         binding.characterAge.text = characterUiModel.characterAge
         binding.characterDescription.text = characterUiModel.characterDescription
-        binding.character.characterName.visibility=GONE
-        binding.character.characterImage.setImageResource(characterUiModel.imageRes)
+        binding.character.setImageResource(characterUiModel.imageRes.second)
 
 
         dialog.setContentView(binding.root)

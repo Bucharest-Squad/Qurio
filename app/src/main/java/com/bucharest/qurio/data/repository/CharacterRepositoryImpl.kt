@@ -1,6 +1,7 @@
 package com.bucharest.qurio.data.repository
 
 import com.bucharest.qurio.data.local.dao.CharacterDao
+import com.bucharest.qurio.data.local.dto.CharacterDto
 import com.bucharest.qurio.data.local.mapper.toEntity
 import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.repository.CharacterRepository
@@ -19,5 +20,9 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun unlockCharacter(characterId: Int) {
         characterDao.updateOwnership(characterId,true)
 
+    }
+
+    override suspend fun getCurrentCharacter(characterId: Int) : Character {
+       return characterDao.getById(characterId).toEntity()
     }
 }

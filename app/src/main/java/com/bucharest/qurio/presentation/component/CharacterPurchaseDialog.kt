@@ -46,12 +46,8 @@ class CharacterPurchaseDialog(
             onBuyButtonClicked(characterUiModel.id)
         }
 
-        binding.character.lockedIcon.visibility = VISIBLE
-        binding.character.lockedOverlay.visibility = View.GONE
-        binding.character.pointsCount.visibility = View.GONE
-        binding.character.coinIcons.visibility = View.GONE
-        binding.character.characterName.visibility = View.GONE
-        binding.character.characterImage.setImageResource(characterUiModel.imageRes)
+        binding.lockedIcon.visibility = VISIBLE
+        binding.character.setImageResource(characterUiModel.imageRes.second)
 
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())

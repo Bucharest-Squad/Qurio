@@ -6,6 +6,6 @@ data class CharacterUiModel(
     val characterDescription: String,
     val characterPrice: String,
     val characterAge: String,
-    val imageRes: Int,
+    val imageRes: Pair<Int,Int>,
     val isOwned: Boolean,
 )

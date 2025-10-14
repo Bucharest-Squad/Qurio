@@ -46,7 +46,7 @@ class CharactersCardAdapter
         RecyclerView.ViewHolder(binding.root) {
         fun bind(characterUiModel: CharacterUiModel) = with(binding) {
             characterName.text = characterUiModel.characterName
-            characterImage.setImageResource(characterUiModel.imageRes)
+            characterImage.setImageResource(characterUiModel.imageRes.first)
             selectedIcon.visibility = if(selectedCharId==characterUiModel.id) VISIBLE else GONE
             lockedIcon.visibility = if (characterUiModel.isOwned)  GONE else VISIBLE
             lockedOverlay.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
