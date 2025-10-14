@@ -43,11 +43,11 @@ class CategoryCarouselAdapter(
                 title = category.title,
                 imageRes = category.imageRes,
                 startColor = category.startColor,
-                endColor = category.endColor
+                endColor = category.endColor,
+                onPlayButtonClickListener = {
+                    onCategoryClicked(category.id)
+                },
             )
-            gameCard.setOnClickListener {
-                onCategoryClicked(category.id)
-            }
         }
     }
 
