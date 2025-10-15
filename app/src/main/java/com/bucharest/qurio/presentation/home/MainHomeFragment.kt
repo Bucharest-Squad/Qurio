@@ -238,8 +238,12 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         CharactersDialog(
             currentCharacterId = currentCharacterId,
             charactersUiModel = charactersUiModel,
-            onConfirmButtonClicked = {presenter.updateCurrentCharacter(it)},
-            onBuyButtonClicked = {presenter.onBuyClicked(it)},
+            onConfirmButtonClicked = {
+                presenter.updateCurrentCharacter(it)
+                                     },
+            onBuyButtonClicked = {presenter.onBuyClicked(it)
+
+                                 },
         ).show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 

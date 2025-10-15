@@ -29,7 +29,7 @@ class CharacterPurchaseDialog(
         dialog.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
                 onCancelButtonClicked()
-                dismiss()
+                dialog.hide()
                 true
             } else {
                 false
@@ -38,17 +38,20 @@ class CharacterPurchaseDialog(
         binding.price.text = characterUiModel.characterPrice
 
         binding.cancelButton.setOnClickListener {
-            dialog.hide()
             onCancelButtonClicked()
+            dialog.hide()
         }
 
         binding.buyButton.setOnClickListener {
             onBuyButtonClicked(characterUiModel.id)
+            dialog.dismiss()
         }
 
         binding.lockedIcon.visibility = VISIBLE
         binding.character.setImageResource(characterUiModel.imageRes.second)
-
+        binding.closeButton.setOnClickListener {
+            dismiss()
+        }
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
         dialog.window?.setLayout(

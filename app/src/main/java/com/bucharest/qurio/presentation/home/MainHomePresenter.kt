@@ -63,7 +63,7 @@ class MainHomePresenter(
     fun updateCurrentCharacter(characterId:Int){
         tryToExecute(
             execute = { userRepository.setActiveCharacter(characterId) },
-            onSuccess = {},
+            onSuccess = {onRefresh()},
             onError =::handleHomeDataError,
             onStart = { executeIfViewAttached { showLoading() } },
             onFinally = { executeIfViewAttached { hideLoading() } }
@@ -72,8 +72,10 @@ class MainHomePresenter(
     }
     fun onBuyClicked(characterId:Int){
         tryToExecute(
-            execute = { characterRepository.unlockCharacter(characterId) },
-            onSuccess = {},
+            execute = { characterRepository.unlockCharacter(characterId)
+
+                      },
+            onSuccess = {onRefresh()},
             onError =::handleHomeDataError,
             onStart = { executeIfViewAttached { showLoading() } },
             onFinally = { executeIfViewAttached { hideLoading() } }

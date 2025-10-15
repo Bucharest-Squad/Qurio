@@ -25,7 +25,7 @@ class CharacterDetailsDialog(
         dialog.setOnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
                 onOkButtonClicked()
-                dismiss()
+                dialog.hide()
                 true
             } else {
                 false
@@ -34,9 +34,11 @@ class CharacterDetailsDialog(
 
 
         binding.okButton.setOnClickListener {
-            dismiss()
             onOkButtonClicked()
+            dialog.hide()
+
         }
+
         binding.buyButton.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
 
         binding.buyButton.setOnClickListener {
@@ -45,12 +47,15 @@ class CharacterDetailsDialog(
                 characterUiModel = characterUiModel,
                 onBuyButtonClicked ={
                     onBuyButtonClicked(it)
-                    dialog.hide()
+                   // dialog.hide()
                 },
                 onCancelButtonClicked = {
                     dialog.show()
                 }
             ).show(parentFragmentManager,"CharacterPurchaseDialog")
+        }
+        binding.closeButton.setOnClickListener {
+            dismiss()
         }
         binding.lockedIcon.visibility = if (characterUiModel.isOwned)  GONE else VISIBLE
         binding.characterName.text = characterUiModel.characterName

@@ -96,7 +96,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/close_button"
         android:layout_width="22dp"
         android:layout_height="26dp"
         android:src="@drawable/ic_close_character_dialog"

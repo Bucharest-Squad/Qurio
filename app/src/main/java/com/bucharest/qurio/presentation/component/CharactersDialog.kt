@@ -41,6 +41,7 @@ class CharactersDialog(
                     },
                     onBuyButtonClicked ={
                         onBuyButtonClicked(it)
+                        dialog.show()
                     }
                 ).show(childFragmentManager, "")
 
@@ -50,7 +51,9 @@ class CharactersDialog(
         binding.cancelButton.setOnClickListener {
             dismiss()
         }
-
+        binding.closeButton.setOnClickListener {
+            dismiss()
+        }
         charactersRecyclerView.adapter = adapter
         charactersRecyclerView.layoutManager = GridLayoutManager(
             requireContext(),
