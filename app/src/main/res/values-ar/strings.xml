@@ -40,4 +40,7 @@
     <string name="_2m_23sec">٢ دقيقة و٢٣ ثانية</string>
     <string name="_0">٠</string>
     <string name="date_shampe">تاريخ تجريبي</string>
+    <string name="no_connection">ا يوجد اتصال</string>
+    <string name="no_connection_description">عفوًا! يبدو أنك غير متصل بالإنترنت. يرجى التحقق من اتصالك بالإنترنت لمواصلة اللعب</string>
+    <string name="retry">إعادة المحاولة</string>
 </resources>
