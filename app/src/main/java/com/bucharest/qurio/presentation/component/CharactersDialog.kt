@@ -2,9 +2,10 @@ package com.bucharest.qurio.presentation.component
 
 import android.app.Dialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Window
-import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,63 +14,62 @@ import com.bucharest.qurio.presentation.adapter.CharactersCardAdapter
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 
 class CharactersDialog(
-    val currentCharacterId: Int,
-    val charactersUiModel: List<CharacterUiModel>,
-    val onConfirmButtonClicked: (Int) -> Unit,
-    val onBuyButtonClicked : (Int) -> Unit
+    private val currentCharacterId: Int,
+    private val charactersUiModel: List<CharacterUiModel>,
+    private val onConfirmButtonClicked: (Int) -> Unit,
+    private val onBuyButtonClicked: (Int) -> Unit
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val binding = CharactersDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val charactersRecyclerView = binding.characterList
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+
+        dialog.setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dismiss()
+                true
+            } else {
+                false
+            }
+        }
+
         val adapter = CharactersCardAdapter(
-            selectedCharId =currentCharacterId,
-            onCharacterCardClicked =
-                { id ->
-                    binding.confirmButton.setOnClickListener {
-                        onConfirmButtonClicked(id)
-                        dismiss()
-                    }
-                },
+            selectedCharId = currentCharacterId,
+            onCharacterCardClicked = { id ->
+                binding.confirmButton.setOnClickListener {
+                    onConfirmButtonClicked(id)
+                    dismiss()
+                }
+            },
             onCharacterCardDoubleClicked = { character ->
+                dialog.hide()
                 CharacterDetailsDialog(
                     characterUiModel = character,
-                    onOkButtonClicked = {
-                        dialog.show()
-                    },
-                    onBuyButtonClicked ={
+                    onOkButtonClicked = { dialog.show() },
+                    onBuyButtonClicked = {
                         onBuyButtonClicked(it)
                         dialog.show()
                     }
-                ).show(childFragmentManager, "")
-
-                dialog.hide()
+                ).show(childFragmentManager, "CharacterDetailsDialog")
             },
         )
-        binding.cancelButton.setOnClickListener {
-            dismiss()
-        }
-        binding.closeButton.setOnClickListener {
-            dismiss()
-        }
-        charactersRecyclerView.adapter = adapter
-        charactersRecyclerView.layoutManager = GridLayoutManager(
-            requireContext(),
-            2, RecyclerView.HORIZONTAL, false
-        )
 
-        adapter.submitList(
-            charactersUiModel
-        )
+        with(binding) {
+            characterList.adapter = adapter
+            characterList.layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.HORIZONTAL, false)
+            adapter.submitList(charactersUiModel)
+
+            cancelButton.setOnClickListener { dismiss() }
+            closeButton.setOnClickListener { dismiss() }
+        }
+
         dialog.setContentView(binding.root)
 
-        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-        dialog.window?.setLayout(
-            (328 * (context?.resources?.displayMetrics?.density ?: 30f)).toInt(),
-            (314 * (context?.resources?.displayMetrics?.density ?: 30f)).toInt()
-        )
+        val density = context?.resources?.displayMetrics?.density ?: 1f
+        dialog.window?.setLayout((328 * density).toInt(), (314 * density).toInt())
 
         return dialog
     }
