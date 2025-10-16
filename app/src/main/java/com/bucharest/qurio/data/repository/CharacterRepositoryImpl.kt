@@ -2,6 +2,7 @@ package com.bucharest.qurio.data.repository
 
 import com.bucharest.qurio.data.local.dao.CharacterDao
 import com.bucharest.qurio.data.local.dao.UserDao
+import com.bucharest.qurio.data.local.dto.CharacterDto
 import com.bucharest.qurio.data.local.mapper.toEntity
 import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.repository.CharacterRepository

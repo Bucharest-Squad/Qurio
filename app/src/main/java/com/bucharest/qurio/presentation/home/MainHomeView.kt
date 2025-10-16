@@ -16,10 +16,16 @@ interface MainHomeView : BaseView {
     fun navigateToAllGames()
     fun navigateToAllRecentGames()
     fun showSettingsDialog()
-    fun showCharacterSelectionDialog(currentCharacterId:Int,charactersUiModel: List<CharacterUiModel>)
+    fun showCharacterSelectionDialog(
+        currentCharacterId: Int,
+        charactersUiModel: List<CharacterUiModel>
+    )
+
     fun showPurchaseLivesDialog()
     fun showAchievementsDialog(
         achievementUImodel: List<AchievementUImodel>
     )
+
     fun showCurrentCharacter(characterUiModel: CharacterUiModel)
+    fun showAchievementsDialog()
 }

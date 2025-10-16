@@ -13,6 +13,7 @@ import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementMapper
 import com.bucharest.qurio.presentation.base.BasePresenter
 import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
@@ -25,8 +26,8 @@ import kotlin.time.Duration.Companion.milliseconds
 class MainHomePresenter(
     private val userRepository: UserRepository,
     private val gameRepository: GameRepository,
-    private val achievementRepository: AchievementRepository,
     private val characterRepository: CharacterRepository,
+    private val achievementRepository: AchievementRepository,
     private val categoryRepository: CategoryRepository,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
@@ -38,7 +39,6 @@ class MainHomePresenter(
 
     fun onRefresh() {
         loadHomeData()
-        //get
     }
     
     fun onCategoryClicked(categoryId: Int) {
@@ -195,7 +195,7 @@ class MainHomePresenter(
            showCurrentCharacter(characterUiModel)
         }
     }
-    
+
     private fun calculateTotalAwards(recentGames: List<GameSession>): Int {
         return recentGames.sumOf { it.starsEarned }
     }
