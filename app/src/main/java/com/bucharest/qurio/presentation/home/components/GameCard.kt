@@ -17,19 +17,19 @@ class GameCard @JvmOverloads constructor(
 
     private val binding = ItemGameCardBinding.inflate(LayoutInflater.from(context), this, true)
 
-    init {
-        setLayerType(LAYER_TYPE_HARDWARE, null)
-    }
+
 
     fun setState(
         title: String,
         @DrawableRes imageRes: Int,
         startColor: Int,
-        endColor: Int
+        endColor: Int,
+        onPlayButtonClickListener:()->Unit
     ) {
         setTitle(title)
         setImage(imageRes)
         setGradientColors(startColor, endColor)
+        setOnPlayClickListener(onPlayButtonClickListener)
     }
 
     private fun setTitle(title: String) {
@@ -38,6 +38,12 @@ class GameCard @JvmOverloads constructor(
 
     private fun setImage(@DrawableRes imageRes: Int) {
         binding.categoryThumbnail.setImageResource(imageRes)
+    }
+
+    private fun setOnPlayClickListener(onPlayButtonClickListener:()->Unit){
+        binding.playButton.setOnClickListener {
+            onPlayButtonClickListener()
+        }
     }
 
     private fun setGradientColors(@ColorInt startColor: Int, @ColorInt endColor: Int) {

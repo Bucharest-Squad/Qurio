@@ -2,12 +2,16 @@ package com.bucharest.qurio.presentation.home
 
 import android.content.Context
 import com.bucharest.qurio.domain.entity.Category
+import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.User
 import com.bucharest.qurio.domain.repository.CategoryRepository
+import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.base.BasePresenter
+import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
@@ -17,6 +21,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class MainHomePresenter(
     private val userRepository: UserRepository,
     private val gameRepository: GameRepository,
+    private val characterRepository: CharacterRepository,
     private val categoryRepository: CategoryRepository,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
@@ -28,6 +33,7 @@ class MainHomePresenter(
 
     fun onRefresh() {
         loadHomeData()
+        //get
     }
     
     fun onCategoryClicked(categoryId: Int) {
@@ -53,11 +59,52 @@ class MainHomePresenter(
             showSettingsDialog()
         }
     }
-    
+
+    fun updateCurrentCharacter(characterId:Int){
+        tryToExecute(
+            execute = { userRepository.setActiveCharacter(characterId) },
+            onSuccess = {onRefresh()},
+            onError =::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
+    }
+    fun onBuyClicked(characterId:Int){
+        tryToExecute(
+            execute = { characterRepository.unlockCharacter(characterId)
+
+                      },
+            onSuccess = {onRefresh()},
+            onError =::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
+    }
     fun onCharacterClicked() {
-        executeIfViewAttached {
-            showCharacterSelectionDialog()
-        }
+        tryToExecute(
+            execute = { userRepository.getUser().currentCharacterId },
+            onSuccess = ::setCurrentCharacter,
+            onError = ::handleHomeDataError ,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
+    }
+    fun setCurrentCharacter(id: Int){
+        tryToExecute(
+            execute = {characterRepository.getAllCharacters() },
+            onSuccess = {characters->
+                executeIfViewAttached {
+                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it) })
+                }
+            },
+            onError = ::handleHomeDataError ,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+
     }
     
     fun onPurchaseLivesClicked() {
@@ -92,12 +139,14 @@ class MainHomePresenter(
         val user = userRepository.getUser()
         val categories = categoryRepository.getAllCategories().shuffled()
         val recentGames = gameRepository.getRecentSessions(limit = RECENT_GAMES_LIMIT)
-        
-        return HomeData(user, categories, recentGames)
+        val currentCharacter = characterRepository.getCurrentCharacter(user.currentCharacterId)
+
+        return HomeData(user, categories, recentGames,currentCharacter)
     }
     
     private fun handleHomeDataSuccess(homeData: HomeData) {
         executeIfViewAttached {
+            displayCurrentCharacter(homeData.currentCharacter)
             displayUserStats(homeData.user, homeData.recentGames)
             displayStreak(homeData.user)
             displayCategories(homeData.categories)
@@ -119,6 +168,13 @@ class MainHomePresenter(
                 lives = user.lives,
                 awards = totalAwards
             )
+        }
+    }
+    private fun displayCurrentCharacter(character: Character) {
+        val characterUiModel = CharacterMapper.mapCharacterToUiState(character)
+
+        executeIfViewAttached {
+           showCurrentCharacter(characterUiModel)
         }
     }
     
@@ -205,7 +261,8 @@ class MainHomePresenter(
     private data class HomeData(
         val user: User,
         val categories: List<Category>,
-        val recentGames: List<GameSession>
+        val recentGames: List<GameSession>,
+        val currentCharacter: Character
     )
 
     companion object {

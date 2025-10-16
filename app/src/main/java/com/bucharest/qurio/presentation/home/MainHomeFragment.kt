@@ -2,17 +2,22 @@ package com.bucharest.qurio.presentation.home
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentMainHomeBinding
 import com.bucharest.qurio.presentation.base.BaseFragment
+import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import com.bucharest.qurio.presentation.component.CharactersDialog
+import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
 import com.bucharest.qurio.presentation.home.adapter.LastGamesAdapter
 import com.bucharest.qurio.presentation.home.adapter.StreakDayAdapter
-import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
 import com.bucharest.qurio.presentation.home.components.CategoryCarouselTransformer
 import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
@@ -95,10 +100,10 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     private fun ViewPager2.configureCarouselScrolling() {
-        (getChildAt(FIRST_CHILD_INDEX) as? androidx.recyclerview.widget.RecyclerView)?.apply {
+        (getChildAt(FIRST_CHILD_INDEX) as? RecyclerView)?.apply {
             clipToPadding = false
             setPadding(NO_PADDING, NO_PADDING, NO_PADDING, NO_PADDING)
-            overScrollMode = android.view.View.OVER_SCROLL_NEVER
+            overScrollMode = View.OVER_SCROLL_NEVER
             isNestedScrollingEnabled = true
         }
     }
@@ -110,23 +115,23 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             setHasFixedSize(false)
         }
     }
-    
+
     private fun setupClickListeners() {
         setupTopBarClickListeners()
         setupStatisticsClickListeners()
     }
-    
+
     private fun setupTopBarClickListeners() {
         with(binding.includeHomeAppBar) {
-            settingsIcon.setOnClickListener { 
-                presenter.onSettingsClicked() 
+            settingsIcon.setOnClickListener {
+                presenter.onSettingsClicked()
             }
-            imageSelectedCharacter.setOnClickListener { 
-                presenter.onCharacterClicked() 
+            imageSelectedCharacter.setOnClickListener {
+                presenter.onCharacterClicked()
             }
         }
     }
-    
+
     private fun setupStatisticsClickListeners() {
         with(binding.includeStatisticsSection) {
             statisticsLivesCard.addLiveButton.setOnClickListener {
@@ -185,7 +190,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     override fun showCategories(categories: List<CategoryUiModel>) {
         val categoryModels = mapCategoriesToUiModels(categories)
         carouselAdapter.submitList(categoryModels)
-        
+
         // Ensure the first item is properly positioned
         binding.categoriesCarousel.post {
             if (categoryModels.isNotEmpty()) {
@@ -226,8 +231,20 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         showMessage("Settings Dialog - implement settings screen")
     }
 
-    override fun showCharacterSelectionDialog() {
-        showMessage("Character Selection Dialog - implement character selection")
+    override fun showCharacterSelectionDialog(
+        currentCharacterId: Int,
+        charactersUiModel: List<CharacterUiModel>
+    ) {
+        CharactersDialog(
+            currentCharacterId = currentCharacterId,
+            charactersUiModel = charactersUiModel,
+            onConfirmButtonClicked = {
+                presenter.updateCurrentCharacter(it)
+                                     },
+            onBuyButtonClicked = {presenter.onBuyClicked(it)
+
+                                 },
+        ).show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
     override fun showPurchaseLivesDialog() {
@@ -236,6 +253,15 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showAchievementsDialog() {
         showMessage("Achievements Dialog - implement achievements screen")
+    }
+
+    override fun showCurrentCharacter(characterUiModel : CharacterUiModel) {
+        with(binding.includeHomeAppBar){
+            imageSelectedCharacter.setImageResource(
+                characterUiModel.imageRes.first
+            )
+            textCharacterName.text=characterUiModel.characterName
+        }
     }
 
     override fun showLoading() {}
