@@ -41,9 +41,11 @@ class GameCardAdapter(
                 title = categoryUiModel.title,
                 imageRes = categoryUiModel.imageRes,
                 startColor = categoryUiModel.startColor,
-                endColor = categoryUiModel.endColor
+                endColor = categoryUiModel.endColor,
+                onPlayButtonClickListener = {
+                    onGameCardClicked(categoryUiModel.id)
+                },
             )
-            gameCard.setOnClickListener { onGameCardClicked(categoryUiModel.id) }
         }
     }
 }
