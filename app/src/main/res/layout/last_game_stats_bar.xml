@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <LinearLayout
+        android:id="@+id/earned_coins"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="17dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/divider"
+        app:layout_constraintStart_toStartOf="@id/last_game_card"
+        app:layout_constraintTop_toBottomOf="@id/game_title"
+        app:layout_constraintVertical_bias="0">
+
+        <FrameLayout
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/transparent"
+                android:outlineSpotShadowColor="#DC6A43"
+                app:cardCornerRadius="50dp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/coins"
+                android:scaleType="centerCrop"
+                android:src="@drawable/coins" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/coins"
+            style="@style/Label.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_100"
+            android:textColor="@color/red" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_marginHorizontal="8.75dp"
+        android:background="@drawable/divider"
+        app:layout_constraintBottom_toBottomOf="@id/earned_coins"
+        app:layout_constraintEnd_toStartOf="@id/earned_stars"
+        app:layout_constraintStart_toEndOf="@id/earned_coins"
+        app:layout_constraintTop_toTopOf="@id/earned_coins" />
+
+    <LinearLayout
+        android:id="@+id/earned_stars"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="@id/earned_coins"
+        app:layout_constraintEnd_toStartOf="@id/divider_2"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/earned_coins"
+        app:layout_constraintVertical_bias="0">
+
+        <FrameLayout
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="4dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/transparent"
+                android:outlineSpotShadowColor="#49BAF2"
+                app:cardCornerRadius="50dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/star"
+                android:scaleType="centerCrop"
+                android:src="@drawable/blue_star" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/stars"
+            style="@style/Label.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_0"
+            android:textColor="@color/shade_primary" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_2"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_marginHorizontal="8.75dp"
+        android:background="@drawable/divider"
+        app:layout_constraintBottom_toBottomOf="@id/earned_stars"
+        app:layout_constraintEnd_toStartOf="@id/game_time"
+        app:layout_constraintStart_toEndOf="@id/earned_stars"
+        app:layout_constraintTop_toTopOf="@id/earned_stars" />
+
+    <LinearLayout
+        android:id="@+id/game_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="@id/earned_stars"
+        app:layout_constraintEnd_toEndOf="@id/last_game_card"
+        app:layout_constraintStart_toEndOf="@id/divider_2"
+        app:layout_constraintTop_toTopOf="@id/earned_stars"
+        app:layout_constraintVertical_bias="0">
+
+        <FrameLayout
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="4dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/transparent"
+                android:outlineSpotShadowColor="#49BAF2"
+                app:cardCornerRadius="50dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/clock"
+                android:scaleType="centerCrop"
+                android:src="@drawable/clock" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/Label.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/_2m_23sec"
+            android:textColor="@color/shade_primary" />
+    </LinearLayout>
+</merge>

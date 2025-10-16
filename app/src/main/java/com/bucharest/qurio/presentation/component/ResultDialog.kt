@@ -17,20 +17,38 @@ class ResultDialog(
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        val resultCard = ResultCard(requireContext())
-        resultCard.setStats(correctCount, incorrectCount, skippedCount, score,starsCount)
-
-        dialog.setContentView(resultCard)
-
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(
-            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        return dialog
+        return createResultDialog()
+    }
+    
+    private fun createResultDialog(): Dialog {
+        return Dialog(requireContext()).apply {
+            configureDialogWindow()
+            setDialogContent()
+        }
+    }
+    
+    private fun Dialog.configureDialogWindow() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window?.apply {
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+    
+    private fun Dialog.setDialogContent() {
+        val resultCard = createResultCard()
+        setContentView(resultCard)
+    }
+    
+    private fun createResultCard(): ResultCard {
+        return ResultCard(requireContext()).apply {
+            setStats(
+                correctCount = correctCount,
+                incorrectCount = incorrectCount,
+                skippedCount = skippedCount,
+                score = score,
+                starsCount = starsCount
+            )
+        }
     }
 }
