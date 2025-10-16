@@ -20,12 +20,10 @@ interface MainHomeView : BaseView {
         currentCharacterId: Int,
         charactersUiModel: List<CharacterUiModel>
     )
-
     fun showPurchaseLivesDialog()
     fun showAchievementsDialog(
         achievementUImodel: List<AchievementUImodel>
     )
-
     fun showCurrentCharacter(characterUiModel: CharacterUiModel)
-    fun showAchievementsDialog()
+
 }

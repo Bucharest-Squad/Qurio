@@ -21,5 +21,5 @@ object PresenterModule {
         characterRepository: CharacterRepository,
         achievementRepository: AchievementRepository,
         context: Application
-    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository, ,characterRepository,achievementRepository,categoryRepository, context)
+    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository,characterRepository,achievementRepository,categoryRepository, context)
 }
