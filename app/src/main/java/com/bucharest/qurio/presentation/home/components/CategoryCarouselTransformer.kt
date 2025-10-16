@@ -1,7 +1,6 @@
 package com.bucharest.qurio.presentation.home.components
 
 import android.view.View
-import androidx.core.view.marginBottom
 import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.abs
 

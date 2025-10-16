@@ -1,15 +1,12 @@
 package com.bucharest.qurio.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bucharest.qurio.databinding.ItemCharacterCardBinding
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
-import com.bucharest.qurio.presentation.component.CharactersDialog
 
 class CharactersCardAdapter
     (

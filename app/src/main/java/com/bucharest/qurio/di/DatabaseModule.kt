@@ -2,22 +2,14 @@ package com.bucharest.qurio.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.bucharest.qurio.data.local.AppDatabase
 import com.bucharest.qurio.data.local.dao.AchievementDao
 import com.bucharest.qurio.data.local.dao.CategoryDao
 import com.bucharest.qurio.data.local.dao.CharacterDao
 import com.bucharest.qurio.data.local.dao.GameSessionDao
 import com.bucharest.qurio.data.local.dao.UserDao
-import com.bucharest.qurio.data.seed.DataSeeder
-import com.bucharest.qurio.data.seed.SeedDataProvider
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import javax.inject.Singleton
 
 @Module
