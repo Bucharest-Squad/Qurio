@@ -5,23 +5,29 @@ import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.User
+import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
+import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementMapper
 import com.bucharest.qurio.presentation.base.BasePresenter
 import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
-import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
-import kotlinx.datetime.*
+import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration.Companion.milliseconds
 
 class MainHomePresenter(
     private val userRepository: UserRepository,
     private val gameRepository: GameRepository,
     private val characterRepository: CharacterRepository,
+    private val achievementRepository: AchievementRepository,
     private val categoryRepository: CategoryRepository,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
@@ -33,7 +39,6 @@ class MainHomePresenter(
 
     fun onRefresh() {
         loadHomeData()
-        //get
     }
     
     fun onCategoryClicked(categoryId: Int) {
@@ -114,9 +119,22 @@ class MainHomePresenter(
     }
     
     fun onAchievementsClicked() {
-        executeIfViewAttached {
-            showAchievementsDialog()
-        }
+        tryToExecute(
+            execute = { achievementRepository.getAllAchievements() },
+            onSuccess = {achievements->
+                executeIfViewAttached {
+                    showAchievementsDialog(
+                        achievements.map {
+                            AchievementMapper.mapAchievementToUiModel(it,context)
+                        }
+                    )
+                }
+            },
+            onError = {},
+            onStart ={},
+
+        )
+
     }
     
     fun onLastGameClicked(game: GameSessionUiModel) {
@@ -177,7 +195,7 @@ class MainHomePresenter(
            showCurrentCharacter(characterUiModel)
         }
     }
-    
+
     private fun calculateTotalAwards(recentGames: List<GameSession>): Int {
         return recentGames.sumOf { it.starsEarned }
     }

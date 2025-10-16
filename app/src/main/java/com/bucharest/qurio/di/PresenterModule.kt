@@ -1,6 +1,7 @@
 package com.bucharest.qurio.di
 
 import android.app.Application
+import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
@@ -18,6 +19,7 @@ object PresenterModule {
         gameRepository: GameRepository,
         categoryRepository: CategoryRepository,
         characterRepository: CharacterRepository,
+        achievementRepository: AchievementRepository,
         context: Application
-    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository, characterRepository,categoryRepository, context)
+    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository,characterRepository,achievementRepository,categoryRepository, context)
 }

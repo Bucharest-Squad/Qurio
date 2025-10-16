@@ -11,8 +11,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentMainHomeBinding
+import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementUImodel
+import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementsDialog
 import com.bucharest.qurio.presentation.base.BaseFragment
-import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.component.CharactersDialog
 import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
@@ -240,10 +241,11 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             charactersUiModel = charactersUiModel,
             onConfirmButtonClicked = {
                 presenter.updateCurrentCharacter(it)
-                                     },
-            onBuyButtonClicked = {presenter.onBuyClicked(it)
+            },
+            onBuyButtonClicked = {
+                presenter.onBuyClicked(it)
 
-                                 },
+            },
         ).show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
@@ -251,18 +253,23 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         showMessage("Purchase Lives Dialog - implement lives purchase")
     }
 
-    override fun showAchievementsDialog() {
-        showMessage("Achievements Dialog - implement achievements screen")
+    override fun showAchievementsDialog(
+        achievementUImodel: List<AchievementUImodel>
+    ) {
+        AchievementsDialog(
+            achievementsUiModelList = achievementUImodel,
+        ).show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
-    override fun showCurrentCharacter(characterUiModel : CharacterUiModel) {
-        with(binding.includeHomeAppBar){
+    override fun showCurrentCharacter(characterUiModel: CharacterUiModel) {
+        with(binding.includeHomeAppBar) {
             imageSelectedCharacter.setImageResource(
                 characterUiModel.imageRes.first
             )
-            textCharacterName.text=characterUiModel.characterName
+            textCharacterName.text = characterUiModel.characterName
         }
     }
+
 
     override fun showLoading() {}
 
