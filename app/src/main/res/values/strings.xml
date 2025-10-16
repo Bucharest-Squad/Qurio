@@ -48,4 +48,7 @@
     <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
     <string name="streak_description" translatable="false">Every day count!</string>
 
+    <string name="no_connection">No Connection</string>
+    <string name="no_connection_description">Oops! It looks like you’re offline. Please check your internet connection to continue playing</string>
+    <string name="retry">Retry</string>
 </resources>

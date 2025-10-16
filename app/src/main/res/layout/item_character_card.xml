@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="47dp"
+    android:layout_marginStart="12dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/character_image"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="Character icon"
+
+        app:layout_constraintBottom_toTopOf="@+id/character_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/character_rika" />
+
+    <ImageView
+        android:id="@+id/selected_icon"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:contentDescription="@null"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:src="@drawable/ic_tick" />
+
+    <View
+        android:id="@+id/locked_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="@id/character_image"
+        app:layout_constraintEnd_toEndOf="@id/character_image"
+        app:layout_constraintTop_toTopOf="@id/character_image"
+        app:layout_constraintBottom_toBottomOf="@id/character_image"
+        android:background="@drawable/locked_overlay" />
+    <ImageView
+        android:id="@+id/locked_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_character_locked"
+        tools:visibility="visible"
+        />
+
+    <ImageView
+        android:id="@+id/coin_icons"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="6dp"
+        android:contentDescription="@string/statistics_points_card_icon_description"
+        android:src="@drawable/ic_points"
+        app:layout_constraintBottom_toTopOf="@id/character_name"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/points_count"
+        style="@style/Label.XSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/shade_primary"
+        app:layout_constraintBottom_toBottomOf="@id/coin_icons"
+        app:layout_constraintStart_toEndOf="@+id/coin_icons"
+        app:layout_constraintTop_toTopOf="@+id/coin_icons"
+        android:layout_marginStart="2dp"
+        tools:text="300" />
+    <TextView
+        android:id="@+id/character_name"
+        style="@style/Label.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/primary"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Rika" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

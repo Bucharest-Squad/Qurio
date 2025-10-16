@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="328dp"
+    android:layout_height="314dp">
+
+    <View
+        android:id="@+id/edges_background"
+        android:layout_width="328dp"
+        android:layout_height="301dp"
+        android:background="@drawable/characters_dialog_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/bar_background"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/item_character_deialt_dialog_bar_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/character_heading" />
+
+    <TextView
+        android:id="@+id/character_name"
+        style="@style/Title.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="KAIYO"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/shade_primary"
+        app:layout_constraintStart_toStartOf="@id/bar_background"
+        app:layout_constraintTop_toTopOf="@id/bar_background" />
+
+    <TextView
+        android:id="@+id/character_age"
+        style="@style/Label.XSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age: 4Storm"
+        android:textColor="@color/shade_secondary"
+        app:layout_constraintStart_toStartOf="@id/character_name"
+        app:layout_constraintTop_toBottomOf="@id/character_name" />
+
+    <ImageView
+        android:id="@+id/character"
+        android:layout_width="48dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/kaiyo_no_bg"
+        app:layout_constraintBottom_toBottomOf="@id/bar_background"
+        app:layout_constraintEnd_toEndOf="@id/bar_background" />
+
+    <ImageView
+        android:id="@+id/locked_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_character_locked"
+        app:layout_constraintStart_toStartOf="@id/character"
+        app:layout_constraintTop_toBottomOf="@id/character_heading"
+        app:layout_constraintEnd_toEndOf="@id/character"
+
+        tools:visibility="visible" />
+    <TextView
+        android:id="@+id/character_description"
+        style="@style/Body.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="12dp"
+        android:textColor="@color/shade_secondary"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bar_background"
+        tools:text="A calm storm in human form. Kaiyo trains with ancient scrolls by day and drinks spicy tea by night. Sword sharp, heart sharper." />
+
+    <ImageView
+        android:id="@+id/character_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/character_dialog_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/close_button"
+        android:layout_width="22dp"
+        android:layout_height="26dp"
+        android:src="@drawable/ic_close_character_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edges_background" />
+
+
+    <TextView
+        style="@style/Title.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Character"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/on_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buy_button"
+        style="@style/PrimaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:text="Buy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ok_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ok_button"
+        style="@style/SecondaryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="36dp"
+        android:text="OK"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buy_button" />
+
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guideline"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintGuide_percent="0.5" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
