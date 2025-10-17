@@ -4,7 +4,7 @@ object PresentationConstants {
     
     // Game Constants
     const val DEFAULT_QUESTION_TIME_MILLIS = 20_000L
-    const val TIMER_UPDATE_INTERVAL = 1000L
+    const val TIMER_UPDATE_INTERVAL = 1L
     const val DEFAULT_SCORE_POINTS = 100
     const val DEFAULT_LIVES_COUNT = 4
     const val DEFAULT_TOTAL_QUESTIONS = 10
