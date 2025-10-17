@@ -7,6 +7,7 @@ import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.presentation.home.MainHomePresenter
 import com.bucharest.qurio.presentation.game.GamePresenter
+import com.bucharest.qurio.presentation.result.ResultPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -27,4 +28,7 @@ object PresenterModule {
         gameRepository: GameRepository,
         userRepository: UserRepository
     ): GamePresenter = GamePresenter(gameRepository, userRepository)
+
+    @Provides
+    fun provideResultPresenter(): ResultPresenter = ResultPresenter()
 }
