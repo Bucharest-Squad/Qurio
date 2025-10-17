@@ -77,4 +77,9 @@
     <string name="share_result">Share result</string>
     <string name="share_win_with_friends">Share win with friends</string>
     <string name="share_disappointment_with_friends">Share disappointment with friends</string>
+    
+    <!-- Difficulty Level Dialog -->
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

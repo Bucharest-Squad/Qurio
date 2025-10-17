@@ -83,5 +83,18 @@
     </style>
     <!--end region-->
 
+    <!-- Chip Style -->
+    <style name="ChipStyle" parent="Widget.Material3.Chip.Filter">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="chipBackgroundColor">@color/surface_high</item>
+        <item name="chipStrokeColor">@color/primary</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">16dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
 
 </resources>
