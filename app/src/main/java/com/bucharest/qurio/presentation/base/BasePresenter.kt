@@ -14,11 +14,15 @@ abstract class BasePresenter<V : BaseView> {
     protected val view: V?
         get() = _view
 
-    private val job = SupervisorJob()
-    protected val presenterScope = CoroutineScope(job + Dispatchers.Main)
+    private var job = SupervisorJob()
+    private var presenterScope = CoroutineScope(job + Dispatchers.Main)
 
     open fun attachView(view: V) {
         this._view = view
+        if (job.isCancelled) {
+            job = SupervisorJob()
+            presenterScope = CoroutineScope(job + Dispatchers.Main)
+        }
         onViewAttached()
     }
 
