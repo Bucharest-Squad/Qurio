@@ -42,6 +42,7 @@
     <string name="date_shampe">date shampe</string>
 
     <!-- Home Screen -->
+<<<<<<< HEAD
     <string name="games_section_title">Games</string>
     <string name="last_games_section_title">Last Games</string>
     <string name="streak_active_message">%1$d day streak, make a big series</string>
@@ -79,6 +80,69 @@
     <string name="share_win_with_friends">Share win with friends</string>
     <string name="share_disappointment_with_friends">Share disappointment with friends</string>
     
+    <!-- Difficulty Level Dialog -->
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+=======
+    <string name="games_section_title" translatable="false">Games</string>
+    <string name="last_games_section_title" translatable="false">Last Games</string>
+    <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
+    <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
+    <string name="streak_description" translatable="false">Every day count!</string>
+
+    <string name="no_connection">No Connection</string>
+    <string name="no_connection_description">Oops! It looks like you’re offline. Please check your internet connection to continue playing</string>
+    <string name="retry">Retry</string>
+>>>>>>> origin/develop
+    <string name="character">character</string>
+    <string name="settings">settings</string>
+    <string name="games_section_title" translatable="false">Games</string>
+    <string name="last_games_section_title" translatable="false">Last Games</string>
+    <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
+    <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
+    <string name="streak_description" translatable="false">Every day count!</string>
+
+    <string name="no_connection">No Connection</string>
+    <string name="no_connection_description">Oops! It looks like you’re offline. Please check your internet connection to continue playing</string>
+    <string name="retry">Retry</string>
+    <string name="games_section_title">Games</string>
+    <string name="last_games_section_title">Last Games</string>
+    <string name="streak_active_message">%1$d day streak, make a big series</string>
+    <string name="streak_inactive_message">0 day streak, start as series</string>
+    <string name="streak_description_active">KEEP IT UP!</string>
+    <string name="streak_description_inactive">Every day count!</string>
+
+    <!-- Game Screen -->
+    <string name="submit">Submit</string>
+    <string name="check">Check</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="retry">Retry</string>
+    <string name="play_again">Play Again</string>
+    <string name="home">Home</string>
+    <string name="loading_questions">Loading questions...</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="game_complete">Game Complete!</string>
+    <string name="score">Score: %1$d</string>
+    <string name="correct">Correct: %1$d</string>
+    <string name="wrong">Wrong: %1$d</string>
+
+    <!-- Result Screen -->
+    <string name="reward">Reward</string>
+    <string name="correct_label">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="skipped">Skipped</string>
+    <string name="coin_stack_icon">Coin stack icon</string>
+    <string name="blur_background">Blur background</string>
+    <string name="ribbon_image">Ribbon image</string>
+    <string name="star_icon">Star icon</string>
+    <string name="play_again_result">Play again</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="share_result">Share result</string>
+    <string name="share_win_with_friends">Share win with friends</string>
+    <string name="share_disappointment_with_friends">Share disappointment with friends</string>
+
     <!-- Difficulty Level Dialog -->
     <string name="difficulty_level">Difficulty Level</string>
     <string name="confirm">Confirm</string>

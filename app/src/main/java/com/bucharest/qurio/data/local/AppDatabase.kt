@@ -4,14 +4,14 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.bucharest.qurio.data.local.dao.AchievementDao
+import com.bucharest.qurio.data.local.dao.CategoryDao
 import com.bucharest.qurio.data.local.dao.CharacterDao
 import com.bucharest.qurio.data.local.dao.GameSessionDao
-import com.bucharest.qurio.data.local.dao.CategoryDao
 import com.bucharest.qurio.data.local.dao.UserDao
 import com.bucharest.qurio.data.local.dto.AchievementDto
+import com.bucharest.qurio.data.local.dto.CategoryDto
 import com.bucharest.qurio.data.local.dto.CharacterDto
 import com.bucharest.qurio.data.local.dto.GameSessionDto
-import com.bucharest.qurio.data.local.dto.CategoryDto
 import com.bucharest.qurio.data.local.dto.UserDto
 
 @Database(
