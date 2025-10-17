@@ -23,7 +23,6 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
     }
 
     private fun calculateScale(absPosition: Float): Float {
-        // Ensure center item is always at full scale
         return if (absPosition < CENTER_THRESHOLD) {
             MAX_SCALE
         } else {

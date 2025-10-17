@@ -36,12 +36,11 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultView, ResultPre
     }
 
     override fun initViews() {
-        // Reconstruct GameSession from individual arguments
         val gameSession = GameSession(
             id = args.sessionId,
             category = Category(args.categoryId, args.categoryName),
             difficulty = Difficulty.valueOf(args.difficulty),
-            startedAt = java.time.Instant.now(), // We don't have this info, use current time
+            startedAt = java.time.Instant.now(),
             finishedAt = java.time.Instant.now(),
             totalQuestions = args.totalQuestions,
             correctAnswers = args.correctAnswers,
@@ -83,34 +82,27 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultView, ResultPre
     }
 
     override fun showStars(count: Int) {
-        // Stars are handled by GameResultCardView
     }
 
     override fun showCoinsEarned(coins: Int) {
-        // Coins are handled by GameResultCardView
     }
 
     override fun showCorrectAnswers(count: Int) {
-        // Correct answers are handled by GameResultCardView
     }
 
     override fun showWrongAnswers(count: Int) {
-        // Wrong answers are handled by GameResultCardView
     }
 
     override fun showSkippedAnswers(count: Int) {
-        // Skipped answers are handled by GameResultCardView
     }
 
     override fun showWinState() {
-        // Win state is handled by GameResultCardView
         binding.btnShare.setText(getString(R.string.share_win_with_friends))
         binding.btnShare.showIcon(true)
         binding.btnShare.setIcon(R.drawable.ic_share)
     }
 
     override fun showLoseState() {
-        // Lose state is handled by GameResultCardView
         binding.btnShare.setText(getString(R.string.share_disappointment_with_friends))
         binding.btnShare.showIcon(true)
         binding.btnShare.setIcon(R.drawable.ic_share)
@@ -131,7 +123,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultView, ResultPre
     }
 
     override fun navigateToHome() {
-        // Navigate to home fragment instead of just going back
         findNavController().navigate(R.id.mainHomeFragment)
     }
 

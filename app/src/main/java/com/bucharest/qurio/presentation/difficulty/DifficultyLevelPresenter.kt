@@ -9,7 +9,6 @@ class DifficultyLevelPresenter @Inject constructor() : BasePresenter<DifficultyL
     private var selectedDifficulty: Difficulty? = null
 
     fun onEasyClicked() {
-        android.util.Log.d("DifficultyPresenter", "onEasyClicked called")
         selectedDifficulty = Difficulty.EASY
         executeIfViewAttached {
             onEasySelected()
@@ -18,7 +17,6 @@ class DifficultyLevelPresenter @Inject constructor() : BasePresenter<DifficultyL
     }
 
     fun onMediumClicked() {
-        android.util.Log.d("DifficultyPresenter", "onMediumClicked called")
         selectedDifficulty = Difficulty.MEDIUM
         executeIfViewAttached {
             onMediumSelected()
@@ -27,7 +25,6 @@ class DifficultyLevelPresenter @Inject constructor() : BasePresenter<DifficultyL
     }
 
     fun onHardClicked() {
-        android.util.Log.d("DifficultyPresenter", "onHardClicked called")
         selectedDifficulty = Difficulty.HARD
         executeIfViewAttached {
             onHardSelected()
@@ -36,7 +33,6 @@ class DifficultyLevelPresenter @Inject constructor() : BasePresenter<DifficultyL
     }
 
     fun onConfirmClicked() {
-        android.util.Log.d("DifficultyPresenter", "onConfirmClicked called, selectedDifficulty: $selectedDifficulty")
         val difficulty = selectedDifficulty ?: return
         executeIfViewAttached {
             onConfirmClicked(difficulty)
@@ -44,7 +40,6 @@ class DifficultyLevelPresenter @Inject constructor() : BasePresenter<DifficultyL
     }
 
     fun onCancelClicked() {
-        android.util.Log.d("DifficultyPresenter", "onCancelClicked called")
         executeIfViewAttached {
             onCancelClicked()
         }

@@ -112,7 +112,6 @@ class GamePresenter @Inject constructor(
                 userRepository.getUser()
             },
             onSuccess = { user ->
-                // Only update if we haven't already determined the user should have 0 lives
                 if (currentLives > 0) {
                     currentLives = user.lives
                     view?.updateLivesCount(currentLives)
@@ -201,7 +200,6 @@ class GamePresenter @Inject constructor(
         selectedAnswerIndex = null
         val question = questions[currentQuestionIndex]
         
-        // Prepare answers
         currentAnswers = mutableListOf<String>().apply {
             question.answers.forEach { answer ->
                 add(answer.text)
@@ -270,10 +268,8 @@ class GamePresenter @Inject constructor(
                 view?.updateLivesCount(currentLives)
             }
 
-            // Always submit the answer, even if lives reach 0
             submitAnswer(selectedAnswer, isCorrect)
             
-            // Check if game should end after submitting the answer
             if (currentLives <= 0) {
                 view?.showNoLivesLeft()
                 finishGame()
@@ -290,10 +286,8 @@ class GamePresenter @Inject constructor(
             currentLives--
             view?.updateLivesCount(currentLives)
             
-            // Always submit the answer, even if lives reach 0
             submitAnswer("", false)
             
-            // Check if game should end after submitting the answer
             if (currentLives <= 0) {
                 view?.showNoLivesLeft()
                 finishGame()
@@ -314,10 +308,8 @@ class GamePresenter @Inject constructor(
             currentLives--
             view?.updateLivesCount(currentLives)
             
-            // Always submit the answer, even if lives reach 0
             submitAnswer("", false)
             
-            // Check if game should end after submitting the answer
             if (currentLives <= 0) {
                 view?.showNoLivesLeft()
                 finishGame()
@@ -346,7 +338,6 @@ class GamePresenter @Inject constructor(
             },
             onSuccess = { updatedSession ->
                 gameSession = updatedSession
-                // Add a small delay to ensure database update is committed
                 kotlinx.coroutines.delay(100)
                 refreshUserData()
             },

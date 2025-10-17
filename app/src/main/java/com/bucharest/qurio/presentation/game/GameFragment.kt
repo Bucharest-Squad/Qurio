@@ -65,7 +65,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
             presenter.onBackPressed()
         }
 
-        // Retry button removed - no longer needed
     }
 
     override fun onAttach(context: Context) {
@@ -119,7 +118,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
     }
 
     override fun updateScore(score: Int) {
-        // Score can be displayed in a score indicator if needed
     }
 
     override fun showGameEnd(session: GameSession) {
@@ -135,7 +133,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         showMessage(PresentationConstants.MESSAGE_NO_LIVES_LEFT)
         binding.checkButton.hide()
         binding.skipButton.hide()
-        // Navigate directly to home instead of showing retry button
         findNavController().navigate(R.id.mainHomeFragment)
     }
 

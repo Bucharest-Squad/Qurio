@@ -23,7 +23,6 @@ class ResultPresenter : BasePresenter<ResultView>() {
             showWrongAnswers(session.wrongAnswers)
             showSkippedAnswers(session.skippedAnswers)
             
-            // Determine win/lose state based on stars
             if (session.starsEarned > 0) {
                 showWinState()
             } else {

@@ -233,39 +233,17 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         findNavController().navigate(action)
     }
 
-    override fun navigateToAllGames() {
-        showMessage(PresentationConstants.MESSAGE_VIEW_ALL_GAMES)
-    }
-
-    override fun navigateToAllRecentGames() {
-        showMessage(PresentationConstants.MESSAGE_VIEW_ALL_RECENT_GAMES)
-    }
-
-    override fun showSettingsDialog() {
-        showMessage(PresentationConstants.MESSAGE_SETTINGS_DIALOG)
-    }
-
-    override fun showCharacterSelectionDialog() {
-        showMessage(PresentationConstants.MESSAGE_CHARACTER_SELECTION)
-    }
-
-    override fun showPurchaseLivesDialog() {
-        showMessage(PresentationConstants.MESSAGE_PURCHASE_LIVES)
-    }
-
-    override fun showAchievementsDialog() {
-        showMessage(PresentationConstants.MESSAGE_ACHIEVEMENTS)
-    }
+    override fun navigateToAllGames() {}
+    override fun navigateToAllRecentGames() {}
+    override fun showSettingsDialog() {}
+    override fun showCharacterSelectionDialog() {}
+    override fun showPurchaseLivesDialog() {}
+    override fun showAchievementsDialog() {}
 
     override fun showLoading() {}
 
     override fun hideLoading() {}
 
-    override fun showError(message: String) {
-        Toast.makeText(requireContext(), "Error: $message", PresentationConstants.TOAST_DURATION_SHORT).show()
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(requireContext(), message, PresentationConstants.TOAST_DURATION_SHORT).show()
-    }
+    override fun showError(message: String) {}
+    override fun showMessage(message: String) {}
 }

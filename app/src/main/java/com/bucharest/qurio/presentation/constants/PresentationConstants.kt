@@ -40,12 +40,6 @@ object PresentationConstants {
     const val MESSAGE_SELECT_ANSWER = "Please select an answer first"
     const val MESSAGE_TIME_UP = "Time's up!"
     const val MESSAGE_NO_LIVES_LEFT = "No lives left! Game over. You can buy more lives or return to home."
-    const val MESSAGE_VIEW_ALL_GAMES = "View All Games clicked - implement navigation"
-    const val MESSAGE_VIEW_ALL_RECENT_GAMES = "View All Recent Games clicked - implement navigation"
-    const val MESSAGE_SETTINGS_DIALOG = "Settings Dialog - implement settings screen"
-    const val MESSAGE_CHARACTER_SELECTION = "Character Selection Dialog - implement character selection"
-    const val MESSAGE_PURCHASE_LIVES = "Purchase Lives Dialog - implement lives purchase"
-    const val MESSAGE_ACHIEVEMENTS = "Achievements Dialog - implement achievements screen"
     
     // App Constants
     const val APP_TITLE = "Qurio"
