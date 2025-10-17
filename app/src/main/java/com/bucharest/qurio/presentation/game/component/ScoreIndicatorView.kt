@@ -40,7 +40,7 @@ class ScoreIndicatorView @JvmOverloads constructor(
         val rootLayout = itemView.findViewById<LinearLayout>(R.id.scoreIndicatorRoot)
         val text = itemView.findViewById<TextView>(R.id.scoreText)
 
-        text.text = if (isCorrect) "+100" else "0"
+        text.text = if (isCorrect) "+1" else "-1"
         rootLayout.setBackgroundResource(R.drawable.circle_shape)
         rootLayout.background?.setTint(
             if (isCorrect) context.getColor(R.color.green)
