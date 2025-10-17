@@ -51,4 +51,9 @@
     <string name="no_connection">No Connection</string>
     <string name="no_connection_description">Oops! It looks like you’re offline. Please check your internet connection to continue playing</string>
     <string name="retry">Retry</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buy_life">Buy Life</string>
+    <string name="buy">Buy</string>
+    <string name="cancel">Cancel</string>
 </resources>
