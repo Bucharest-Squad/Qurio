@@ -29,7 +29,11 @@ class UserRepositoryImpl @Inject constructor(
         updateUser { copy(coins = (coins + delta).coerceAtLeast(MIN_COINS)) }
 
     override suspend fun updateLives(delta: Int): User = 
-        updateUser { copy(lives = (lives + delta).coerceIn(MIN_LIVES, MAX_LIVES)) }
+        updateUser { 
+            val oldLives = lives
+            val newLives = (lives + delta).coerceIn(MIN_LIVES, MAX_LIVES)
+            copy(lives = newLives) 
+        }
 
     override suspend fun setActiveCharacter(characterId: Int): User = 
         updateUser { copy(currentCharacterId = characterId) }
