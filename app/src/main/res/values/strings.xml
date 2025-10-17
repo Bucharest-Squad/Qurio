@@ -89,4 +89,19 @@
 
     <string name="no_connection">No Connection</string>
     <string name="no_connection_message"><![CDATA[Oops! It looks like you\'re offline. Please check your internet connection to continue playing]]></string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Welcome to Qurio</string>
+    <string name="onboarding_desc_1">Welcome to the world of Qurio, where questions spark curiosity and prizes await the smartest. Ready to begin the challenge?</string>
+
+    <string name="onboarding_title_2">Choose your character</string>
+    <string name="onboarding_desc_2">Each hero has their own unique style! Choose from unique characters and start your adventure in your own style.</string>
+
+    <string name="onboarding_title_3">Challenge and win</string>
+    <string name="onboarding_desc_3">Answer quickly, earn points, and share with your friends! Each trivia category is a new experience.</string>
+
+    <string name="onboarding_title_4">Collect them all!</string>
+    <string name="onboarding_desc_4">Unlock characters, earn badges, and climb the leaderboards. Qurio is merciless, but you can handle it.</string>
+
+    <string name="onboarding_swipe_up">Swipe up to PLAY!</string>
 </resources>

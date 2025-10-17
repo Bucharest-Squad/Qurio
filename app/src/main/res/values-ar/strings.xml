@@ -95,4 +95,20 @@
     <!-- Network -->
     <string name="no_connection">لا يوجد اتصال</string>
     <string name="no_connection_message"><![CDATA[عفوًا! يبدو أنك غير متصل بالإنترنت. يرجى التحقق من اتصالك بالإنترنت لمواصلة اللعب]]></string>
+
+   <!-- Onboarding -->
+    <string name="onboarding_title_1">مرحبًا بك في Qurio</string>
+    <string name="onboarding_desc_1">مرحبًا بك في عالم Qurio، حيث تثير الأسئلة الفضول وتنتظر الجوائز الأذكى. هل أنت مستعد للتحدي؟</string>
+
+    <string name="onboarding_title_2">اختر شخصيتك</string>
+    <string name="onboarding_desc_2">كل بطل لديه أسلوبه الخاص! اختر من بين الشخصيات المميزة وابدأ مغامرتك بأسلوبك الخاص.</string>
+
+    <string name="onboarding_title_3">تحدَّ واربح</string>
+    <string name="onboarding_desc_3">أجب بسرعة، اجمع النقاط، وشارك مع أصدقائك! كل فئة من الأسئلة تجربة جديدة.</string>
+
+    <string name="onboarding_title_4">اجمعهم جميعًا!</string>
+    <string name="onboarding_desc_4">افتح الشخصيات، اجمع الشارات، وتسلق لوحة الصدارة. Qurio لا يرحم، لكنك قادر على ذلك.</string>
+
+    <string name="onboarding_swipe_up">اسحب للأعلى للعب!</string>
+
 </resources>

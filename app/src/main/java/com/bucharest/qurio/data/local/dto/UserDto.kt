@@ -3,6 +3,8 @@ package com.bucharest.qurio.data.local.dto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @Entity(tableName = "user")
 data class UserDto(
