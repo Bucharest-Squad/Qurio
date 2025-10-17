@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Timer Background -->
+        <View
+            android:id="@+id/timerBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/timer_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Timer Progress -->
+        <View
+            android:id="@+id/timerProgress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/timer_progress"
+            app:layout_constraintEnd_toEndOf="@id/timerBackground"
+            app:layout_constraintStart_toStartOf="@id/timerBackground"
+            app:layout_constraintTop_toTopOf="@id/timerBackground" />
+
+        <!-- Timer Text -->
+        <TextView
+            android:id="@+id/timerText"
+            style="@style/Label.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/on_primary"
+            app:layout_constraintBottom_toBottomOf="@id/timerBackground"
+            app:layout_constraintEnd_toEndOf="@id/timerBackground"
+            app:layout_constraintStart_toStartOf="@id/timerBackground"
+            app:layout_constraintTop_toTopOf="@id/timerBackground"
+            tools:text="20 Sec" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

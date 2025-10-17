@@ -16,8 +16,5 @@ class DataSeeder(
         if (database.categoryDao().getAll().isEmpty()) {
             database.categoryDao().insertAll(seedDataProvider.categories())
         }
-        if (database.gameSessionDao().getAll().isEmpty()) {
-            database.gameSessionDao().insertAll(seedDataProvider.gameSessions())
-        }
     }
 }

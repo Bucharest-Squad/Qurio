@@ -43,7 +43,7 @@
         android:layout_marginTop="12dp"
         android:alpha="0.60"
         android:gravity="center"
-        android:text="@string/no_connection_description"
+        android:text="@string/no_connection_message"
         android:textColor="@color/shade_secondary"
         app:layout_constraintBottom_toTopOf="@id/retry_button"
         app:layout_constraintEnd_toEndOf="parent"

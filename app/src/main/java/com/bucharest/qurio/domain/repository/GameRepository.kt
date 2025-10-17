@@ -14,4 +14,6 @@ interface GameRepository {
     suspend fun submitAnswer(submission: AnswerSubmission): GameSession
     suspend fun finishGame(sessionId: Int, config: GameConfig = GameConfig.default()): GameSession
     suspend fun getRecentSessions(limit: Int): List<GameSession>
+    suspend fun getAllSessions(): List<GameSession>
+    suspend fun getCategoryById(id: Int): Category?
 }

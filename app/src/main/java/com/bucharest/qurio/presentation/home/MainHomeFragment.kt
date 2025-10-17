@@ -2,22 +2,33 @@ package com.bucharest.qurio.presentation.home
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentMainHomeBinding
+import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementUImodel
+import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementsDialog
 import com.bucharest.qurio.presentation.base.BaseFragment
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import com.bucharest.qurio.presentation.component.CharactersDialog
+import com.bucharest.qurio.presentation.constants.PresentationConstants
+import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
+import com.bucharest.qurio.domain.entity.Difficulty
+import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
 import com.bucharest.qurio.presentation.home.adapter.LastGamesAdapter
 import com.bucharest.qurio.presentation.home.adapter.StreakDayAdapter
-import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
 import com.bucharest.qurio.presentation.home.components.CategoryCarouselTransformer
 import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.HomeUiState
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.utils.NetworkUtils
 import javax.inject.Inject
 
 class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(),
@@ -95,10 +106,10 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     private fun ViewPager2.configureCarouselScrolling() {
-        (getChildAt(FIRST_CHILD_INDEX) as? androidx.recyclerview.widget.RecyclerView)?.apply {
+        (getChildAt(FIRST_CHILD_INDEX) as? RecyclerView)?.apply {
             clipToPadding = false
             setPadding(NO_PADDING, NO_PADDING, NO_PADDING, NO_PADDING)
-            overScrollMode = android.view.View.OVER_SCROLL_NEVER
+            overScrollMode = View.OVER_SCROLL_NEVER
             isNestedScrollingEnabled = true
         }
     }
@@ -109,24 +120,27 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(false)
         }
+
+        binding.includeLastGamesHeader.root.visibility = View.GONE
+        binding.lastGamesRecyclerView.visibility = View.GONE
     }
-    
+
     private fun setupClickListeners() {
         setupTopBarClickListeners()
         setupStatisticsClickListeners()
     }
-    
+
     private fun setupTopBarClickListeners() {
         with(binding.includeHomeAppBar) {
-            settingsIcon.setOnClickListener { 
-                presenter.onSettingsClicked() 
+            settingsIcon.setOnClickListener {
+                presenter.onSettingsClicked()
             }
-            imageSelectedCharacter.setOnClickListener { 
-                presenter.onCharacterClicked() 
+            imageSelectedCharacter.setOnClickListener {
+                presenter.onCharacterClicked()
             }
         }
     }
-    
+
     private fun setupStatisticsClickListeners() {
         with(binding.includeStatisticsSection) {
             statisticsLivesCard.addLiveButton.setOnClickListener {
@@ -140,10 +154,18 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showUserStats(coins: Int, lives: Int, awards: Int) {
         with(binding.includeStatisticsSection) {
-            statisticsPointsCard.pointsCount.text = coins.toString()
-            statisticsLivesCard.livesCount.text = lives.toString()
-            statisticsAwardsCard.awardsCount.text = awards.toString()
+            val safeCoins = maxOf(0, coins)
+            
+            statisticsPointsCard.pointsCount.text = formatNumber(safeCoins)
+            statisticsLivesCard.livesCount.text = formatNumber(lives)
+            statisticsAwardsCard.awardsCount.text = formatNumber(awards)
+            
+            statisticsPointsCard.icCrownImage.visibility = if (safeCoins < 10000) View.GONE else View.VISIBLE
         }
+    }
+    
+    private fun formatNumber(number: Int): String {
+        return String.format("%,d", number)
     }
 
     override fun showStreak(currentStreak: Int, streakDays: List<StreakDayUiModel>) {
@@ -167,7 +189,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         with(binding.includeStreakCard) {
             streakRecyclerView.adapter = StreakDayAdapter(streakUiStates)
             title.text = getStreakMessage(currentStreak)
-            description.text = getString(R.string.streak_description)
+            description.text = getStreakDescription(currentStreak)
         }
     }
 
@@ -177,16 +199,21 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
                 R.string.streak_active_message,
                 currentStreak
             )
-
             else -> getString(R.string.streak_inactive_message)
+        }
+    }
+
+    private fun getStreakDescription(currentStreak: Int): String {
+        return when {
+            currentStreak > MIN_ACTIVE_STREAK -> getString(R.string.streak_description_active)
+            else -> getString(R.string.streak_description_inactive)
         }
     }
 
     override fun showCategories(categories: List<CategoryUiModel>) {
         val categoryModels = mapCategoriesToUiModels(categories)
         carouselAdapter.submitList(categoryModels)
-        
-        // Ensure the first item is properly positioned
+
         binding.categoriesCarousel.post {
             if (categoryModels.isNotEmpty()) {
                 binding.categoriesCarousel.setCurrentItem(0, false)
@@ -208,10 +235,37 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showRecentGames(games: List<GameSessionUiModel>) {
         lastGamesAdapter.submitList(games)
+
+        if (games.isEmpty()) {
+            binding.includeLastGamesHeader.root.visibility = View.GONE
+            binding.lastGamesRecyclerView.visibility = View.GONE
+        } else {
+            binding.includeLastGamesHeader.root.visibility = View.VISIBLE
+            binding.lastGamesRecyclerView.visibility = View.VISIBLE
+        }
     }
 
     override fun navigateToCategoryGame(categoryId: Int) {
-        showMessage("Category $categoryId clicked - implement navigation")
+        showDifficultyDialog(categoryId)
+    }
+
+    private fun showDifficultyDialog(categoryId: Int) {
+        val dialog = DifficultyLevelFragment.newInstance(
+            categoryId = categoryId,
+            totalQuestions = PresentationConstants.DEFAULT_TOTAL_QUESTIONS
+        ) { difficulty ->
+            navigateToGameWithDifficulty(categoryId, difficulty)
+        }
+        dialog.show(childFragmentManager, "DifficultyLevelDialog")
+    }
+
+    private fun navigateToGameWithDifficulty(categoryId: Int, difficulty: Difficulty) {
+        val action = MainHomeFragmentDirections.actionMainHomeFragmentToGameFragment(
+            categoryId = categoryId,
+            difficulty = difficulty.name,
+            totalQuestions = PresentationConstants.DEFAULT_TOTAL_QUESTIONS
+        )
+        findNavController().navigate(action)
     }
 
     override fun navigateToAllGames() {
@@ -219,31 +273,71 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToAllRecentGames() {
-        showMessage("View All Recent Games clicked - implement navigation")
+        val action = MainHomeFragmentDirections.actionMainHomeFragmentToLastGamesFragment()
+        findNavController().navigate(action)
     }
 
     override fun showSettingsDialog() {
         showMessage("Settings Dialog - implement settings screen")
     }
 
-    override fun showCharacterSelectionDialog() {
-        showMessage("Character Selection Dialog - implement character selection")
+    override fun showCharacterSelectionDialog(
+        currentCharacterId: Int,
+        charactersUiModel: List<CharacterUiModel>
+    ) {
+        CharactersDialog(
+            currentCharacterId = currentCharacterId,
+            charactersUiModel = charactersUiModel,
+            onConfirmButtonClicked = {
+                presenter.updateCurrentCharacter(it)
+            },
+            onBuyButtonClicked = {
+                presenter.onBuyClicked(it)
+            },
+        ).show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
     override fun showPurchaseLivesDialog() {
         showMessage("Purchase Lives Dialog - implement lives purchase")
     }
 
-    override fun showAchievementsDialog() {
-        showMessage("Achievements Dialog - implement achievements screen")
+    override fun showAchievementsDialog(
+        achievementUImodel: List<AchievementUImodel>
+    ) {
+        AchievementsDialog(
+            achievementsUiModelList = achievementUImodel,
+        ).show(parentFragmentManager, "showAchievementsDialog")
     }
 
-    override fun showLoading() {}
+    override fun showCurrentCharacter(characterUiModel: CharacterUiModel) {
+        with(binding.includeHomeAppBar) {
+            imageSelectedCharacter.setImageResource(
+                characterUiModel.imageRes.first
+            )
+            textCharacterName.text = characterUiModel.characterName
+        }
+    }
 
-    override fun hideLoading() {}
+    override fun showLoading() {
+        binding.mainContent.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.VISIBLE
+        binding.noConnectionLayout.root.visibility = View.GONE
+    }
+
+    override fun hideLoading() {
+        binding.mainContent.visibility = View.VISIBLE
+        binding.loadingLayout.root.visibility = View.GONE
+        binding.noConnectionLayout.root.visibility = View.GONE
+    }
 
     override fun showError(message: String) {
-        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
+        binding.mainContent.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.GONE
+        binding.noConnectionLayout.root.visibility = View.VISIBLE
+        
+        binding.noConnectionLayout.retryButton.setOnClickListener {
+            presenter.loadHomeData()
+        }
     }
 
     override fun showMessage(message: String) {

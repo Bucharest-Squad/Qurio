@@ -1,22 +1,40 @@
 package com.bucharest.qurio.presentation.home
 
 import android.content.Context
+import com.bucharest.qurio.R
+import com.bucharest.qurio.domain.entity.Achievement
 import com.bucharest.qurio.domain.entity.Category
+import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.User
+import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
+import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
+import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementMapper
 import com.bucharest.qurio.presentation.base.BasePresenter
+import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
-import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.utils.NetworkUtils
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
-import kotlinx.datetime.*
+import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.utils.DateUtils
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration.Companion.milliseconds
 
 class MainHomePresenter(
     private val userRepository: UserRepository,
     private val gameRepository: GameRepository,
+    private val characterRepository: CharacterRepository,
+    private val achievementRepository: AchievementRepository,
     private val categoryRepository: CategoryRepository,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
@@ -53,11 +71,49 @@ class MainHomePresenter(
             showSettingsDialog()
         }
     }
-    
+
+    fun updateCurrentCharacter(characterId: Int) {
+        tryToExecute(
+            execute = { userRepository.setActiveCharacter(characterId) },
+            onSuccess = { onRefresh() },
+            onError = ::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+    }
+
+    fun onBuyClicked(characterId: Int) {
+        tryToExecute(
+            execute = { characterRepository.unlockCharacter(characterId) },
+            onSuccess = { onRefresh() },
+            onError = ::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+    }
+
     fun onCharacterClicked() {
-        executeIfViewAttached {
-            showCharacterSelectionDialog()
-        }
+        tryToExecute(
+            execute = { userRepository.getUser().currentCharacterId },
+            onSuccess = ::setCurrentCharacter,
+            onError = ::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+    }
+
+    fun setCurrentCharacter(id: Int) {
+        tryToExecute(
+            execute = { characterRepository.getAllCharacters() },
+            onSuccess = { characters ->
+                executeIfViewAttached {
+                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it) })
+                }
+            },
+            onError = ::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
     }
     
     fun onPurchaseLivesClicked() {
@@ -67,9 +123,21 @@ class MainHomePresenter(
     }
     
     fun onAchievementsClicked() {
-        executeIfViewAttached {
-            showAchievementsDialog()
-        }
+        tryToExecute(
+            execute = { achievementRepository.getAllAchievements() },
+            onSuccess = { achievements ->
+                executeIfViewAttached {
+                    showAchievementsDialog(
+                        achievements.map {
+                            AchievementMapper.mapAchievementToUiModel(it, context)
+                        }
+                    )
+                }
+            },
+            onError = {},
+            onStart = {},
+            onFinally = {}
+        )
     }
     
     fun onLastGameClicked(game: GameSessionUiModel) {
@@ -79,6 +147,11 @@ class MainHomePresenter(
     }
 
     fun loadHomeData() {
+        if (!NetworkUtils.isConnectedToInternet(context)) {
+            executeIfViewAttached { showError("No internet connection") }
+            return
+        }
+        
         tryToExecute(
             execute = ::fetchAllHomeData,
             onSuccess = ::handleHomeDataSuccess,
@@ -91,14 +164,17 @@ class MainHomePresenter(
     private suspend fun fetchAllHomeData(): HomeData {
         val user = userRepository.getUser()
         val categories = categoryRepository.getAllCategories().shuffled()
-        val recentGames = gameRepository.getRecentSessions(limit = RECENT_GAMES_LIMIT)
+        val recentGames = gameRepository.getRecentSessions(limit = PresentationConstants.RECENT_GAMES_LIMIT)
+        val currentCharacter = characterRepository.getCurrentCharacter(user.currentCharacterId)
+        val achievements = achievementRepository.getUnlockedAchievements()
         
-        return HomeData(user, categories, recentGames)
+        return HomeData(user, categories, recentGames, currentCharacter, achievements)
     }
     
     private fun handleHomeDataSuccess(homeData: HomeData) {
         executeIfViewAttached {
-            displayUserStats(homeData.user, homeData.recentGames)
+            displayCurrentCharacter(homeData.currentCharacter)
+            displayUserStats(homeData.user, homeData.achievements)
             displayStreak(homeData.user)
             displayCategories(homeData.categories)
             displayRecentGames(homeData.recentGames)
@@ -107,27 +183,29 @@ class MainHomePresenter(
     
     private fun handleHomeDataError(throwable: Throwable) {
         executeIfViewAttached {
-            showError(throwable.message ?: ERROR_LOADING_DATA)
+            showError(throwable.message ?: PresentationConstants.ERROR_LOADING_DATA)
         }
     }
     
-    private fun displayUserStats(user: User, recentGames: List<GameSession>) {
-        val totalAwards = calculateTotalAwards(recentGames)
+    private fun displayUserStats(user: User, achievements: List<Achievement>) {
         executeIfViewAttached {
             showUserStats(
                 coins = user.coins,
                 lives = user.lives,
-                awards = totalAwards
+                awards = achievements.size
             )
         }
     }
-    
-    private fun calculateTotalAwards(recentGames: List<GameSession>): Int {
-        return recentGames.sumOf { it.starsEarned }
+
+    private fun displayCurrentCharacter(character: Character) {
+        val characterUiModel = CharacterMapper.mapCharacterToUiState(character)
+        executeIfViewAttached {
+            showCurrentCharacter(characterUiModel)
+        }
     }
     
     private fun displayStreak(user: User) {
-        val streakDays = generateStreakDays(user.currentDailyStreak)
+        val streakDays = generateStreakDaysWithOffset(user.currentDailyStreak, user.streakStartDate)
         executeIfViewAttached {
             showStreak(user.currentDailyStreak, streakDays)
         }
@@ -169,21 +247,14 @@ class MainHomePresenter(
             val endMillis = session.finishedAt.toEpochMilli()
             ((endMillis - startMillis).milliseconds.inWholeSeconds).toInt()
         } else {
-            DEFAULT_DURATION_SECONDS
+            PresentationConstants.DEFAULT_DURATION_SECONDS
         }
     }
     
     private fun formatPlayedDate(session: GameSession): String {
         val instant = Instant.fromEpochMilliseconds(session.startedAt.toEpochMilli())
         val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-        return formatDate(localDateTime)
-    }
-    
-    private fun formatDate(dateTime: LocalDateTime): String {
-        val day = dateTime.dayOfMonth.toString().padStart(DATE_PADDING_LENGTH, DATE_PADDING_CHAR)
-        val month = dateTime.monthNumber.toString().padStart(DATE_PADDING_LENGTH, DATE_PADDING_CHAR)
-        val year = dateTime.year
-        return "$day-$month-$year"
+        return DateUtils.formatDate(localDateTime)
     }
 
     private fun generateStreakDays(currentStreak: Int): List<StreakDayUiModel> {
@@ -194,27 +265,65 @@ class MainHomePresenter(
         }
     }
     
+    private fun generateStreakDaysWithOffset(currentStreak: Int, streakStartDate: LocalDate?): List<StreakDayUiModel> {
+        val dayLabels = listOf("S", "M", "T", "W", "Th", "F", "S")
+        
+        val kotlinDayOrdinal = if (streakStartDate != null) {
+            streakStartDate.dayOfWeek.ordinal
+        } else {
+            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).dayOfWeek.ordinal
+        }
+        
+        val startDayOfWeek = when (kotlinDayOrdinal) {
+            0 -> 1
+            1 -> 2
+            2 -> 3
+            3 -> 4  
+            4 -> 5
+            5 -> 6
+            6 -> 0
+            else -> 0
+        }
+        
+        val result = dayLabels.mapIndexed { index, label ->
+            val isInStreak = isDayInStreakRange(index, startDayOfWeek, currentStreak)
+            StreakDayUiModel(label, isInStreak)
+        }
+        
+        return result
+    }
+    
     private fun isDayInStreak(dayIndex: Int, currentStreak: Int): Boolean {
         return when {
-            currentStreak == NO_STREAK -> false
-            currentStreak >= DAYS_IN_WEEK -> true
+            currentStreak == PresentationConstants.NO_STREAK -> false
+            currentStreak >= PresentationConstants.DAYS_IN_WEEK -> true
             else -> dayIndex < currentStreak
+        }
+    }
+    
+    private fun isDayInStreakRange(dayIndex: Int, startDayOfWeek: Int, currentStreak: Int): Boolean {
+        return when {
+            currentStreak == PresentationConstants.NO_STREAK -> false
+            currentStreak >= PresentationConstants.DAYS_IN_WEEK -> true
+            else -> {
+                val daysFromStart = (dayIndex - startDayOfWeek + 7) % 7
+                daysFromStart < currentStreak
+            }
+        }
+    }
+
+    fun getStreakDescription(currentStreak: Int): String {
+        return when {
+            currentStreak > PresentationConstants.MIN_ACTIVE_STREAK -> context.getString(R.string.streak_description_active)
+            else -> context.getString(R.string.streak_description_inactive)
         }
     }
 
     private data class HomeData(
         val user: User,
         val categories: List<Category>,
-        val recentGames: List<GameSession>
+        val recentGames: List<GameSession>,
+        val currentCharacter: Character,
+        val achievements: List<Achievement>
     )
-
-    companion object {
-        private const val RECENT_GAMES_LIMIT = 5
-        private const val DEFAULT_DURATION_SECONDS = 0
-        private const val DATE_PADDING_LENGTH = 2
-        private const val DATE_PADDING_CHAR = '0'
-        private const val NO_STREAK = 0
-        private const val DAYS_IN_WEEK = 7
-        private const val ERROR_LOADING_DATA = "Failed to load home data"
-    }
 }

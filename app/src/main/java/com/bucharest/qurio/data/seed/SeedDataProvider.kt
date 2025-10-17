@@ -3,11 +3,7 @@ package com.bucharest.qurio.data.seed
 import com.bucharest.qurio.data.local.dto.AchievementDto
 import com.bucharest.qurio.data.local.dto.CategoryDto
 import com.bucharest.qurio.data.local.dto.CharacterDto
-import com.bucharest.qurio.data.local.dto.GameSessionDto
 import com.bucharest.qurio.domain.entity.Achievement
-import com.bucharest.qurio.domain.entity.Difficulty
-import java.time.Instant
-import java.time.temporal.ChronoUnit
 
 class SeedDataProvider {
 
@@ -193,90 +189,4 @@ class SeedDataProvider {
         CategoryDto(32, "Entertainment: Cartoon")
     )
     
-    fun gameSessions(): List<GameSessionDto> {
-        val now = Instant.now()
-        
-        return listOf(
-            GameSessionDto(
-                id = 3000,
-                categoryId = 22, // Geography
-                difficulty = Difficulty.EASY,
-                startedAt = now.minus(2, ChronoUnit.DAYS),
-                finishedAt = now.minus(2, ChronoUnit.DAYS).plusSeconds(143), // 2m 23sec
-                totalQuestions = 10,
-                correctAnswers = 8,
-                wrongAnswers = 2,
-                skippedAnswers = 0,
-                starsEarned = 3,
-                coinsEarned = 100,
-                livesLost = 2,
-                totalScore = 850,
-                fastestAnswerSeconds = 3
-            ),
-            GameSessionDto(
-                id = 3001,
-                categoryId = 17, // Science & Nature
-                difficulty = Difficulty.MEDIUM,
-                startedAt = now.minus(1, ChronoUnit.DAYS),
-                finishedAt = now.minus(1, ChronoUnit.DAYS).plusSeconds(195), // 3m 15sec
-                totalQuestions = 10,
-                correctAnswers = 7,
-                wrongAnswers = 3,
-                skippedAnswers = 0,
-                starsEarned = 2,
-                coinsEarned = 75,
-                livesLost = 3,
-                totalScore = 650,
-                fastestAnswerSeconds = 4
-            ),
-            GameSessionDto(
-                id = 3002,
-                categoryId = 9, // General Knowledge
-                difficulty = Difficulty.HARD,
-                startedAt = now.minus(3, ChronoUnit.HOURS),
-                finishedAt = now.minus(3, ChronoUnit.HOURS).plusSeconds(180), // 3m
-                totalQuestions = 10,
-                correctAnswers = 9,
-                wrongAnswers = 1,
-                skippedAnswers = 0,
-                starsEarned = 3,
-                coinsEarned = 150,
-                livesLost = 1,
-                totalScore = 1050,
-                fastestAnswerSeconds = 2
-            ),
-            GameSessionDto(
-                id = 3003,
-                categoryId = 12, // Music
-                difficulty = Difficulty.EASY,
-                startedAt = now.minus(5, ChronoUnit.DAYS),
-                finishedAt = now.minus(5, ChronoUnit.DAYS).plusSeconds(165), // 2m 45sec
-                totalQuestions = 10,
-                correctAnswers = 6,
-                wrongAnswers = 4,
-                skippedAnswers = 0,
-                starsEarned = 2,
-                coinsEarned = 60,
-                livesLost = 4,
-                totalScore = 550,
-                fastestAnswerSeconds = 5
-            ),
-            GameSessionDto(
-                id = 3004,
-                categoryId = 23, // History
-                difficulty = Difficulty.MEDIUM,
-                startedAt = now.minus(1, ChronoUnit.HOURS),
-                finishedAt = now.minus(1, ChronoUnit.HOURS).plusSeconds(210), // 3m 30sec
-                totalQuestions = 10,
-                correctAnswers = 10,
-                wrongAnswers = 0,
-                skippedAnswers = 0,
-                starsEarned = 3,
-                coinsEarned = 200,
-                livesLost = 0,
-                totalScore = 1200,
-                fastestAnswerSeconds = 2
-            )
-        )
-    }
 }

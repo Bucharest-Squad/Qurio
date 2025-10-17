@@ -1,6 +1,7 @@
 package com.bucharest.qurio.data.repository
 
 import com.bucharest.qurio.data.remote.ApiService
+import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Question
 import com.bucharest.qurio.domain.exception.InvalidRequestException
 import com.bucharest.qurio.domain.exception.NetworkErrorException
@@ -16,22 +17,27 @@ class TriviaRepositoryImpl @Inject constructor(
 
     override suspend fun getQuestions(filter: QuestionFilter): List<Question> = runCatching {
         val categories = categoryRepository.getAllCategories()
-        
-        apiService.getQuestions(
+        val response = apiService.getQuestions(
             amount = filter.amount,
             categoryId = filter.categoryId,
             difficulty = filter.difficulty,
             type = filter.type
-        ).let { response ->
-            when (response.responseCode) {
-                RESPONSE_SUCCESS -> response.results.map { it.toEntity(categories) }
+        )
+        
+        response.let { resp ->
+            when (resp.responseCode) {
+                RESPONSE_SUCCESS -> {
+                    resp.results.map { it.toEntity(categories) }
+                }
                 RESPONSE_NO_RESULTS -> throw NoQuestionsAvailableException()
                 RESPONSE_INVALID_PARAMETER -> throw InvalidRequestException("Invalid parameters")
                 RESPONSE_TOKEN_NOT_FOUND -> throw InvalidRequestException("Token not found")
-                else -> throw InvalidRequestException("Unknown error: ${response.responseCode}")
+                else -> throw InvalidRequestException("Unknown error: ${resp.responseCode}")
             }
         }
-    }.getOrElse { throw NetworkErrorException(it.localizedMessage) }
+    }.getOrElse { 
+        throw NetworkErrorException(it.localizedMessage) 
+    }
 
     private companion object {
         const val RESPONSE_SUCCESS = 0

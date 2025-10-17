@@ -9,6 +9,100 @@
         android:id="@+id/mainHomeFragment"
         android:name="com.bucharest.qurio.presentation.home.MainHomeFragment"
         android:label="Qurio"
-        tools:layout="@layout/fragment_main_home" />
+        tools:layout="@layout/fragment_main_home">
+        <action
+            android:id="@+id/actionMainHomeFragmentToGameFragment"
+            app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/actionMainHomeFragmentToLastGamesFragment"
+            app:destination="@id/lastGamesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.bucharest.qurio.presentation.game.GameFragment"
+        android:label="Game"
+        tools:layout="@layout/fragment_game">
+        <argument
+            android:name="categoryId"
+            android:defaultValue="22"
+            app:argType="integer" />
+        <argument
+            android:name="difficulty"
+            android:defaultValue="MEDIUM"
+            app:argType="string" />
+        <argument
+            android:name="totalQuestions"
+            android:defaultValue="10"
+            app:argType="integer" />
+        <action
+            android:id="@+id/actionGameFragmentToResultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.bucharest.qurio.presentation.result.ResultFragment"
+        android:label="Result"
+        tools:layout="@layout/fragment_result">
+        <argument
+            android:name="sessionId"
+            app:argType="integer" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="difficulty"
+            app:argType="string" />
+        <argument
+            android:name="totalQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="correctAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="wrongAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="skippedAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="starsEarned"
+            app:argType="integer" />
+        <argument
+            android:name="coinsEarned"
+            app:argType="integer" />
+        <argument
+            android:name="livesLost"
+            app:argType="integer" />
+        <argument
+            android:name="totalScore"
+            app:argType="integer" />
+        <argument
+            android:name="fastestAnswerSeconds"
+            app:argType="integer" />
+        <action
+            android:id="@+id/actionResultFragmentToGameFragment"
+            app:destination="@id/gameFragment">
+            <argument
+                android:name="categoryId"
+                app:argType="integer" />
+            <argument
+                android:name="difficulty"
+                app:argType="string" />
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/lastGamesFragment"
+        android:name="com.bucharest.qurio.presentation.lastgames.LastGamesFragment"
+        android:label="Last Games"
+        tools:layout="@layout/fragment_last_games" />
 
 </navigation>

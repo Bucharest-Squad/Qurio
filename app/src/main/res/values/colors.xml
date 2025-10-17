@@ -28,4 +28,9 @@
     <color name="category_music_end">#CC993397</color>
     <color name="category_food_drink_start">#0030ABE8</color>
     <color name="category_food_drink_end">#CC30ABE8</color>
+    
+    <!-- Additional Colors -->
+    <color name="on_surface">#FFFFFF</color>
+    <color name="text_button_color">#FFFFFF</color>
+    <color name="primary_button_text_color">#FFFFFF</color>
 </resources>

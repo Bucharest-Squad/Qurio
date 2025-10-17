@@ -14,11 +14,15 @@ abstract class BasePresenter<V : BaseView> {
     protected val view: V?
         get() = _view
 
-    private val job = SupervisorJob()
-    protected val presenterScope = CoroutineScope(job + Dispatchers.Main)
+    private var job = SupervisorJob()
+    private var presenterScope = CoroutineScope(job + Dispatchers.Main)
 
     open fun attachView(view: V) {
         this._view = view
+        if (job.isCancelled) {
+            job = SupervisorJob()
+            presenterScope = CoroutineScope(job + Dispatchers.Main)
+        }
         onViewAttached()
     }
 
@@ -35,7 +39,28 @@ abstract class BasePresenter<V : BaseView> {
     protected fun executeIfViewAttached(action: V.() -> Unit) {
         _view?.let { action(it) }
     }
-
+    protected fun  tryToExecute(
+        execute: suspend () -> Unit,
+        onSuccess: (suspend () -> Unit),
+        onError: (suspend (Throwable) -> Unit),
+        onStart: (suspend () -> Unit)? = null,
+        onFinally: (suspend () -> Unit)? = null,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ): Job {
+        return presenterScope.launch {
+            try {
+                onStart?.invoke()
+               withContext(dispatcher) {
+                    execute()
+                }
+                onSuccess()
+            } catch (throwable: Throwable) {
+                onError(throwable)
+            } finally {
+                onFinally?.invoke()
+            }
+        }
+    }
     protected fun <T> tryToExecute(
         execute: suspend () -> T,
         onSuccess: (suspend (T) -> Unit),

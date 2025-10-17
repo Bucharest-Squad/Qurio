@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <com.bucharest.qurio.view.DifficultyLevelButton
+        android:id="@+id/easyButton"
+        android:layout_width="96dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/easy"
+        android:gravity="center" />
+
+    <com.bucharest.qurio.view.DifficultyLevelButton
+        android:id="@+id/mediumButton"
+        android:layout_width="96dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/medium"
+        android:gravity="center" />
+
+    <com.bucharest.qurio.view.DifficultyLevelButton
+        android:id="@+id/hardButton"
+        android:layout_width="96dp"
+        android:layout_height="37dp"
+        android:text="@string/hard"
+        android:gravity="center" />
+
+</LinearLayout>
