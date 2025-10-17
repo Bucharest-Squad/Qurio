@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game Complete!"
+        android:textColor="@color/on_surface"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Score: 0"
+        android:textColor="@color/on_surface"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/correctAnswersText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Correct: 0"
+        android:textColor="@color/on_surface" />
+
+    <TextView
+        android:id="@+id/wrongAnswersText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wrong: 0"
+        android:textColor="@color/on_surface" />
+
+    <com.bucharest.qurio.presentation.game.component.PrimaryActionButton
+        android:id="@+id/playAgainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Play Again" />
+
+    <com.bucharest.qurio.presentation.game.component.SecondaryActionButton
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Home" />
+
+</LinearLayout>
+
+
