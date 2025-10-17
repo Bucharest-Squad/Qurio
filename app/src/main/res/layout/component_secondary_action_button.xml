@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="@color/text_button_color"
+            android:textColor="@color/primary"
             android:text="@string/submit" />
     </LinearLayout>
 </merge>
