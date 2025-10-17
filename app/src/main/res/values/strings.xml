@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Qurio</string>
 
+    <string name="loading_game">Loading Game</string>
     <string name="category_title_geography">Geography</string>
     <string name="category_title_science">Science</string>
     <string name="category_title_general_knowledge">General Knowledge</string>
