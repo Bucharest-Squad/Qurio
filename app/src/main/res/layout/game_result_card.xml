@@ -165,7 +165,7 @@
             android:layout_marginHorizontal="14dp"
             android:contentDescription="@string/blur_background"
             android:scaleType="fitCenter"
-            android:src="@drawable/blur_background" />
+            android:src="@drawable/blur_blue_result" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/ribbon_image"
-                android:src="@drawable/ribbon" />
+                android:src="@drawable/ribbon_result_blue" />
 
             <com.bucharest.qurio.presentation.game.component.OutlineTextView
                 android:id="@+id/txtResult"

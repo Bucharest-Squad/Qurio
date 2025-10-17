@@ -46,13 +46,13 @@ class GameResultCardView @JvmOverloads constructor(
         if (stars >= 1) {
             setResultText("Great job!")
             binding.txtResult.setOutlineColor(Color.parseColor("#1980B2"))
-            binding.blurBackground.setImageResource(R.drawable.blur_background)
-            binding.ribbon.setImageResource(R.drawable.ribbon)
+            binding.blurBackground.setImageResource(R.drawable.blur_blue_result)
+            binding.ribbon.setImageResource(R.drawable.ribbon_result_blue)
         } else {
             setResultText("You lose")
             binding.txtResult.setOutlineColor(Color.parseColor("#E6311F"))
-            binding.blurBackground.setImageResource(R.drawable.blur_bg_red)
-            binding.ribbon.setImageResource(R.drawable.ribbon_red)
+            binding.blurBackground.setImageResource(R.drawable.blur_red_result)
+            binding.ribbon.setImageResource(R.drawable.ribbon_result_red)
         }
 
         val starViews = listOf(binding.star1, binding.star2, binding.star3)
