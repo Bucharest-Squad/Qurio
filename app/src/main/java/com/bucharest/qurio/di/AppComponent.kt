@@ -3,6 +3,7 @@ package com.bucharest.qurio.di
 import android.app.Application
 import com.bucharest.qurio.data.local.AppDatabase
 import com.bucharest.qurio.presentation.home.MainHomeFragment
+import com.bucharest.qurio.presentation.game.GameFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(fragment: MainHomeFragment)
+    fun inject(fragment: GameFragment)
     
     fun getDatabase(): AppDatabase
 

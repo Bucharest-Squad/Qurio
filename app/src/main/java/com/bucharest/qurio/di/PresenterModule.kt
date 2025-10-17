@@ -4,7 +4,9 @@ import android.app.Application
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
+import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.presentation.home.MainHomePresenter
+import com.bucharest.qurio.presentation.game.GamePresenter
 import dagger.Module
 import dagger.Provides
 
@@ -16,6 +18,13 @@ object PresenterModule {
         userRepository: UserRepository,
         gameRepository: GameRepository,
         categoryRepository: CategoryRepository,
+        achievementRepository: AchievementRepository,
         context: Application
-    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository, categoryRepository, context)
+    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository, categoryRepository, achievementRepository, context)
+
+    @Provides
+    fun provideGamePresenter(
+        gameRepository: GameRepository,
+        userRepository: UserRepository
+    ): GamePresenter = GamePresenter(gameRepository, userRepository)
 }
