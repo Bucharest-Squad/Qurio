@@ -4,12 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentMainHomeBinding
 import com.bucharest.qurio.presentation.base.BaseFragment
+import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.home.adapter.LastGamesAdapter
 import com.bucharest.qurio.presentation.home.adapter.StreakDayAdapter
 import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
@@ -18,6 +20,7 @@ import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.HomeUiState
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.utils.configureCarousel
 import javax.inject.Inject
 
 class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(),
@@ -49,7 +52,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     ): FragmentMainHomeBinding = FragmentMainHomeBinding.inflate(inflater, container, false)
 
     override fun initViews() {
-        updateToolbar(title = APP_TITLE, showToolbar = false)
+        updateToolbar(title = PresentationConstants.APP_TITLE, showToolbar = false)
         setupSectionHeaders()
         setupCategoriesCarousel()
         setupLastGamesRecyclerView()
@@ -82,24 +85,9 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     private fun setupCategoriesCarousel() {
         with(binding.categoriesCarousel) {
-            configureCarouselBasics()
-            configureCarouselScrolling()
+            configureCarousel()
+            adapter = carouselAdapter
             setPageTransformer(CategoryCarouselTransformer())
-        }
-    }
-
-    private fun ViewPager2.configureCarouselBasics() {
-        orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        adapter = carouselAdapter
-        offscreenPageLimit = CAROUSEL_OFFSCREEN_PAGE_LIMIT
-    }
-
-    private fun ViewPager2.configureCarouselScrolling() {
-        (getChildAt(FIRST_CHILD_INDEX) as? androidx.recyclerview.widget.RecyclerView)?.apply {
-            clipToPadding = false
-            setPadding(NO_PADDING, NO_PADDING, NO_PADDING, NO_PADDING)
-            overScrollMode = android.view.View.OVER_SCROLL_NEVER
-            isNestedScrollingEnabled = true
         }
     }
 
@@ -173,11 +161,10 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     private fun getStreakMessage(currentStreak: Int): String {
         return when {
-            currentStreak > MIN_ACTIVE_STREAK -> getString(
+            currentStreak > PresentationConstants.MIN_ACTIVE_STREAK -> getString(
                 R.string.streak_active_message,
                 currentStreak
             )
-
             else -> getString(R.string.streak_inactive_message)
         }
     }
@@ -186,7 +173,6 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         val categoryModels = mapCategoriesToUiModels(categories)
         carouselAdapter.submitList(categoryModels)
         
-        // Ensure the first item is properly positioned
         binding.categoriesCarousel.post {
             if (categoryModels.isNotEmpty()) {
                 binding.categoriesCarousel.setCurrentItem(0, false)
@@ -211,31 +197,36 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToCategoryGame(categoryId: Int) {
-        showMessage("Category $categoryId clicked - implement navigation")
+        val action = MainHomeFragmentDirections.actionMainHomeFragmentToGameFragment(
+            categoryId = categoryId,
+            difficulty = "EASY",
+            totalQuestions = PresentationConstants.DEFAULT_TOTAL_QUESTIONS
+        )
+        findNavController().navigate(action)
     }
 
     override fun navigateToAllGames() {
-        showMessage("View All Games clicked - implement navigation")
+        showMessage(PresentationConstants.MESSAGE_VIEW_ALL_GAMES)
     }
 
     override fun navigateToAllRecentGames() {
-        showMessage("View All Recent Games clicked - implement navigation")
+        showMessage(PresentationConstants.MESSAGE_VIEW_ALL_RECENT_GAMES)
     }
 
     override fun showSettingsDialog() {
-        showMessage("Settings Dialog - implement settings screen")
+        showMessage(PresentationConstants.MESSAGE_SETTINGS_DIALOG)
     }
 
     override fun showCharacterSelectionDialog() {
-        showMessage("Character Selection Dialog - implement character selection")
+        showMessage(PresentationConstants.MESSAGE_CHARACTER_SELECTION)
     }
 
     override fun showPurchaseLivesDialog() {
-        showMessage("Purchase Lives Dialog - implement lives purchase")
+        showMessage(PresentationConstants.MESSAGE_PURCHASE_LIVES)
     }
 
     override fun showAchievementsDialog() {
-        showMessage("Achievements Dialog - implement achievements screen")
+        showMessage(PresentationConstants.MESSAGE_ACHIEVEMENTS)
     }
 
     override fun showLoading() {}
@@ -243,19 +234,10 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     override fun hideLoading() {}
 
     override fun showError(message: String) {
-        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Error: $message", PresentationConstants.TOAST_DURATION_SHORT).show()
     }
 
     override fun showMessage(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        private const val APP_TITLE = "Qurio"
-        private const val CAROUSEL_OFFSCREEN_PAGE_LIMIT = 5
-        private const val MIN_ACTIVE_STREAK = 0
-        private const val FIRST_CHILD_INDEX = 0
-        private const val NO_PADDING = 0
-        private const val ITEM_CACHE_SIZE = 10
+        Toast.makeText(requireContext(), message, PresentationConstants.TOAST_DURATION_SHORT).show()
     }
 }

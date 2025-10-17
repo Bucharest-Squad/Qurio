@@ -7,10 +7,13 @@ import com.bucharest.qurio.domain.entity.User
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
+import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.presentation.base.BasePresenter
+import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
+import com.bucharest.qurio.presentation.utils.DateUtils
 import kotlinx.datetime.*
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -18,6 +21,7 @@ class MainHomePresenter(
     private val userRepository: UserRepository,
     private val gameRepository: GameRepository,
     private val categoryRepository: CategoryRepository,
+    private val achievementRepository: AchievementRepository,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
 
@@ -91,14 +95,15 @@ class MainHomePresenter(
     private suspend fun fetchAllHomeData(): HomeData {
         val user = userRepository.getUser()
         val categories = categoryRepository.getAllCategories().shuffled()
-        val recentGames = gameRepository.getRecentSessions(limit = RECENT_GAMES_LIMIT)
+        val recentGames = gameRepository.getRecentSessions(limit = PresentationConstants.RECENT_GAMES_LIMIT)
+        val achievements = achievementRepository.getUnlockedAchievements()
         
-        return HomeData(user, categories, recentGames)
+        return HomeData(user, categories, recentGames, achievements)
     }
     
     private fun handleHomeDataSuccess(homeData: HomeData) {
         executeIfViewAttached {
-            displayUserStats(homeData.user, homeData.recentGames)
+            displayUserStats(homeData.user, homeData.achievements)
             displayStreak(homeData.user)
             displayCategories(homeData.categories)
             displayRecentGames(homeData.recentGames)
@@ -107,23 +112,18 @@ class MainHomePresenter(
     
     private fun handleHomeDataError(throwable: Throwable) {
         executeIfViewAttached {
-            showError(throwable.message ?: ERROR_LOADING_DATA)
+            showError(throwable.message ?: PresentationConstants.ERROR_LOADING_DATA)
         }
     }
     
-    private fun displayUserStats(user: User, recentGames: List<GameSession>) {
-        val totalAwards = calculateTotalAwards(recentGames)
+    private fun displayUserStats(user: User, achievements: List<com.bucharest.qurio.domain.entity.Achievement>) {
         executeIfViewAttached {
             showUserStats(
                 coins = user.coins,
                 lives = user.lives,
-                awards = totalAwards
+                awards = achievements.size
             )
         }
-    }
-    
-    private fun calculateTotalAwards(recentGames: List<GameSession>): Int {
-        return recentGames.sumOf { it.starsEarned }
     }
     
     private fun displayStreak(user: User) {
@@ -169,21 +169,14 @@ class MainHomePresenter(
             val endMillis = session.finishedAt.toEpochMilli()
             ((endMillis - startMillis).milliseconds.inWholeSeconds).toInt()
         } else {
-            DEFAULT_DURATION_SECONDS
+            PresentationConstants.DEFAULT_DURATION_SECONDS
         }
     }
     
     private fun formatPlayedDate(session: GameSession): String {
         val instant = Instant.fromEpochMilliseconds(session.startedAt.toEpochMilli())
         val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-        return formatDate(localDateTime)
-    }
-    
-    private fun formatDate(dateTime: LocalDateTime): String {
-        val day = dateTime.dayOfMonth.toString().padStart(DATE_PADDING_LENGTH, DATE_PADDING_CHAR)
-        val month = dateTime.monthNumber.toString().padStart(DATE_PADDING_LENGTH, DATE_PADDING_CHAR)
-        val year = dateTime.year
-        return "$day-$month-$year"
+        return DateUtils.formatDate(localDateTime)
     }
 
     private fun generateStreakDays(currentStreak: Int): List<StreakDayUiModel> {
@@ -196,8 +189,8 @@ class MainHomePresenter(
     
     private fun isDayInStreak(dayIndex: Int, currentStreak: Int): Boolean {
         return when {
-            currentStreak == NO_STREAK -> false
-            currentStreak >= DAYS_IN_WEEK -> true
+            currentStreak == PresentationConstants.NO_STREAK -> false
+            currentStreak >= PresentationConstants.DAYS_IN_WEEK -> true
             else -> dayIndex < currentStreak
         }
     }
@@ -205,16 +198,8 @@ class MainHomePresenter(
     private data class HomeData(
         val user: User,
         val categories: List<Category>,
-        val recentGames: List<GameSession>
+        val recentGames: List<GameSession>,
+        val achievements: List<com.bucharest.qurio.domain.entity.Achievement>
     )
 
-    companion object {
-        private const val RECENT_GAMES_LIMIT = 5
-        private const val DEFAULT_DURATION_SECONDS = 0
-        private const val DATE_PADDING_LENGTH = 2
-        private const val DATE_PADDING_CHAR = '0'
-        private const val NO_STREAK = 0
-        private const val DAYS_IN_WEEK = 7
-        private const val ERROR_LOADING_DATA = "Failed to load home data"
-    }
 }
