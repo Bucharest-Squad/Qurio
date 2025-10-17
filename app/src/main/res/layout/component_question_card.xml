@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/questionCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/questionCardBackground"
+            style="@style/QuestionCardStyle"
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/questionText"
+            style="@style/Body.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="1dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="4"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/shade_primary"
+            app:layout_constraintBottom_toBottomOf="@id/questionCardBackground"
+            app:layout_constraintEnd_toEndOf="@id/questionCardBackground"
+            app:layout_constraintStart_toStartOf="@id/questionCardBackground"
+            app:layout_constraintTop_toTopOf="@id/questionCardBackground"
+            tools:text="Which of the following best explains how a country's physical geography can influence its level of economic development?" />
+
+        <com.bucharest.qurio.presentation.game.component.QuestionNumberCard
+            android:id="@+id/questionNumberCard"
+            android:layout_width="145dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="-16dp"
+            app:questionNumber="Q 1/12"
+            app:layout_constraintEnd_toEndOf="@id/questionCardBackground"
+            app:layout_constraintStart_toStartOf="@id/questionCardBackground"
+            app:layout_constraintTop_toTopOf="@id/questionCardBackground" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>
+
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/numberCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/numberCardBackground"
+            style="@style/QuestionCardStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/questionNumberText"
+            style="@style/Label.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/on_primary"
+            app:layout_constraintBottom_toBottomOf="@id/numberCardBackground"
+            app:layout_constraintEnd_toEndOf="@id/numberCardBackground"
+            app:layout_constraintStart_toStartOf="@id/numberCardBackground"
+            app:layout_constraintTop_toTopOf="@id/numberCardBackground"
+            tools:text="Q 1/12" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>
