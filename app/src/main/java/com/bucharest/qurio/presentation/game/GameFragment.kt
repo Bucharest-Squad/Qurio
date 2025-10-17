@@ -17,6 +17,7 @@ import com.bucharest.qurio.domain.entity.Question
 import com.bucharest.qurio.presentation.base.BaseFragment
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.game.adapter.AnswerAdapter
+import com.bucharest.qurio.presentation.utils.NetworkUtils
 import com.bucharest.qurio.presentation.utils.hide
 import com.bucharest.qurio.presentation.utils.show
 import javax.inject.Inject
@@ -39,6 +40,11 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         val categoryId = arguments?.getInt("categoryId", PresentationConstants.DEFAULT_CATEGORY_ID) ?: PresentationConstants.DEFAULT_CATEGORY_ID
         val difficulty = arguments?.getString("difficulty")?.let { Difficulty.valueOf(it) } ?: Difficulty.EASY
         val totalQuestions = arguments?.getInt("totalQuestions", PresentationConstants.DEFAULT_TOTAL_QUESTIONS) ?: PresentationConstants.DEFAULT_TOTAL_QUESTIONS
+        
+        if (!NetworkUtils.isConnectedToInternet(requireContext())) {
+            showError("No internet connection")
+            return
+        }
         
         presenter.loadCategoryAndStartGame(categoryId, difficulty, totalQuestions)
     }
@@ -78,8 +84,8 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
 
     override fun showQuestion(question: Question, questionNumber: String) {
         binding.gameLayout.visibility = View.VISIBLE
-        binding.loadingLayout.visibility = View.GONE
-        binding.errorLayout.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.GONE
+        binding.noConnectionLayout.root.visibility = View.GONE
 
         binding.questionCard.setQuestion(question.question)
         binding.questionCard.setQuestionNumber(questionNumber)
@@ -160,20 +166,25 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
     }
 
     override fun showLoading() {
-        binding.loadingLayout.show()
-        binding.errorLayout.hide()
-        binding.gameLayout.hide()
+        binding.loadingLayout.root.visibility = View.VISIBLE
+        binding.noConnectionLayout.root.visibility = View.GONE
+        binding.gameLayout.visibility = View.GONE
     }
 
     override fun hideLoading() {
-        binding.gameLayout.show()
-        binding.loadingLayout.hide()
-        binding.errorLayout.hide()
+        binding.gameLayout.visibility = View.VISIBLE
+        binding.loadingLayout.root.visibility = View.GONE
+        binding.noConnectionLayout.root.visibility = View.GONE
     }
 
     override fun showError(message: String) {
-        binding.errorLayout.show()
-        binding.gameLayout.hide()
-        binding.loadingLayout.hide()
+        binding.noConnectionLayout.root.visibility = View.VISIBLE
+        binding.gameLayout.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.GONE
+        
+        // Set up retry button
+        binding.noConnectionLayout.retryButton.setOnClickListener {
+            presenter.retryLoadingQuestions()
+        }
     }
 }

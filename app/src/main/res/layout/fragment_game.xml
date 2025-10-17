@@ -162,60 +162,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Loading State -->
-        <LinearLayout
+        <include
             android:id="@+id/loadingLayout"
+            layout="@layout/fragment_loading_state"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone" />
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminateTint="@color/primary" />
-
-            <TextView
-                style="@style/Body.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Loading questions..."
-                android:textColor="@color/surface" />
-        </LinearLayout>
-
-        <!-- Error State -->
-        <LinearLayout
-            android:id="@+id/errorLayout"
+        <!-- No Connection State -->
+        <include
+            android:id="@+id/noConnectionLayout"
+            layout="@layout/no_connection_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:contentDescription="Error"
-                android:src="@drawable/ic_points" />
-
-            <TextView
-                style="@style/Body.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Something went wrong"
-                android:textColor="@color/surface" />
-
-            <com.bucharest.qurio.presentation.game.component.PrimaryActionButton
-                android:id="@+id/retryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Retry" />
-        </LinearLayout>
+            android:visibility="gone" />
 
     </LinearLayout>
 </LinearLayout>

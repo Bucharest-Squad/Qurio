@@ -28,6 +28,7 @@ import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.HomeUiState
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
+import com.bucharest.qurio.presentation.utils.NetworkUtils
 import javax.inject.Inject
 
 class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(),
@@ -319,12 +320,27 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         }
     }
 
-    override fun showLoading() {}
+    override fun showLoading() {
+        binding.mainContent.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.VISIBLE
+        binding.noConnectionLayout.root.visibility = View.GONE
+    }
 
-    override fun hideLoading() {}
+    override fun hideLoading() {
+        binding.mainContent.visibility = View.VISIBLE
+        binding.loadingLayout.root.visibility = View.GONE
+        binding.noConnectionLayout.root.visibility = View.GONE
+    }
 
     override fun showError(message: String) {
-        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_SHORT).show()
+        binding.mainContent.visibility = View.GONE
+        binding.loadingLayout.root.visibility = View.GONE
+        binding.noConnectionLayout.root.visibility = View.VISIBLE
+        
+        // Set up retry button
+        binding.noConnectionLayout.retryButton.setOnClickListener {
+            presenter.loadHomeData()
+        }
     }
 
     override fun showMessage(message: String) {

@@ -66,6 +66,12 @@ class GamePresenter @Inject constructor(
         )
     }
 
+    fun retryLoadingQuestions() {
+        gameSession?.let { session ->
+            loadQuestions(session.category, session.difficulty)
+        }
+    }
+
     private fun startGame(category: Category, difficulty: Difficulty, totalQuestions: Int) {
         tryToExecute(
             execute = { 
@@ -78,12 +84,6 @@ class GamePresenter @Inject constructor(
             },
             onError = { error ->
                 view?.showError(error.message ?: PresentationConstants.ERROR_FINISH_GAME)
-            },
-            onStart = {
-                view?.showLoading()
-            },
-            onFinally = {
-                view?.hideLoading()
             }
         )
     }
@@ -144,6 +144,12 @@ class GamePresenter @Inject constructor(
             },
             onError = { error ->
                 tryFallbackQuestions(category, difficulty)
+            },
+            onStart = {
+                view?.showLoading()
+            },
+            onFinally = {
+                view?.hideLoading()
             }
         )
     }
@@ -186,6 +192,12 @@ class GamePresenter @Inject constructor(
             },
             onError = { error ->
                 tryFallbackWithDifficulty(category, difficulties, index + 1)
+            },
+            onStart = {
+                view?.showLoading()
+            },
+            onFinally = {
+                view?.hideLoading()
             }
         )
     }
@@ -378,7 +390,7 @@ class GamePresenter @Inject constructor(
                 gameRepository.finishGame(session.id, config)
             },
             onSuccess = { finalSession ->
-                view?.navigateBack()
+                view?.navigateToResult(finalSession)
             },
             onError = { error ->
                 view?.navigateBack()

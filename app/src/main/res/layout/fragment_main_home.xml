@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="false"
     android:background="@color/surface"
     android:fitsSystemWindows="true">
+
+<!-- Main Content -->
+<ScrollView
+    android:id="@+id/mainContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="false">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -100,3 +106,21 @@
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
+
+<!-- Loading State -->
+<include
+    android:id="@+id/loadingLayout"
+    layout="@layout/fragment_loading_state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone" />
+
+<!-- No Connection State -->
+<include
+    android:id="@+id/noConnectionLayout"
+    layout="@layout/no_connection_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone" />
+
+</FrameLayout>

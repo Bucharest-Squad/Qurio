@@ -18,6 +18,7 @@ import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
+import com.bucharest.qurio.presentation.utils.NetworkUtils
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.utils.DateUtils
@@ -146,6 +147,11 @@ class MainHomePresenter(
     }
 
     fun loadHomeData() {
+        if (!NetworkUtils.isConnectedToInternet(context)) {
+            executeIfViewAttached { showError("No internet connection") }
+            return
+        }
+        
         tryToExecute(
             execute = ::fetchAllHomeData,
             onSuccess = ::handleHomeDataSuccess,
