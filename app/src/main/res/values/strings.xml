@@ -62,4 +62,19 @@
     <string name="score">Score: %1$d</string>
     <string name="correct">Correct: %1$d</string>
     <string name="wrong">Wrong: %1$d</string>
+    
+    <!-- Result Screen -->
+    <string name="reward">Reward</string>
+    <string name="correct_label">Correct</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="skipped">Skipped</string>
+    <string name="coin_stack_icon">Coin stack icon</string>
+    <string name="blur_background">Blur background</string>
+    <string name="ribbon_image">Ribbon image</string>
+    <string name="star_icon">Star icon</string>
+    <string name="play_again_result">Play again</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="share_result">Share result</string>
+    <string name="share_win_with_friends">Share win with friends</string>
+    <string name="share_disappointment_with_friends">Share disappointment with friends</string>
 </resources>

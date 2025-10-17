@@ -26,7 +26,7 @@
             app:argType="integer" />
         <argument
             android:name="difficulty"
-            android:defaultValue="EASY"
+            android:defaultValue="MEDIUM"
             app:argType="string" />
         <argument
             android:name="totalQuestions"
@@ -42,9 +42,58 @@
         android:name="com.bucharest.qurio.presentation.result.ResultFragment"
         android:label="Result"
         tools:layout="@layout/fragment_result">
+        <argument
+            android:name="sessionId"
+            app:argType="integer" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="difficulty"
+            app:argType="string" />
+        <argument
+            android:name="totalQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="correctAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="wrongAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="skippedAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="starsEarned"
+            app:argType="integer" />
+        <argument
+            android:name="coinsEarned"
+            app:argType="integer" />
+        <argument
+            android:name="livesLost"
+            app:argType="integer" />
+        <argument
+            android:name="totalScore"
+            app:argType="integer" />
+        <argument
+            android:name="fastestAnswerSeconds"
+            app:argType="integer" />
         <action
             android:id="@+id/actionResultFragmentToGameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment">
+            <argument
+                android:name="categoryId"
+                app:argType="integer" />
+            <argument
+                android:name="difficulty"
+                app:argType="string" />
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer" />
+        </action>
     </fragment>
 
 </navigation>
