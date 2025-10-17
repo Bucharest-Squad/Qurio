@@ -78,7 +78,6 @@ object AchievementMapper {
         ACHIEVEMENT_ID_UNTOUCHABLE to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_untouchable, R.drawable.img_achievement_untouchable_outlined),
         ),
-        //need the right quick thinker outlined
         ACHIEVEMENT_ID_QUICK_THINKER to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_quick_thinker, R.drawable.img_achievement_untouchable_outlined),
         ),

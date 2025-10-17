@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Qurio</string>
+    <string name="no_games_played">No Games Played</string>
+    <string name="start_playing_to_see_games">Start playing games to see your history here</string>
 
     <string name="loading_game">Loading Game</string>
     <string name="category_title_geography">Geography</string>

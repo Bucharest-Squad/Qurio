@@ -105,6 +105,13 @@ class GameRepositoryImpl @Inject constructor(
             dto.toEntity(category)
         }
 
+    override suspend fun getAllSessions(): List<GameSession> =
+        gameSessionDao.getAll().map { dto ->
+            val category = categoryRepository.getCategoryById(dto.categoryId)
+                ?: throw IllegalStateException("Category not found")
+            dto.toEntity(category)
+        }
+
     override suspend fun getCategoryById(id: Int): Category? =
         categoryRepository.getCategoryById(id)
 

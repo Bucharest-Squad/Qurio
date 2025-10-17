@@ -5,7 +5,9 @@ import com.bucharest.qurio.data.seed.DataSeeder
 import com.bucharest.qurio.data.seed.SeedDataProvider
 import com.bucharest.qurio.di.AppComponent
 import com.bucharest.qurio.di.DaggerAppComponent
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class QurioApp: Application() {
@@ -26,8 +28,9 @@ class QurioApp: Application() {
             .build()
     }
     
+    @OptIn(DelicateCoroutinesApi::class)
     private fun seedDatabaseOnFirstLaunch() {
-        runBlocking(Dispatchers.IO) {
+        kotlinx.coroutines.GlobalScope.launch(Dispatchers.IO) {
             val database = appComponent.getDatabase()
             DataSeeder(database, SeedDataProvider()).seedIfEmpty()
         }

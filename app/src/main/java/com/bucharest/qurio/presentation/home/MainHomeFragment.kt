@@ -154,15 +154,12 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showUserStats(coins: Int, lives: Int, awards: Int) {
         with(binding.includeStatisticsSection) {
-            // Ensure coins don't go below 0
             val safeCoins = maxOf(0, coins)
             
-            // Format numbers with commas
             statisticsPointsCard.pointsCount.text = formatNumber(safeCoins)
             statisticsLivesCard.livesCount.text = formatNumber(lives)
             statisticsAwardsCard.awardsCount.text = formatNumber(awards)
             
-            // Hide crown icon when user has less than 10,000 coins
             statisticsPointsCard.icCrownImage.visibility = if (safeCoins < 10000) View.GONE else View.VISIBLE
         }
     }
@@ -276,7 +273,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToAllRecentGames() {
-        showMessage("View All Recent Games clicked - implement navigation")
+        val action = MainHomeFragmentDirections.actionMainHomeFragmentToLastGamesFragment()
+        findNavController().navigate(action)
     }
 
     override fun showSettingsDialog() {
@@ -337,7 +335,6 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         binding.loadingLayout.root.visibility = View.GONE
         binding.noConnectionLayout.root.visibility = View.VISIBLE
         
-        // Set up retry button
         binding.noConnectionLayout.retryButton.setOnClickListener {
             presenter.loadHomeData()
         }

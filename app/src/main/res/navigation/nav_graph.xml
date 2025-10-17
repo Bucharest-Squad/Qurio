@@ -13,6 +13,9 @@
         <action
             android:id="@+id/actionMainHomeFragmentToGameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/actionMainHomeFragmentToLastGamesFragment"
+            app:destination="@id/lastGamesFragment" />
     </fragment>
 
     <fragment
@@ -95,5 +98,11 @@
                 app:argType="integer" />
         </action>
     </fragment>
+
+    <fragment
+        android:id="@+id/lastGamesFragment"
+        android:name="com.bucharest.qurio.presentation.lastgames.LastGamesFragment"
+        android:label="Last Games"
+        tools:layout="@layout/fragment_last_games" />
 
 </navigation>

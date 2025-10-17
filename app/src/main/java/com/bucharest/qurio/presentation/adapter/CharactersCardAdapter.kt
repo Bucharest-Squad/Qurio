@@ -53,10 +53,7 @@ class CharactersCardAdapter
 
             root.setOnClickListener {
                 if (characterUiModel.id == selectedCharId && characterUiModel.isOwned) {
-                    //CharactersDialog(){}.show()
-
                     onCharacterCardDoubleClicked(characterUiModel)
-
                 }
                 if(characterUiModel.isOwned) {
                     selectedCharId = characterUiModel.id

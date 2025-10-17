@@ -182,7 +182,6 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         binding.gameLayout.visibility = View.GONE
         binding.loadingLayout.root.visibility = View.GONE
         
-        // Set up retry button
         binding.noConnectionLayout.retryButton.setOnClickListener {
             presenter.retryLoadingQuestions()
         }

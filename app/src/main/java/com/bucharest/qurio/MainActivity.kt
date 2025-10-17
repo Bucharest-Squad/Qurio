@@ -13,14 +13,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         val splashScreen = installSplashScreen()
 
+        // Dismiss splash screen immediately without waiting for data
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             splashScreenView.remove()
         }
-
-        super.onCreate(savedInstanceState)
         
         // Configure system bars to be transparent
         WindowCompat.setDecorFitsSystemWindows(window, false)

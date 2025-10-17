@@ -10,6 +10,7 @@ import com.bucharest.qurio.presentation.home.MainHomePresenter
 import com.bucharest.qurio.presentation.game.GamePresenter
 import com.bucharest.qurio.presentation.result.ResultPresenter
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelPresenter
+import com.bucharest.qurio.presentation.lastgames.LastGamesPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -44,5 +45,10 @@ object PresenterModule {
 
     @Provides
     fun provideDifficultyLevelPresenter(): DifficultyLevelPresenter = DifficultyLevelPresenter()
-//    ):  = MainHomePresenter(userRepository, gameRepository,characterRepository,achievementRepository,categoryRepository, context)
+
+    @Provides
+    fun provideLastGamesPresenter(
+        gameRepository: GameRepository,
+        context: Application
+    ): LastGamesPresenter = LastGamesPresenter(gameRepository, context)
 }
