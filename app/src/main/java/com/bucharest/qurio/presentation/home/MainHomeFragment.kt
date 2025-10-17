@@ -2,6 +2,7 @@ package com.bucharest.qurio.presentation.home
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -97,6 +98,9 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(false)
         }
+        
+        binding.includeLastGamesHeader.root.visibility = View.GONE
+        binding.lastGamesRecyclerView.visibility = View.GONE
     }
     
     private fun setupClickListeners() {
@@ -194,6 +198,14 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showRecentGames(games: List<GameSessionUiModel>) {
         lastGamesAdapter.submitList(games)
+        
+        if (games.isEmpty()) {
+            binding.includeLastGamesHeader.root.visibility = View.GONE
+            binding.lastGamesRecyclerView.visibility = View.GONE
+        } else {
+            binding.includeLastGamesHeader.root.visibility = View.VISIBLE
+            binding.lastGamesRecyclerView.visibility = View.VISIBLE
+        }
     }
 
     override fun navigateToCategoryGame(categoryId: Int) {
