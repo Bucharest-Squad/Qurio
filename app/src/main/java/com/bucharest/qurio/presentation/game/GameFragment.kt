@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentGameBinding
 import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Difficulty
@@ -64,12 +65,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
             presenter.onBackPressed()
         }
 
-        binding.retryButton.setOnClickListener {
-            val categoryId = arguments?.getInt("categoryId", PresentationConstants.DEFAULT_CATEGORY_ID) ?: PresentationConstants.DEFAULT_CATEGORY_ID
-            val difficulty = arguments?.getString("difficulty")?.let { Difficulty.valueOf(it) } ?: Difficulty.EASY
-            val totalQuestions = arguments?.getInt("totalQuestions", PresentationConstants.DEFAULT_TOTAL_QUESTIONS) ?: PresentationConstants.DEFAULT_TOTAL_QUESTIONS
-            presenter.loadCategoryAndStartGame(categoryId, difficulty, totalQuestions)
-        }
+        // Retry button removed - no longer needed
     }
 
     override fun onAttach(context: Context) {
@@ -139,11 +135,8 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         showMessage(PresentationConstants.MESSAGE_NO_LIVES_LEFT)
         binding.checkButton.hide()
         binding.skipButton.hide()
-        binding.retryButton.show()
-        binding.retryButton.setText("Return to Home")
-        binding.retryButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
+        // Navigate directly to home instead of showing retry button
+        findNavController().navigate(R.id.mainHomeFragment)
     }
 
     override fun navigateBack() {
@@ -151,7 +144,21 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
     }
 
     override fun navigateToResult(session: GameSession) {
-        val action = GameFragmentDirections.actionGameFragmentToResultFragment()
+        val action = GameFragmentDirections.actionGameFragmentToResultFragment(
+            sessionId = session.id,
+            categoryId = session.category.id,
+            categoryName = session.category.name,
+            difficulty = session.difficulty.name,
+            totalQuestions = session.totalQuestions,
+            correctAnswers = session.correctAnswers,
+            wrongAnswers = session.wrongAnswers,
+            skippedAnswers = session.skippedAnswers,
+            starsEarned = session.starsEarned,
+            coinsEarned = session.coinsEarned,
+            livesLost = session.livesLost,
+            totalScore = session.totalScore,
+            fastestAnswerSeconds = session.fastestAnswerSeconds ?: 0
+        )
         findNavController().navigate(action)
     }
 

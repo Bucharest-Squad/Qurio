@@ -53,7 +53,7 @@ class SecondaryActionButton @JvmOverloads constructor(
         binding.buttonContainer.background =
             ContextCompat.getDrawable(context, R.drawable.secondary_button_bg)
         binding.buttonText.setTextColor(
-            ContextCompat.getColorStateList(context, R.color.text_button_color)
+            ContextCompat.getColor(context, R.color.primary)
         )
     }
 
@@ -68,5 +68,6 @@ class SecondaryActionButton @JvmOverloads constructor(
 
     fun getText(): String = binding.buttonText.text.toString()
 }
+
 
 

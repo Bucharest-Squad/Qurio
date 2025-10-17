@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
@@ -108,6 +109,15 @@ class PrimaryActionButton @JvmOverloads constructor(
     }
 
     fun getText(): String = binding.buttonText.text.toString()
+
+    fun showIcon(show: Boolean) {
+        binding.buttonIcon.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    fun setIcon(iconResId: Int) {
+        binding.buttonIcon.setImageResource(iconResId)
+    }
 }
+
 
 
