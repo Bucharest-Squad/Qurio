@@ -22,6 +22,8 @@ import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.HomeUiState
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
 import com.bucharest.qurio.presentation.utils.configureCarousel
+import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
+import com.bucharest.qurio.domain.entity.Difficulty
 import javax.inject.Inject
 
 class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(),
@@ -209,9 +211,23 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToCategoryGame(categoryId: Int) {
+        showDifficultyDialog(categoryId)
+    }
+
+    private fun showDifficultyDialog(categoryId: Int) {
+        val dialog = DifficultyLevelFragment.newInstance(
+            categoryId = categoryId,
+            totalQuestions = PresentationConstants.DEFAULT_TOTAL_QUESTIONS
+        ) { difficulty ->
+            navigateToGameWithDifficulty(categoryId, difficulty)
+        }
+        dialog.show(childFragmentManager, "DifficultyLevelDialog")
+    }
+
+    private fun navigateToGameWithDifficulty(categoryId: Int, difficulty: Difficulty) {
         val action = MainHomeFragmentDirections.actionMainHomeFragmentToGameFragment(
             categoryId = categoryId,
-            difficulty = "EASY",
+            difficulty = difficulty.name,
             totalQuestions = PresentationConstants.DEFAULT_TOTAL_QUESTIONS
         )
         findNavController().navigate(action)
