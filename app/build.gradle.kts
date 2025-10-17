@@ -84,4 +84,7 @@ dependencies {
 
     // Kotlin DateTime
     implementation(libs.kotlinx.datetime)
+
+    //splash api
+    implementation(libs.androidx.core.splashscreen)
 }

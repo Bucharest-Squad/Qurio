@@ -12,7 +12,7 @@ interface CharacterDao {
     suspend fun getAll(): List<CharacterDto>
 
     @Query("SELECT * FROM `character` WHERE id = :id")
-    suspend fun getById(id: Int): CharacterDto?
+    suspend fun getById(id: Int): CharacterDto
 
     @Query("UPDATE `character` SET owned = :owned WHERE id = :id")
     suspend fun updateOwnership(id: Int, owned: Boolean)

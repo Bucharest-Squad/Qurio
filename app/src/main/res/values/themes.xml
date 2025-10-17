@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Qurio" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -21,6 +21,13 @@
     <style name="Theme.Qurio" parent="Base.Theme.Qurio" />
 
 
+
+    <style name="Theme.Qurio.SplashScreen" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.Qurio</item>
+        <item name="android:windowBackground">@color/surface</item>
+        <item name="windowSplashScreenBackground">@color/surface</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_logo_inset</item>
+    </style>
 
    <!--button region-->
 
