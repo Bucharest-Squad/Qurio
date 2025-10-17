@@ -6,7 +6,6 @@ import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
-import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.presentation.home.MainHomePresenter
 import com.bucharest.qurio.presentation.game.GamePresenter
 import com.bucharest.qurio.presentation.result.ResultPresenter
@@ -25,7 +24,14 @@ object PresenterModule {
         characterRepository: CharacterRepository,
         achievementRepository: AchievementRepository,
         context: Application
-    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository, characterRepository, achievementRepository, categoryRepository, context)
+    ): MainHomePresenter = MainHomePresenter(
+        userRepository,
+        gameRepository,
+        characterRepository,
+        achievementRepository,
+        categoryRepository,
+        context
+    )
 
     @Provides
     fun provideGamePresenter(
@@ -38,5 +44,5 @@ object PresenterModule {
 
     @Provides
     fun provideDifficultyLevelPresenter(): DifficultyLevelPresenter = DifficultyLevelPresenter()
-    ): MainHomePresenter = MainHomePresenter(userRepository, gameRepository,characterRepository,achievementRepository,categoryRepository, context)
+//    ):  = MainHomePresenter(userRepository, gameRepository,characterRepository,achievementRepository,categoryRepository, context)
 }

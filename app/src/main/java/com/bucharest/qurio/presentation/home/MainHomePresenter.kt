@@ -1,6 +1,7 @@
 package com.bucharest.qurio.presentation.home
 
 import android.content.Context
+import com.bucharest.qurio.R
 import com.bucharest.qurio.domain.entity.Achievement
 import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Character

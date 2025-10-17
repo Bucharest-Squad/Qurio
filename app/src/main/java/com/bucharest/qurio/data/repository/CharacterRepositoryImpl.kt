@@ -23,7 +23,7 @@ class CharacterRepositoryImpl @Inject constructor(
         characterDao.updateOwnership(characterId,true)
         val user=userDao.getUser()
         val character=characterDao.getById(characterId)
-        val updatedUser= user?.copy(coins = user.coins -character.price)
+        val updatedUser= user?.copy(coins = (user.coins - character.price).coerceAtLeast(0))
         if (updatedUser != null) {
             userDao.update(updatedUser)
         }

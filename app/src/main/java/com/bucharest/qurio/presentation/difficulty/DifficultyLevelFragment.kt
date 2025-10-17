@@ -68,7 +68,7 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         setupListeners()
-        binding.confirmButton.setButtonEnabled(false)
+        binding.confirmButton.isEnabled = false
     }
 
     private fun setupListeners() {
@@ -84,42 +84,42 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
             presenter.onCancelClicked()
         }
 
-        binding.difficultyButtons.easyButton.setOnClickListener {
-            binding.difficultyButtons.easyButton.isSelected = false
+        binding.easyButton.setOnClickListener {
+            binding.easyButton.isSelected = false
             presenter.onEasyClicked()
         }
 
-        binding.difficultyButtons.mediumButton.setOnClickListener {
-            binding.difficultyButtons.mediumButton.isSelected = false
+        binding.mediumButton.setOnClickListener {
+            binding.mediumButton.isSelected = false
             presenter.onMediumClicked()
         }
 
-        binding.difficultyButtons.hardButton.setOnClickListener {
-            binding.difficultyButtons.hardButton.isSelected = false
+        binding.hardButton.setOnClickListener {
+            binding.hardButton.isSelected = false
             presenter.onHardClicked()
         }
     }
 
     override fun onEasySelected() {
-        binding.difficultyButtons.easyButton.isSelected = true
-        binding.difficultyButtons.mediumButton.isSelected = false
-        binding.difficultyButtons.hardButton.isSelected = false
+        binding.easyButton.isSelected = true
+        binding.mediumButton.isSelected = false
+        binding.hardButton.isSelected = false
     }
 
     override fun onMediumSelected() {
-        binding.difficultyButtons.mediumButton.isSelected = true
-        binding.difficultyButtons.easyButton.isSelected = false
-        binding.difficultyButtons.hardButton.isSelected = false
+        binding.mediumButton.isSelected = true
+        binding.easyButton.isSelected = false
+        binding.hardButton.isSelected = false
     }
 
     override fun onHardSelected() {
-        binding.difficultyButtons.hardButton.isSelected = true
-        binding.difficultyButtons.easyButton.isSelected = false
-        binding.difficultyButtons.mediumButton.isSelected = false
+        binding.hardButton.isSelected = true
+        binding.easyButton.isSelected = false
+        binding.mediumButton.isSelected = false
     }
 
     override fun setConfirmButtonEnabled(enabled: Boolean) {
-        binding.confirmButton.setButtonEnabled(enabled)
+        binding.confirmButton.isEnabled = enabled
     }
 
     override fun onConfirmClicked(difficulty: Difficulty) {

@@ -119,7 +119,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(false)
         }
-        
+
         binding.includeLastGamesHeader.root.visibility = View.GONE
         binding.lastGamesRecyclerView.visibility = View.GONE
     }
@@ -153,10 +153,21 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showUserStats(coins: Int, lives: Int, awards: Int) {
         with(binding.includeStatisticsSection) {
-            statisticsPointsCard.pointsCount.text = coins.toString()
-            statisticsLivesCard.livesCount.text = lives.toString()
-            statisticsAwardsCard.awardsCount.text = awards.toString()
+            // Ensure coins don't go below 0
+            val safeCoins = maxOf(0, coins)
+            
+            // Format numbers with commas
+            statisticsPointsCard.pointsCount.text = formatNumber(safeCoins)
+            statisticsLivesCard.livesCount.text = formatNumber(lives)
+            statisticsAwardsCard.awardsCount.text = formatNumber(awards)
+            
+            // Hide crown icon when user has less than 10,000 coins
+            statisticsPointsCard.icCrownImage.visibility = if (safeCoins < 10000) View.GONE else View.VISIBLE
         }
+    }
+    
+    private fun formatNumber(number: Int): String {
+        return String.format("%,d", number)
     }
 
     override fun showStreak(currentStreak: Int, streakDays: List<StreakDayUiModel>) {
@@ -226,7 +237,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
 
     override fun showRecentGames(games: List<GameSessionUiModel>) {
         lastGamesAdapter.submitList(games)
-        
+
         if (games.isEmpty()) {
             binding.includeLastGamesHeader.root.visibility = View.GONE
             binding.lastGamesRecyclerView.visibility = View.GONE

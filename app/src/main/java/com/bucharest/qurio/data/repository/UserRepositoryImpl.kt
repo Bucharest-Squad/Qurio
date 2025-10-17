@@ -43,7 +43,7 @@ class UserRepositoryImpl @Inject constructor(
         
         return updateUser { 
             if (coins < price) throw NotEnoughCoinsException("Not enough coins")
-            copy(coins = coins - price)
+            copy(coins = (coins - price).coerceAtLeast(MIN_COINS))
         }.also {
             characterDao.updateOwnership(characterId, owned = true)
             achievementManager.evaluateAndUnlockAchievements()
@@ -123,7 +123,7 @@ class UserRepositoryImpl @Inject constructor(
         private const val MAX_LIVES = 100
         private const val MIN_LIVES = 0
         private const val INITIAL_COINS = 0
-        private const val MIN_COINS = -99999
+        private const val MIN_COINS = 0
         private const val MIN_PRICE = 0
         private const val DEFAULT_VOLUME = 1f
         private const val MIN_VOLUME = 0f

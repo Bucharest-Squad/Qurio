@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">كويريو</string>
+
+    <!-- Categories -->
     <string name="category_title_geography">الجغرافيا</string>
     <string name="category_title_science">العلوم</string>
     <string name="category_title_general_knowledge">المعرفة العامة</string>
@@ -11,6 +13,8 @@
     <string name="category_title_sport_leisure">الرياضة والترفيه</string>
     <string name="category_title_history">التاريخ</string>
     <string name="category_title_arts_literature">الفنون والآداب</string>
+
+    <!-- Statistics Cards -->
     <string name="statistics_awards_card_title">الجوائز</string>
     <string name="statistics_awards_card_icon_description">أيقونة الجوائز</string>
     <string name="statistics_awards_card_next_arrow_description">أيقونة السهم التالي</string>
@@ -20,11 +24,15 @@
     <string name="statistics_points_card_title">النقاط</string>
     <string name="statistics_points_card_icon_description">أيقونة النقاط</string>
     <string name="statistics_points_card_crown_icon_description">أيقونة التاج</string>
+
+    <!-- Result Screen -->
     <string name="result_great_job">عمل رائع</string>
     <string name="result_reward">المكافأة</string>
     <string name="result_label_correct">صحيح</string>
     <string name="result_label_incorrect">غير صحيح</string>
     <string name="result_label_skipped">تم تخطيه</string>
+
+    <!-- General -->
     <string name="welcome_qurio_explorer">مرحبًا أيها المستكشف في كويريو</string>
     <string name="character">الشخصية</string>
     <string name="settings">الإعدادات</string>
@@ -35,7 +43,7 @@
     <string name="coins">العملات</string>
     <string name="star">نجمة</string>
     <string name="clock">الساعة</string>
-    <string name="science_amp_natural">العلوم والطبيعة</string>
+    <string name="science_amp_natural"><![CDATA[العلوم والطبيعة]]></string>
     <string name="_100">-١٠٠</string>
     <string name="_2m_23sec">٢ دقيقة و٢٣ ثانية</string>
     <string name="_0">٠</string>
@@ -48,53 +56,6 @@
     <string name="streak_inactive_message">سلسلة 0 يوم، ابدأ كسلسلة</string>
     <string name="streak_description_active">استمر!</string>
     <string name="streak_description_inactive">كل يوم مهم!</string>
-
-    <!-- Game Screen -->
-    <string name="submit">إرسال</string>
-    <string name="check">تحقق</string>
-    <string name="skip">تخطي</string>
-    <string name="next">التالي</string>
-    <string name="retry">إعادة المحاولة</string>
-    <string name="play_again">العب مرة أخرى</string>
-    <string name="home">الرئيسية</string>
-    <string name="loading_questions">جاري تحميل الأسئلة...</string>
-    <string name="something_went_wrong">حدث خطأ ما</string>
-    <string name="game_complete">انتهت اللعبة!</string>
-    <string name="score">النقاط: %1$d</string>
-    <string name="correct">صحيح: %1$d</string>
-    <string name="wrong">خطأ: %1$d</string>
-
-    <!-- Result Screen -->
-    <string name="reward">المكافأة</string>
-    <string name="correct_label">صحيح</string>
-    <string name="incorrect">غير صحيح</string>
-    <string name="skipped">تم تخطيه</string>
-    <string name="coin_stack_icon">أيقونة كومة العملات</string>
-    <string name="blur_background">خلفية ضبابية</string>
-    <string name="ribbon_image">صورة الشريط</string>
-    <string name="star_icon">أيقونة النجمة</string>
-    <string name="play_again_result">العب مرة أخرى</string>
-    <string name="back_to_home">العودة للرئيسية</string>
-    <string name="share_result">مشاركة النتيجة</string>
-    <string name="share_win_with_friends">شارك الفوز مع الأصدقاء</string>
-    <string name="share_disappointment_with_friends">شارك خيبة الأمل مع الأصدقاء</string>
-
-    <!-- Difficulty Level Dialog -->
-    <string name="difficulty_level">مستوى الصعوبة</string>
-    <string name="confirm">تأكيد</string>
-    <string name="cancel">إلغاء</string>
-    <string name="no_connection">ا يوجد اتصال</string>
-    <string name="no_connection_description">عفوًا! يبدو أنك غير متصل بالإنترنت. يرجى التحقق من اتصالك بالإنترنت لمواصلة اللعب</string>
-    <string name="retry">إعادة المحاولة</string>
-<<<<<<< HEAD
-
-    <!-- Home Screen -->
-    <string name="games_section_title">الألعاب</string>
-    <string name="last_games_section_title">الألعاب الأخيرة</string>
-    <string name="streak_active_message">سلسلة %1$d يوم، اجعلها سلسلة كبيرة</string>
-    <string name="streak_inactive_message">سلسلة 0 يوم، ابدأ كسلسلة</string>
-    <string name="streak_description_active">استمر!</string>
-    <string name="streak_description_inactive">كل يوم مهم!</string>
     
     <!-- Game Screen -->
     <string name="submit">إرسال</string>
@@ -130,9 +91,8 @@
     <string name="difficulty_level">مستوى الصعوبة</string>
     <string name="confirm">تأكيد</string>
     <string name="cancel">إلغاء</string>
-=======
-    <string name="no_connection">ا يوجد اتصال</string>
-    <string name="no_connection_description">عفوًا! يبدو أنك غير متصل بالإنترنت. يرجى التحقق من اتصالك بالإنترنت لمواصلة اللعب</string>
-    <string name="retry">إعادة المحاولة</string>
->>>>>>> origin/develop
+
+    <!-- Network -->
+    <string name="no_connection">لا يوجد اتصال</string>
+    <string name="no_connection_message"><![CDATA[عفوًا! يبدو أنك غير متصل بالإنترنت. يرجى التحقق من اتصالك بالإنترنت لمواصلة اللعب]]></string>
 </resources>
