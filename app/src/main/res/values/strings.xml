@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Qurio</string>
 
-    <!-- Categories -->
+    <string name="loading_game">Loading Game</string>
     <string name="category_title_geography">Geography</string>
     <string name="category_title_science">Science</string>
     <string name="category_title_general_knowledge">General Knowledge</string>
@@ -13,8 +12,6 @@
     <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
     <string name="category_title_history">History</string>
     <string name="category_title_arts_literature">Arts &amp; Literature</string>
-
-    <!-- Statistics Cards -->
     <string name="statistics_awards_card_title">Awards</string>
     <string name="statistics_awards_card_icon_description">Awards icon</string>
     <string name="statistics_awards_card_next_arrow_description">Next arrow icon</string>
@@ -24,18 +21,14 @@
     <string name="statistics_points_card_title">Points</string>
     <string name="statistics_points_card_icon_description">Points icon</string>
     <string name="statistics_points_card_crown_icon_description">Crown icon</string>
-
-    <!-- Result Screen -->
     <string name="result_great_job">Great Job</string>
     <string name="result_reward">Reward</string>
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
-
-    <!-- General -->
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
-    <string name="character">character</string>
-    <string name="settings">settings</string>
+    <string name="character" translatable="false">character</string>
+    <string name="settings" translatable="false">settings</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
@@ -50,49 +43,13 @@
     <string name="date_shampe">date shampe</string>
 
     <!-- Home Screen -->
-    <string name="games_section_title">Games</string>
-    <string name="last_games_section_title">Last Games</string>
-    <string name="streak_active_message">%1$d day streak, make a big series</string>
-    <string name="streak_inactive_message">0 day streak, start as series</string>
-    <string name="streak_description_active">KEEP IT UP!</string>
-    <string name="streak_description_inactive">Every day count!</string>
-    
-    <!-- Game Screen -->
-    <string name="submit">Submit</string>
-    <string name="check">Check</string>
-    <string name="skip">Skip</string>
-    <string name="next">Next</string>
-    <string name="retry">Retry</string>
-    <string name="play_again">Play Again</string>
-    <string name="home">Home</string>
-    <string name="loading_questions">Loading questions...</string>
-    <string name="something_went_wrong">Something went wrong</string>
-    <string name="game_complete">Game Complete!</string>
-    <string name="score">Score: %1$d</string>
-    <string name="correct">Correct: %1$d</string>
-    <string name="wrong">Wrong: %1$d</string>
-    
-    <!-- Result Screen -->
-    <string name="reward">Reward</string>
-    <string name="correct_label">Correct</string>
-    <string name="incorrect">Incorrect</string>
-    <string name="skipped">Skipped</string>
-    <string name="coin_stack_icon">Coin stack icon</string>
-    <string name="blur_background">Blur background</string>
-    <string name="ribbon_image">Ribbon image</string>
-    <string name="star_icon">Star icon</string>
-    <string name="play_again_result">Play again</string>
-    <string name="back_to_home">Back to home</string>
-    <string name="share_result">Share result</string>
-    <string name="share_win_with_friends">Share win with friends</string>
-    <string name="share_disappointment_with_friends">Share disappointment with friends</string>
-    
-    <!-- Difficulty Level Dialog -->
-    <string name="difficulty_level">Difficulty Level</string>
-    <string name="confirm">Confirm</string>
-    <string name="cancel">Cancel</string>
+    <string name="games_section_title" translatable="false">Games</string>
+    <string name="last_games_section_title" translatable="false">Last Games</string>
+    <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
+    <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
+    <string name="streak_description" translatable="false">Every day count!</string>
 
-    <!-- Network -->
     <string name="no_connection">No Connection</string>
-    <string name="no_connection_message"><![CDATA[Oops! It looks like you\'re offline. Please check your internet connection to continue playing]]></string>
+    <string name="no_connection_description">Oops! It looks like you’re offline. Please check your internet connection to continue playing</string>
+    <string name="retry">Retry</string>
 </resources>

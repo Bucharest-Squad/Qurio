@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">كويريو</string>
 
-    <!-- Categories -->
+    <string name="loading_game">تحميل اللعبة</string>
     <string name="category_title_geography">الجغرافيا</string>
     <string name="category_title_science">العلوم</string>
     <string name="category_title_general_knowledge">المعرفة العامة</string>
@@ -56,7 +56,7 @@
     <string name="streak_inactive_message">سلسلة 0 يوم، ابدأ كسلسلة</string>
     <string name="streak_description_active">استمر!</string>
     <string name="streak_description_inactive">كل يوم مهم!</string>
-    
+
     <!-- Game Screen -->
     <string name="submit">إرسال</string>
     <string name="check">تحقق</string>
@@ -71,7 +71,7 @@
     <string name="score">النقاط: %1$d</string>
     <string name="correct">صحيح: %1$d</string>
     <string name="wrong">خطأ: %1$d</string>
-    
+
     <!-- Result Screen -->
     <string name="reward">المكافأة</string>
     <string name="correct_label">صحيح</string>
@@ -86,7 +86,7 @@
     <string name="share_result">مشاركة النتيجة</string>
     <string name="share_win_with_friends">شارك الفوز مع الأصدقاء</string>
     <string name="share_disappointment_with_friends">شارك خيبة الأمل مع الأصدقاء</string>
-    
+
     <!-- Difficulty Level Dialog -->
     <string name="difficulty_level">مستوى الصعوبة</string>
     <string name="confirm">تأكيد</string>
