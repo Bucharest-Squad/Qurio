@@ -161,7 +161,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         with(binding.includeStreakCard) {
             streakRecyclerView.adapter = StreakDayAdapter(streakUiStates)
             title.text = getStreakMessage(currentStreak)
-            description.text = getString(R.string.streak_description)
+            description.text = getStreakDescription(currentStreak)
         }
     }
 
@@ -172,6 +172,13 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
                 currentStreak
             )
             else -> getString(R.string.streak_inactive_message)
+        }
+    }
+
+    private fun getStreakDescription(currentStreak: Int): String {
+        return when {
+            currentStreak > PresentationConstants.MIN_ACTIVE_STREAK -> getString(R.string.streak_description_active)
+            else -> getString(R.string.streak_description_inactive)
         }
     }
 

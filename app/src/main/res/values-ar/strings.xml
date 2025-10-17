@@ -40,4 +40,47 @@
     <string name="_2m_23sec">٢ دقيقة و٢٣ ثانية</string>
     <string name="_0">٠</string>
     <string name="date_shampe">تاريخ تجريبي</string>
+
+    <!-- Home Screen -->
+    <string name="games_section_title">الألعاب</string>
+    <string name="last_games_section_title">الألعاب الأخيرة</string>
+    <string name="streak_active_message">سلسلة %1$d يوم، اجعلها سلسلة كبيرة</string>
+    <string name="streak_inactive_message">سلسلة 0 يوم، ابدأ كسلسلة</string>
+    <string name="streak_description_active">استمر!</string>
+    <string name="streak_description_inactive">كل يوم مهم!</string>
+    
+    <!-- Game Screen -->
+    <string name="submit">إرسال</string>
+    <string name="check">تحقق</string>
+    <string name="skip">تخطي</string>
+    <string name="next">التالي</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="play_again">العب مرة أخرى</string>
+    <string name="home">الرئيسية</string>
+    <string name="loading_questions">جاري تحميل الأسئلة...</string>
+    <string name="something_went_wrong">حدث خطأ ما</string>
+    <string name="game_complete">انتهت اللعبة!</string>
+    <string name="score">النقاط: %1$d</string>
+    <string name="correct">صحيح: %1$d</string>
+    <string name="wrong">خطأ: %1$d</string>
+    
+    <!-- Result Screen -->
+    <string name="reward">المكافأة</string>
+    <string name="correct_label">صحيح</string>
+    <string name="incorrect">غير صحيح</string>
+    <string name="skipped">تم تخطيه</string>
+    <string name="coin_stack_icon">أيقونة كومة العملات</string>
+    <string name="blur_background">خلفية ضبابية</string>
+    <string name="ribbon_image">صورة الشريط</string>
+    <string name="star_icon">أيقونة النجمة</string>
+    <string name="play_again_result">العب مرة أخرى</string>
+    <string name="back_to_home">العودة للرئيسية</string>
+    <string name="share_result">مشاركة النتيجة</string>
+    <string name="share_win_with_friends">شارك الفوز مع الأصدقاء</string>
+    <string name="share_disappointment_with_friends">شارك خيبة الأمل مع الأصدقاء</string>
+    
+    <!-- Difficulty Level Dialog -->
+    <string name="difficulty_level">مستوى الصعوبة</string>
+    <string name="confirm">تأكيد</string>
+    <string name="cancel">إلغاء</string>
 </resources>

@@ -127,7 +127,7 @@ class MainHomePresenter(
     }
     
     private fun displayStreak(user: User) {
-        val streakDays = generateStreakDays(user.currentDailyStreak)
+        val streakDays = generateStreakDaysWithOffset(user.currentDailyStreak, user.streakStartDate)
         executeIfViewAttached {
             showStreak(user.currentDailyStreak, streakDays)
         }
@@ -187,6 +187,34 @@ class MainHomePresenter(
         }
     }
     
+    private fun generateStreakDaysWithOffset(currentStreak: Int, streakStartDate: LocalDate?): List<StreakDayUiModel> {
+        val dayLabels = listOf("S", "M", "T", "W", "Th", "F", "S")
+        
+        val kotlinDayOrdinal = if (streakStartDate != null) {
+            streakStartDate.dayOfWeek.ordinal
+        } else {
+            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).dayOfWeek.ordinal
+        }
+        
+        val startDayOfWeek = when (kotlinDayOrdinal) {
+            0 -> 1
+            1 -> 2
+            2 -> 3
+            3 -> 4  
+            4 -> 5
+            5 -> 6
+            6 -> 0
+            else -> 0
+        }
+        
+        val result = dayLabels.mapIndexed { index, label ->
+            val isInStreak = isDayInStreakRange(index, startDayOfWeek, currentStreak)
+            StreakDayUiModel(label, isInStreak)
+        }
+        
+        return result
+    }
+    
     private fun isDayInStreak(dayIndex: Int, currentStreak: Int): Boolean {
         return when {
             currentStreak == PresentationConstants.NO_STREAK -> false
@@ -194,6 +222,18 @@ class MainHomePresenter(
             else -> dayIndex < currentStreak
         }
     }
+    
+    private fun isDayInStreakRange(dayIndex: Int, startDayOfWeek: Int, currentStreak: Int): Boolean {
+        return when {
+            currentStreak == PresentationConstants.NO_STREAK -> false
+            currentStreak >= PresentationConstants.DAYS_IN_WEEK -> true
+            else -> {
+                val daysFromStart = (dayIndex - startDayOfWeek + 7) % 7
+                daysFromStart < currentStreak
+            }
+        }
+    }
+    
 
     private data class HomeData(
         val user: User,
