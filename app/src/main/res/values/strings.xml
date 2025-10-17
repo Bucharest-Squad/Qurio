@@ -47,4 +47,19 @@
     <string name="streak_active_message" translatable="false">%1$d day streak, keep it up!</string>
     <string name="streak_inactive_message" translatable="false">0 day streak, start make a series</string>
     <string name="streak_description" translatable="false">Every day count!</string>
+    
+    <!-- Game Screen -->
+    <string name="submit">Submit</string>
+    <string name="check">Check</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="retry">Retry</string>
+    <string name="play_again">Play Again</string>
+    <string name="home">Home</string>
+    <string name="loading_questions">Loading questions...</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="game_complete">Game Complete!</string>
+    <string name="score">Score: %1$d</string>
+    <string name="correct">Correct: %1$d</string>
+    <string name="wrong">Wrong: %1$d</string>
 </resources>
