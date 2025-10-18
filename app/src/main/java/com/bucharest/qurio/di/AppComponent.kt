@@ -7,6 +7,7 @@ import com.bucharest.qurio.presentation.game.GameFragment
 import com.bucharest.qurio.presentation.result.ResultFragment
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
 import com.bucharest.qurio.presentation.lastgames.LastGamesFragment
+import com.bucharest.qurio.presentation.onboarding.OnBoardingFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -28,6 +29,7 @@ interface AppComponent {
     fun inject(fragment: ResultFragment)
     fun inject(fragment: DifficultyLevelFragment)
     fun inject(fragment: LastGamesFragment)
+    fun inject(fragment: OnBoardingFragment)
     
     fun getDatabase(): AppDatabase
 

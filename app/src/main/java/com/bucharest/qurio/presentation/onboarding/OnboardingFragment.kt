@@ -1,7 +1,9 @@
 package com.bucharest.qurio.presentation.onboarding
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.databinding.FragmentOnboardingBinding
 import com.bucharest.qurio.presentation.adapter.OnboardingAdapter
 import com.bucharest.qurio.presentation.base.BaseFragment
@@ -13,6 +15,11 @@ class OnBoardingFragment :
 
     @Inject
     override lateinit var presenter: OnBoardingPresenter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+    }
 
     override fun getViewBinding(
         inflater: LayoutInflater,

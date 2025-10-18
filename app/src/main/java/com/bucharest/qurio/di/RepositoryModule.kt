@@ -1,10 +1,5 @@
 package com.bucharest.qurio.di
 
-import android.app.Application
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import com.bucharest.qurio.data.repository.AchievementRepositoryImpl
 import com.bucharest.qurio.data.repository.CategoryRepositoryImpl
 import com.bucharest.qurio.data.repository.CharacterRepositoryImpl
@@ -21,10 +16,8 @@ import com.bucharest.qurio.domain.repository.UserPreferences
 import com.bucharest.qurio.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 @Module
 abstract class RepositoryModule {
 
