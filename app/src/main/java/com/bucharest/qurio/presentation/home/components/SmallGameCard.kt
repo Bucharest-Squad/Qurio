@@ -1,0 +1,61 @@
+package com.bucharest.qurio.presentation.home.components
+
+import android.content.Context
+import android.graphics.drawable.GradientDrawable
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.bucharest.qurio.databinding.ItemSmallGameCardBinding
+
+class SmallGameCard @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private val binding = ItemSmallGameCardBinding.inflate(LayoutInflater.from(context), this, true)
+
+    fun setState(
+        title: String,
+        @DrawableRes imageRes: Int,
+        startColor: Int,
+        endColor: Int,
+        onPlayButtonClickListener: () -> Unit
+    ) {
+        setTitle(title)
+        setImage(imageRes)
+        setGradientColors(startColor, endColor)
+        setOnPlayClickListener(onPlayButtonClickListener)
+    }
+
+    private fun setTitle(title: String) {
+        binding.categoryTitle.text = title
+    }
+
+    private fun setImage(@DrawableRes imageRes: Int) {
+        binding.categoryThumbnail.setImageResource(imageRes)
+    }
+
+    private fun setOnPlayClickListener(onPlayButtonClickListener: () -> Unit) {
+        binding.playButton.setOnClickListener {
+            onPlayButtonClickListener()
+        }
+    }
+
+    private fun setGradientColors(@ColorInt startColor: Int, @ColorInt endColor: Int) {
+        val gradient = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM,
+            intArrayOf(startColor, endColor)
+        ).apply {
+            cornerRadii = floatArrayOf(
+                0f, 0f, 0f, 0f,
+                8f.dp, 8f.dp, 8f.dp, 8f.dp
+            )
+        }
+        binding.gradientOverlay.background = gradient
+    }
+
+    private val Float.dp: Float get() = this * resources.displayMetrics.density
+}
