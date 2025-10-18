@@ -20,10 +20,11 @@ class CategoryCarouselAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselViewHolder {
         val gameCard = GameCard(parent.context)
-        gameCard.layoutParams = ViewGroup.LayoutParams(
+        val layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
+        gameCard.layoutParams = layoutParams
         return CarouselViewHolder(gameCard, onCategoryClicked)
     }
 

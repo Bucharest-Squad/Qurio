@@ -104,6 +104,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         orientation = ViewPager2.ORIENTATION_HORIZONTAL
         adapter = carouselAdapter
         offscreenPageLimit = CAROUSEL_OFFSCREEN_PAGE_LIMIT
+        clipToPadding = false
+        clipChildren = false
     }
 
     private fun ViewPager2.configureCarouselScrolling() {
