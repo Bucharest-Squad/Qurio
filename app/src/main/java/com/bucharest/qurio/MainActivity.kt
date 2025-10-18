@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     private fun disableSystemSoundEffects() {
         val systemAudioManager = getSystemService(AUDIO_SERVICE) as SystemAudioManager
         systemAudioManager.setStreamMute(SystemAudioManager.STREAM_SYSTEM, true)
-        window.decorView.setSoundEffectsEnabled(false)
+        window.decorView.isSoundEffectsEnabled = false
     }
     
     override fun onSupportNavigateUp(): Boolean {
