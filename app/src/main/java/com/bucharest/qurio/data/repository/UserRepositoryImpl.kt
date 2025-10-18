@@ -58,6 +58,7 @@ class UserRepositoryImpl @Inject constructor(
             )
         }
 
+
     internal suspend fun updateStreakAfterGamePlayed(): User {
         val today = now()
             .toLocalDateTime(currentSystemDefault())

@@ -13,7 +13,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
+    <View
+        android:id="@+id/edges_background"
+        android:layout_width="328dp"
+        android:layout_height="470dp"
+        android:background="@drawable/achievements_dialog_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <ImageView
         android:id="@+id/character_heading"
         android:layout_width="wrap_content"

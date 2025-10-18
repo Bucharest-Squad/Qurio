@@ -58,9 +58,6 @@
     <string name="skip">Skip</string>
     <string name="next">Next</string>
     <string name="retry">Retry</string>
-    <string name="buy_life">Buy Life</string>
-    <string name="buy">Buy</string>
-    <string name="cancel">Cancel</string>
 
     <string name="play_again">Play Again</string>
     <string name="home">Home</string>
@@ -93,9 +90,7 @@
 
     <string name="no_connection">No Connection</string>
     <string name="no_connection_message"><![CDATA[Oops! It looks like you\'re offline. Please check your internet connection to continue playing]]></string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="buy_life">Buy Life</string>
     <string name="buy">Buy</string>
-    <string name="cancel">Cancel</string>
 </resources>

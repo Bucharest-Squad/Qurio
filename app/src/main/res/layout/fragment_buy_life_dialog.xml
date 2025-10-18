@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="328dp"
-    android:layout_height="260dp"
+    android:layout_height="273dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
         android:id="@+id/edges_background"
         android:layout_width="328dp"
-        android:layout_height="250dp"
+        android:layout_height="260dp"
         android:background="@drawable/characters_dialog_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text=""
+            android:text="1"
             android:textColor="@color/on_primary"
-            tools:text="1" />
+             />
 
         <ImageView
             android:id="@+id/icon_life"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text=""
+            android:text="200 X"
             android:textColor="@color/on_primary"
             tools:text="200 X" />
 
@@ -74,7 +74,7 @@
         android:id="@+id/character_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/character_dialog_header"
+        android:src="@drawable/dialog_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -110,7 +110,7 @@
         android:layout_marginBottom="36dp"
         android:text="@string/buy"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/ok_button"
+        app:layout_constraintEnd_toStartOf="@id/cancel_button"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton

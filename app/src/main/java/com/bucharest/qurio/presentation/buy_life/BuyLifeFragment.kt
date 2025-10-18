@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.databinding.DifficultyLevelDialogBinding
+import com.bucharest.qurio.databinding.FragmentBuyLifeDialogBinding
 import com.bucharest.qurio.domain.entity.Difficulty
 import javax.inject.Inject
 
@@ -16,27 +17,18 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
 
     @Inject
     lateinit var presenter: BuyLifePresenter
-
-    private var _binding: DifficultyLevelDialogBinding? = null
+    private var _binding: FragmentBuyLifeDialogBinding? = null
     private val binding get() = _binding!!
 
-    private var onDifficultySelected: ((Difficulty) -> Unit)? = null
+    private var onBuyClicked: (() -> Unit)? = null
 
     companion object {
-        private const val ARG_CATEGORY_ID = "category_id"
-        private const val ARG_TOTAL_QUESTIONS = "total_questions"
 
         fun newInstance(
-            categoryId: Int,
-            totalQuestions: Int,
-            onDifficultySelected: (Difficulty) -> Unit
+            onBuyClicked: () -> Unit
         ): BuyLifeFragment {
             val fragment = BuyLifeFragment()
-            fragment.onDifficultySelected = onDifficultySelected
-            val args = Bundle()
-            args.putInt(ARG_CATEGORY_ID, categoryId)
-            args.putInt(ARG_TOTAL_QUESTIONS, totalQuestions)
-            fragment.arguments = args
+            fragment.onBuyClicked = onBuyClicked
             return fragment
         }
     }
@@ -59,7 +51,7 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DifficultyLevelDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentBuyLifeDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,11 +59,10 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         setupListeners()
-        binding.confirmButton.isEnabled = false
     }
 
     private fun setupListeners() {
-        binding.confirmButton.setOnClickListener {
+        binding.buyButton.setOnClickListener {
             presenter.onBuyClicked()
         }
 
@@ -85,9 +76,8 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
 
     }
 
-
     override fun onBuyClicked() {
-
+        onBuyClicked?.invoke()
         dismiss()
     }
 

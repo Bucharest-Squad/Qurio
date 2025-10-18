@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">كويريو</string>
+    <string name="no_games_played">لم تلعب بعد</string>
+    <string name="start_playing_to_see_games">ابدا اللعب لتري اخر العابك هنا </string>
 
     <string name="loading_game">تحميل اللعبة</string>
     <string name="category_title_geography">الجغرافيا</string>
@@ -92,6 +94,9 @@
     <string name="confirm">تأكيد</string>
     <string name="cancel">إلغاء</string>
 
+    <!-- Buy ;ife Dialog -->
+    <string name="buy_life">Buy Life</string>
+    <string name="buy">اشتري</string>
     <!-- Network -->
     <string name="no_connection">لا يوجد اتصال</string>
     <string name="no_connection_message"><![CDATA[عفوًا! يبدو أنك غير متصل بالإنترنت. يرجى التحقق من اتصالك بالإنترنت لمواصلة اللعب]]></string>

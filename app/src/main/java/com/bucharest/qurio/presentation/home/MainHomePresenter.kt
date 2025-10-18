@@ -15,7 +15,6 @@ import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementMapper
 import com.bucharest.qurio.presentation.base.BasePresenter
 import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
-import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
 import com.bucharest.qurio.presentation.utils.NetworkUtils
@@ -25,7 +24,6 @@ import com.bucharest.qurio.presentation.utils.DateUtils
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration.Companion.milliseconds
@@ -71,6 +69,11 @@ class MainHomePresenter(
             showSettingsDialog()
         }
     }
+    fun onBuyLifeClicked() {
+        executeIfViewAttached {
+            showPurchaseLivesDialog()
+        }
+    }
 
     fun updateCurrentCharacter(characterId: Int) {
         tryToExecute(
@@ -82,9 +85,18 @@ class MainHomePresenter(
         )
     }
 
-    fun onBuyClicked(characterId: Int) {
+    fun onBuyCharacterClicked(characterId: Int) {
         tryToExecute(
             execute = { characterRepository.unlockCharacter(characterId) },
+            onSuccess = { onRefresh() },
+            onError = ::handleHomeDataError,
+            onStart = { executeIfViewAttached { showLoading() } },
+            onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+    }
+    fun onBuyLife() {
+        tryToExecute(
+            execute = { userRepository.updateLives(1) },
             onSuccess = { onRefresh() },
             onError = ::handleHomeDataError,
             onStart = { executeIfViewAttached { showLoading() } },

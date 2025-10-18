@@ -20,6 +20,7 @@ import com.bucharest.qurio.presentation.component.CharactersDialog
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
 import com.bucharest.qurio.domain.entity.Difficulty
+import com.bucharest.qurio.presentation.buy_life.BuyLifeFragment
 import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
 import com.bucharest.qurio.presentation.home.adapter.LastGamesAdapter
 import com.bucharest.qurio.presentation.home.adapter.StreakDayAdapter
@@ -28,7 +29,6 @@ import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 import com.bucharest.qurio.presentation.home.state.GameSessionUiModel
 import com.bucharest.qurio.presentation.home.state.HomeUiState
 import com.bucharest.qurio.presentation.home.state.StreakDayUiModel
-import com.bucharest.qurio.presentation.utils.NetworkUtils
 import javax.inject.Inject
 
 class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, MainHomePresenter>(),
@@ -292,13 +292,16 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
                 presenter.updateCurrentCharacter(it)
             },
             onBuyButtonClicked = {
-                presenter.onBuyClicked(it)
+                presenter.onBuyCharacterClicked(it)
             },
         ).show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
     override fun showPurchaseLivesDialog() {
-        showMessage("Purchase Lives Dialog - implement lives purchase")
+        val dialog = BuyLifeFragment.newInstance(
+            onBuyClicked = presenter::onBuyLife
+        )
+        dialog.show(childFragmentManager, "DifficultyLevelDialog")
     }
 
     override fun showAchievementsDialog(

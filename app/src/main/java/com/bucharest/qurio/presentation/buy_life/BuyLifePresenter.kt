@@ -7,14 +7,11 @@ import javax.inject.Inject
 class BuyLifePresenter @Inject constructor() : BasePresenter<BuyLifeView>() {
 
 
-
-
     fun onBuyClicked() {
         executeIfViewAttached {
-            onConfirmClicked(difficulty)
+            onBuyClicked()
         }
     }
-
     fun onCancelClicked() {
         executeIfViewAttached {
             onCancelClicked()
