@@ -1,9 +1,13 @@
 <resources>
+    <!-- APP INFO -->
     <string name="app_name">Qurio</string>
+
+    <!-- GAME STATES -->
     <string name="no_games_played">No Games Played</string>
     <string name="start_playing_to_see_games">Start playing games to see your history here</string>
-
     <string name="loading_game">Loading Game</string>
+
+    <!-- CATEGORIES -->
     <string name="category_title_geography">Geography</string>
     <string name="category_title_science">Science</string>
     <string name="category_title_general_knowledge">General Knowledge</string>
@@ -14,6 +18,8 @@
     <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
     <string name="category_title_history">History</string>
     <string name="category_title_arts_literature">Arts &amp; Literature</string>
+
+    <!-- STATISTICS CARDS -->
     <string name="statistics_awards_card_title">Awards</string>
     <string name="statistics_awards_card_icon_description">Awards icon</string>
     <string name="statistics_awards_card_next_arrow_description">Next arrow icon</string>
@@ -23,14 +29,18 @@
     <string name="statistics_points_card_title">Points</string>
     <string name="statistics_points_card_icon_description">Points icon</string>
     <string name="statistics_points_card_crown_icon_description">Crown icon</string>
+
+    <!-- RESULT SCREEN -->
     <string name="result_great_job">Great Job</string>
     <string name="result_reward">Reward</string>
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
+
+    <!-- GENERAL UI -->
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
-    <string name="character" translatable="false">character</string>
-    <string name="settings" translatable="false">settings</string>
+    <string name="character">character</string>
+    <string name="settings">settings</string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
@@ -44,7 +54,7 @@
     <string name="_0">0</string>
     <string name="date_shampe">date shampe</string>
 
-    <!-- Home Screen -->
+    <!-- HOME SCREEN -->
     <string name="games_section_title">Games</string>
     <string name="last_games_section_title">Last Games</string>
     <string name="streak_active_message">%1$d day streak, make a big series</string>
@@ -52,7 +62,7 @@
     <string name="streak_description_active">KEEP IT UP!</string>
     <string name="streak_description_inactive">Every day count!</string>
 
-    <!-- Game Screen -->
+    <!-- GAME SCREEN -->
     <string name="submit">Submit</string>
     <string name="check">Check</string>
     <string name="skip">Skip</string>
@@ -67,7 +77,7 @@
     <string name="correct">Correct: %1$d</string>
     <string name="wrong">Wrong: %1$d</string>
 
-    <!-- Result Screen -->
+    <!-- RESULT SCREEN (CONTINUED) -->
     <string name="reward">Reward</string>
     <string name="correct_label">Correct</string>
     <string name="incorrect">Incorrect</string>
@@ -82,13 +92,26 @@
     <string name="share_win_with_friends">Share win with friends</string>
     <string name="share_disappointment_with_friends">Share disappointment with friends</string>
 
-    <!-- Difficulty Level Dialog -->
+    <!-- DIALOGS -->
     <string name="difficulty_level">Difficulty Level</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
 
+    <!-- NETWORK -->
     <string name="no_connection">No Connection</string>
     <string name="no_connection_message"><![CDATA[Oops! It looks like you\'re offline. Please check your internet connection to continue playing]]></string>
+
+    <!-- SETTINGS DIALOG -->
+    <string name="discarded">discarded</string>
+    <string name="settings_saved">settings saved</string>
+    <string name="close">Close</string>
+    <string name="music">Music</string>
+    <string name="sound">Sound</string>
+    <string name="sound_setting">Sound</string>
+    <string name="save_changes">Save changes</string>
+    <string name="discard">Discard</string>
+    <string name="settings_dialog">Settings</string>
+    <string name="dialog">dialog</string>
 
     <!-- Onboarding -->
     <string name="onboarding_title_1">Welcome to Qurio</string>

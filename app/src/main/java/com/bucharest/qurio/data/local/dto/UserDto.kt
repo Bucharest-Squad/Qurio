@@ -21,12 +21,6 @@ data class UserDto(
     @ColumnInfo(name = "lives") 
     val lives: Int,
     
-    @ColumnInfo(name = "music_volume") 
-    val musicVolume: Float,
-    
-    @ColumnInfo(name = "effects_volume") 
-    val effectsVolume: Float,
-    
     @ColumnInfo(name = "last_played_epoch_day") 
     val lastPlayedEpochDay: Long?,
     

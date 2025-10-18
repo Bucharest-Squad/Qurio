@@ -1,6 +1,7 @@
 package com.bucharest.qurio.di
 
 import android.app.Application
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
@@ -26,6 +27,7 @@ object PresenterModule {
         categoryRepository: CategoryRepository,
         characterRepository: CharacterRepository,
         achievementRepository: AchievementRepository,
+        audioManager: AudioManager,
         context: Application
     ): MainHomePresenter = MainHomePresenter(
         userRepository,
@@ -33,17 +35,19 @@ object PresenterModule {
         characterRepository,
         achievementRepository,
         categoryRepository,
+        audioManager,
         context
     )
 
     @Provides
     fun provideGamePresenter(
         gameRepository: GameRepository,
-        userRepository: UserRepository
-    ): GamePresenter = GamePresenter(gameRepository, userRepository)
+        userRepository: UserRepository,
+        audioManager: AudioManager
+    ): GamePresenter = GamePresenter(gameRepository, userRepository, audioManager)
 
     @Provides
-    fun provideResultPresenter(): ResultPresenter = ResultPresenter()
+    fun provideResultPresenter(audioManager: AudioManager): ResultPresenter = ResultPresenter(audioManager)
 
     @Provides
     fun provideDifficultyLevelPresenter(): DifficultyLevelPresenter = DifficultyLevelPresenter()

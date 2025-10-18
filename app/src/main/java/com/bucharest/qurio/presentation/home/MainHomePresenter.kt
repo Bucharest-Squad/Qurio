@@ -7,6 +7,7 @@ import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.User
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
@@ -36,6 +37,7 @@ class MainHomePresenter(
     private val characterRepository: CharacterRepository,
     private val achievementRepository: AchievementRepository,
     private val categoryRepository: CategoryRepository,
+    private val audioManager: AudioManager,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
 
@@ -49,30 +51,35 @@ class MainHomePresenter(
     }
     
     fun onCategoryClicked(categoryId: Int) {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToCategoryGame(categoryId)
         }
     }
 
     fun onViewAllClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToAllGames()
         }
     }
     
     fun onViewAllRecentGamesClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToAllRecentGames()
         }
     }
     
     fun onSettingsClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             showSettingsDialog()
         }
     }
 
     fun updateCurrentCharacter(characterId: Int) {
+        audioManager.playCharacterSelect()
         tryToExecute(
             execute = { userRepository.setActiveCharacter(characterId) },
             onSuccess = { onRefresh() },
@@ -83,6 +90,7 @@ class MainHomePresenter(
     }
 
     fun onBuyClicked(characterId: Int) {
+        audioManager.playButtonPress()
         tryToExecute(
             execute = { characterRepository.unlockCharacter(characterId) },
             onSuccess = { onRefresh() },
@@ -93,6 +101,7 @@ class MainHomePresenter(
     }
 
     fun onCharacterClicked() {
+        audioManager.playButtonPress()
         tryToExecute(
             execute = { userRepository.getUser().currentCharacterId },
             onSuccess = ::setCurrentCharacter,
@@ -117,12 +126,14 @@ class MainHomePresenter(
     }
     
     fun onPurchaseLivesClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             showPurchaseLivesDialog()
         }
     }
     
     fun onAchievementsClicked() {
+        audioManager.playButtonPress()
         tryToExecute(
             execute = { achievementRepository.getAllAchievements() },
             onSuccess = { achievements ->
@@ -141,6 +152,7 @@ class MainHomePresenter(
     }
     
     fun onLastGameClicked(game: GameSessionUiModel) {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             showMessage("Game: ${game.categoryName} - ${game.score} pts")
         }

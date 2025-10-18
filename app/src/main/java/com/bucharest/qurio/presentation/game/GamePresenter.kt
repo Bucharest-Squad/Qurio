@@ -1,6 +1,7 @@
 package com.bucharest.qurio.presentation.game
 
 import android.os.CountDownTimer
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.entity.*
 import com.bucharest.qurio.domain.model.AnswerSubmission
 import com.bucharest.qurio.domain.model.GameConfig
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 class GamePresenter @Inject constructor(
     private val gameRepository: GameRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val audioManager: AudioManager
 ) : BasePresenter<GameView>() {
 
     private var gameSession: GameSession? = null
@@ -24,6 +26,7 @@ class GamePresenter @Inject constructor(
     private var selectedAnswerIndex: Int? = null
     private var countDownTimer: CountDownTimer? = null
     private var questionChecked = false
+    private var timerSoundPlayed = false
     
     private val questionTimeMillis = PresentationConstants.DEFAULT_QUESTION_TIME_MILLIS
     private var currentScore = 0
@@ -210,6 +213,10 @@ class GamePresenter @Inject constructor(
 
         questionChecked = false
         selectedAnswerIndex = null
+        timerSoundPlayed = false
+        
+        audioManager.performMaintenance()
+        
         val question = questions[currentQuestionIndex]
         
         currentAnswers = mutableListOf<String>().apply {
@@ -236,6 +243,13 @@ class GamePresenter @Inject constructor(
                 val secondsLeft = millisUntilFinished / 1000
                 val progress = millisUntilFinished.toFloat() / questionTimeMillis
                 view?.updateTimer(secondsLeft, progress)
+                
+                // Play timer sound only once per question when it starts
+                if (!questionChecked && !timerSoundPlayed && secondsLeft > 0) {
+                    android.util.Log.d("GamePresenter", "Playing timer sound for the first time")
+                    audioManager.playTimerTick()
+                    timerSoundPlayed = true
+                }
             }
 
             override fun onFinish() {
@@ -271,11 +285,16 @@ class GamePresenter @Inject constructor(
             view?.showScoreIndicator(isCorrect)
             questionChecked = true
             countDownTimer?.cancel()
+            
+            // Stop timer sound when user checks answer
+            audioManager.stopTimerSound()
 
             if (isCorrect) {
+                audioManager.playCorrectAnswer()
                 currentScore += PresentationConstants.DEFAULT_SCORE_POINTS
                 view?.updateScore(currentScore)
             } else {
+                audioManager.playWrongAnswer()
                 currentLives--
                 view?.updateLivesCount(currentLives)
             }
@@ -283,6 +302,7 @@ class GamePresenter @Inject constructor(
             submitAnswer(selectedAnswer, isCorrect)
             
             if (currentLives <= 0) {
+                audioManager.playGameOver()
                 view?.showNoLivesLeft()
                 finishGame()
                 return
@@ -293,8 +313,12 @@ class GamePresenter @Inject constructor(
     }
 
     fun onSkipButtonClicked() {
+        audioManager.playButtonPress()
         if (!questionChecked) {
             countDownTimer?.cancel()
+            
+            audioManager.stopTimerSound()
+            
             currentLives--
             view?.updateLivesCount(currentLives)
             
@@ -317,6 +341,9 @@ class GamePresenter @Inject constructor(
 
     private fun handleTimeUp() {
         if (!questionChecked) {
+            // Stop timer sound when time runs out
+            audioManager.stopTimerSound()
+            
             currentLives--
             view?.updateLivesCount(currentLives)
             
@@ -361,6 +388,8 @@ class GamePresenter @Inject constructor(
     private fun finishGame() {
         val session = gameSession ?: return
         
+        audioManager.stopTimerSound()
+        
         tryToExecute(
             execute = {
                 val config = GameConfig.default()
@@ -383,6 +412,8 @@ class GamePresenter @Inject constructor(
     
     private fun finishGameAndGoBack() {
         val session = gameSession ?: return
+        
+        audioManager.stopTimerSound()
         
         tryToExecute(
             execute = {

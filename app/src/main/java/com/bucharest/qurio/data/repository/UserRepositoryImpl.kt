@@ -50,13 +50,6 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateVolume(musicVolume: Float, effectsVolume: Float): User = 
-        updateUser {
-            copy(
-                musicVolume = musicVolume.coerceIn(MIN_VOLUME, MAX_VOLUME),
-                effectsVolume = effectsVolume.coerceIn(MIN_VOLUME, MAX_VOLUME)
-            )
-        }
 
     internal suspend fun updateStreakAfterGamePlayed(): User {
         val today = now()
@@ -82,8 +75,6 @@ class UserRepositoryImpl @Inject constructor(
             currentCharacterId = DEFAULT_CHARACTER_ID,
             coins = INITIAL_COINS,
             lives = DEFAULT_LIVES,
-            musicVolume = DEFAULT_VOLUME,
-            effectsVolume = DEFAULT_VOLUME,
             lastPlayedEpochDay = null,
             currentDailyStreak = INITIAL_STREAK,
             streakStartEpochDay = null
@@ -125,9 +116,6 @@ class UserRepositoryImpl @Inject constructor(
         private const val INITIAL_COINS = 0
         private const val MIN_COINS = 0
         private const val MIN_PRICE = 0
-        private const val DEFAULT_VOLUME = 1f
-        private const val MIN_VOLUME = 0f
-        private const val MAX_VOLUME = 1f
         private const val STREAK_RESET_VALUE = 1
         private const val INITIAL_STREAK = 0
         private const val DEFAULT_WEEK_MAX_STREAK = 7

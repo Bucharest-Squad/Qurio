@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.FragmentLastGamesBinding
 import com.bucharest.qurio.presentation.base.BaseFragment
 import com.bucharest.qurio.presentation.home.adapter.LastGamesAdapter
@@ -20,6 +21,9 @@ class LastGamesFragment : BaseFragment<FragmentLastGamesBinding, LastGamesView, 
 
     @Inject
     override lateinit var presenter: LastGamesPresenter
+
+    @Inject
+    lateinit var audioManager: AudioManager
 
     private val gamesAdapter by lazy {
         LastGamesAdapter { game ->
@@ -50,6 +54,7 @@ class LastGamesFragment : BaseFragment<FragmentLastGamesBinding, LastGamesView, 
 
     private fun setupTopBar() {
         binding.topBar.button.setOnClickListener {
+            audioManager.playButtonPress()
             findNavController().navigateUp()
         }
         binding.topBar.numberOfLife.visibility = View.GONE
