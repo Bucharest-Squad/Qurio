@@ -52,9 +52,27 @@ class MainHomePresenter(
     
     fun onCategoryClicked(categoryId: Int) {
         audioManager.playButtonPress()
-        executeIfViewAttached {
-            navigateToCategoryGame(categoryId)
-        }
+        checkLivesAndNavigate(categoryId)
+    }
+    
+    private fun checkLivesAndNavigate(categoryId: Int) {
+        tryToExecute(
+            execute = { userRepository.getUser().lives },
+            onSuccess = { lives ->
+                executeIfViewAttached {
+                    if (lives > 0) {
+                        navigateToCategoryGame(categoryId)
+                    } else {
+                        showPurchaseLivesDialog()
+                    }
+                }
+            },
+            onError = { 
+                executeIfViewAttached {
+                    showError("Failed to check user lives")
+                }
+            }
+        )
     }
 
     fun onViewAllClicked() {

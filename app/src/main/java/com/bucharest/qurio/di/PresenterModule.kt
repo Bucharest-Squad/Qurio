@@ -49,7 +49,10 @@ object PresenterModule {
     ): GamePresenter = GamePresenter(gameRepository, userRepository, audioManager)
 
     @Provides
-    fun provideResultPresenter(audioManager: AudioManager): ResultPresenter = ResultPresenter(audioManager)
+    fun provideResultPresenter(
+        audioManager: AudioManager,
+        userRepository: UserRepository
+    ): ResultPresenter = ResultPresenter(audioManager, userRepository)
 
     @Provides
     fun provideDifficultyLevelPresenter(): DifficultyLevelPresenter = DifficultyLevelPresenter()
@@ -68,8 +71,9 @@ object PresenterModule {
     @Provides
     fun provideGamesPresenter(
         categoryRepository: CategoryRepository,
+        userRepository: UserRepository,
         context: Application
-    ): GamesPresenter = GamesPresenter(categoryRepository, context)
+    ): GamesPresenter = GamesPresenter(categoryRepository, userRepository, context)
 
     @Provides
     fun provideOnBoardingPresenter(

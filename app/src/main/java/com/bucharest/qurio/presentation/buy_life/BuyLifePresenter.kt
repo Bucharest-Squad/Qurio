@@ -38,7 +38,6 @@ class BuyLifePresenter @Inject constructor(
                 executeIfViewAttached {
                     val canBuy = coins >= LIFE_COST
                     updateBuyButtonState(canBuy)
-                    // Don't show error message, just disable the button
                 }
             },
             onError = { throwable ->

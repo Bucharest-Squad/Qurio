@@ -303,8 +303,7 @@ class GamePresenter @Inject constructor(
             
             if (currentLives <= 0) {
                 audioManager.playGameOver()
-                view?.showNoLivesLeft()
-                finishGame()
+                view?.showBuyLifeDialog()
                 return
             }
         } else {
@@ -323,6 +322,35 @@ class GamePresenter @Inject constructor(
             
             nextQuestion()
         }
+    }
+
+    fun onBuyLifeSuccess() {
+        // User bought a life, actually purchase it and continue playing
+        tryToExecute(
+            execute = { 
+                val user = userRepository.getUser()
+                if (user.coins < 200) {
+                    throw Exception("Not enough coins! You need 200 coins to buy a life.")
+                }
+                userRepository.updateCoins(-200) // Deduct coins first
+                userRepository.updateLives(1) // Then add life
+            },
+            onSuccess = { 
+                currentLives = 1 // Give them 1 life to continue
+                view?.updateLivesCount(currentLives)
+                nextQuestion()
+            },
+            onError = { throwable ->
+                // If purchase failed, finish the game
+                view?.showError(throwable.message ?: "Failed to buy life")
+                finishGame()
+            }
+        )
+    }
+
+    fun onBuyLifeCancelled() {
+        // User cancelled buying life, finish the game
+        finishGame()
     }
 
     private fun nextQuestion() {
@@ -359,8 +387,7 @@ class GamePresenter @Inject constructor(
                 
                 if (currentLives <= 0) {
                     audioManager.playGameOver()
-                    view?.showNoLivesLeft()
-                    finishGame()
+                    view?.showBuyLifeDialog()
                     return
                 }
             } else {

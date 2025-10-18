@@ -108,6 +108,10 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultView, ResultPre
         binding.btnShare.setIcon(R.drawable.ic_share)
     }
 
+    override fun hidePlayAgainButton() {
+        binding.btnPlayAgain.visibility = View.GONE
+    }
+
     override fun showShareDialog() {
         val shareText = "I just scored ${args.correctAnswers}/${args.totalQuestions} in Qurio! " +
                 "Earned ${args.starsEarned} stars and ${args.coinsEarned} coins! 🎯"

@@ -17,18 +17,26 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
 
     @Inject
     lateinit var presenter: BuyLifePresenter
+    
+    @Inject
+    lateinit var audioManager: com.bucharest.qurio.audio.AudioManager
+    
     private var _binding: FragmentBuyLifeDialogBinding? = null
     private val binding get() = _binding!!
 
     private var onBuyClicked: (() -> Unit)? = null
+    private var onCancelClicked: (() -> Unit)? = null
+    private var isExplicitlyCancelled = false
 
     companion object {
 
         fun newInstance(
-            onBuyClicked: () -> Unit
+            onBuyClicked: () -> Unit,
+            onCancelClicked: (() -> Unit)? = null
         ): BuyLifeFragment {
             val fragment = BuyLifeFragment()
             fragment.onBuyClicked = onBuyClicked
+            fragment.onCancelClicked = onCancelClicked
             return fragment
         }
     }
@@ -62,21 +70,26 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         setupListeners()
-        // Initialize button as disabled until we load user data
         setBuyButtonEnabled(false)
         presenter.loadUserCoins()
     }
 
     private fun setupListeners() {
         binding.btnBuy.setOnClickListener {
-            presenter.onBuyClicked()
+            // Only allow click if button is enabled
+            if (binding.btnBuy.isEnabled) {
+                audioManager.playButtonPress()
+                presenter.onBuyClicked()
+            }
         }
 
         binding.btnCancel.setOnClickListener {
+            audioManager.playButtonPress()
             presenter.onCancelClicked()
         }
 
         binding.closeShape.setOnClickListener {
+            audioManager.playButtonPress()
             presenter.onCancelClicked()
         }
 
@@ -88,14 +101,24 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
     }
 
     override fun onCancelClicked() {
+        isExplicitlyCancelled = true
+        onCancelClicked?.invoke()
         dismiss()
+    }
+
+    override fun onDismiss(dialog: android.content.DialogInterface) {
+        super.onDismiss(dialog)
+        // If dialog is dismissed without explicit cancel, trigger cancel callback
+        if (!isExplicitlyCancelled) {
+            onCancelClicked?.invoke()
+        }
     }
 
     override fun setBuyButtonEnabled(enabled: Boolean) {
         binding.btnBuy.isEnabled = enabled
         binding.btnBuy.alpha = if (enabled) 1.0f else 0.5f
-        // Keep the same "Buy" text regardless of enabled state
         binding.btnBuy.text = getString(R.string.buy)
+        binding.btnBuy.invalidate()
     }
 
     override fun onDestroyView() {
@@ -107,7 +130,6 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
     override fun showLoading() {}
     override fun hideLoading() {}
     override fun showError(message: String) {
-        // Show error message to user - keep button text as "Buy" but disable it
         binding.btnBuy.isEnabled = false
         binding.btnBuy.alpha = 0.5f
         binding.btnBuy.text = getString(R.string.buy)

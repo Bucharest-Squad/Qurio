@@ -2,10 +2,12 @@ package com.bucharest.qurio.presentation.result
 
 import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.entity.GameSession
+import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.base.BasePresenter
 
 class ResultPresenter(
-    private val audioManager: AudioManager
+    private val audioManager: AudioManager,
+    private val userRepository: UserRepository
 ) : BasePresenter<ResultView>() {
 
     private var gameSession: GameSession? = null
@@ -33,7 +35,29 @@ class ResultPresenter(
                 audioManager.playGameOver()
                 showLoseState()
             }
+            
+            // Check if user has lives to play again
+            checkUserLives()
         }
+    }
+    
+    private fun checkUserLives() {
+        tryToExecute(
+            execute = { userRepository.getUser().lives },
+            onSuccess = { lives ->
+                executeIfViewAttached {
+                    if (lives <= 0) {
+                        hidePlayAgainButton()
+                    }
+                }
+            },
+            onError = { 
+                // If we can't get user data, hide the button to be safe
+                executeIfViewAttached {
+                    hidePlayAgainButton()
+                }
+            }
+        )
     }
 
     fun onPlayAgainClicked() {

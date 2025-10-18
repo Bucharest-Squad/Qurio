@@ -13,6 +13,7 @@ interface ResultView : BaseView {
     fun showWinState()
     fun showLoseState()
     fun showShareDialog()
+    fun hidePlayAgainButton()
     fun navigateToHome()
     fun navigateToGame(categoryId: Int, difficulty: String, totalQuestions: Int)
 }

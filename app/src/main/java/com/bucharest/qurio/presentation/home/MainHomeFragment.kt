@@ -298,7 +298,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
                 presenter.updateCurrentCharacter(it)
             },
             onBuyButtonClicked = {
-                presenter.onBuyCharacterClicked(it)
+                presenter.onBuyClicked(it)
             },
             onRefreshRequested = {
                 presenter.refreshCharacterData()
