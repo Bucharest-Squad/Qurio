@@ -341,18 +341,47 @@ class GamePresenter @Inject constructor(
 
     private fun handleTimeUp() {
         if (!questionChecked) {
-            // Stop timer sound when time runs out
             audioManager.stopTimerSound()
             
-            currentLives--
-            view?.updateLivesCount(currentLives)
-            
-            submitAnswer("", false)
-            
-            if (currentLives <= 0) {
-                view?.showNoLivesLeft()
-                finishGame()
-                return
+            if (selectedAnswerIndex != null) {
+                val question = questions[currentQuestionIndex]
+                val selectedAnswer = currentAnswers[selectedAnswerIndex!!]
+                val correctAnswer = question.answers.find { it.isCorrect }?.text ?: ""
+                
+                val isCorrect = selectedAnswer == correctAnswer
+                
+                view?.highlightAnswers(correctAnswer, selectedAnswerIndex!!)
+                view?.showScoreIndicator(isCorrect)
+                questionChecked = true
+                
+                if (isCorrect) {
+                    audioManager.playCorrectAnswer()
+                    currentScore += PresentationConstants.DEFAULT_SCORE_POINTS
+                    view?.updateScore(currentScore)
+                } else {
+                    audioManager.playWrongAnswer()
+                    currentLives--
+                    view?.updateLivesCount(currentLives)
+                }
+
+                submitAnswer(selectedAnswer, isCorrect)
+                
+                if (currentLives <= 0) {
+                    audioManager.playGameOver()
+                    view?.showNoLivesLeft()
+                    finishGame()
+                    return
+                }
+            } else {
+                currentLives--
+                view?.updateLivesCount(currentLives)
+                submitAnswer("", false)
+                
+                if (currentLives <= 0) {
+                    view?.showNoLivesLeft()
+                    finishGame()
+                    return
+                }
             }
             
             nextQuestion()
