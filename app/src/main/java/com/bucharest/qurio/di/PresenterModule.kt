@@ -1,17 +1,21 @@
 package com.bucharest.qurio.di
 
 import android.app.Application
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.UserRepository
+import com.bucharest.qurio.domain.repository.UserPreferences
 import com.bucharest.qurio.presentation.home.MainHomePresenter
 import com.bucharest.qurio.presentation.game.GamePresenter
 import com.bucharest.qurio.presentation.result.ResultPresenter
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelPresenter
 import com.bucharest.qurio.presentation.lastgames.LastGamesPresenter
 import com.bucharest.qurio.presentation.buy_life.BuyLifePresenter
+import com.bucharest.qurio.presentation.games.GamesPresenter
+import com.bucharest.qurio.presentation.onboarding.OnBoardingPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -25,6 +29,7 @@ object PresenterModule {
         categoryRepository: CategoryRepository,
         characterRepository: CharacterRepository,
         achievementRepository: AchievementRepository,
+        audioManager: AudioManager,
         context: Application
     ): MainHomePresenter = MainHomePresenter(
         userRepository,
@@ -32,17 +37,19 @@ object PresenterModule {
         characterRepository,
         achievementRepository,
         categoryRepository,
+        audioManager,
         context
     )
 
     @Provides
     fun provideGamePresenter(
         gameRepository: GameRepository,
-        userRepository: UserRepository
-    ): GamePresenter = GamePresenter(gameRepository, userRepository)
+        userRepository: UserRepository,
+        audioManager: AudioManager
+    ): GamePresenter = GamePresenter(gameRepository, userRepository, audioManager)
 
     @Provides
-    fun provideResultPresenter(): ResultPresenter = ResultPresenter()
+    fun provideResultPresenter(audioManager: AudioManager): ResultPresenter = ResultPresenter(audioManager)
 
     @Provides
     fun provideDifficultyLevelPresenter(): DifficultyLevelPresenter = DifficultyLevelPresenter()
@@ -57,4 +64,15 @@ object PresenterModule {
     fun provideBuyLifePresenter(
         userRepository: UserRepository
     ): BuyLifePresenter = BuyLifePresenter(userRepository)
+
+    @Provides
+    fun provideGamesPresenter(
+        categoryRepository: CategoryRepository,
+        context: Application
+    ): GamesPresenter = GamesPresenter(categoryRepository, context)
+
+    @Provides
+    fun provideOnBoardingPresenter(
+        userPreferences: UserPreferences
+    ): OnBoardingPresenter = OnBoardingPresenter(userPreferences)
 }

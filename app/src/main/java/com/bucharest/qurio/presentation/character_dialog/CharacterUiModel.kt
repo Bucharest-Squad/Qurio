@@ -8,4 +8,6 @@ data class CharacterUiModel(
     val characterAge: String,
     val imageRes: Pair<Int,Int>,
     val isOwned: Boolean,
+    val canAfford: Boolean = false,
+    val userCoins: Int = 0
 )

@@ -9,22 +9,32 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.CharactersDialogBinding
 import com.bucharest.qurio.presentation.adapter.CharactersCardAdapter
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import javax.inject.Inject
 
 class CharactersDialog(
     private val currentCharacterId: Int,
     private val charactersUiModel: List<CharacterUiModel>,
     private val onConfirmButtonClicked: (Int) -> Unit,
-    private val onBuyButtonClicked: (Int) -> Unit
+    private val onBuyButtonClicked: (Int) -> Unit,
+    private val onRefreshRequested: (() -> Unit)? = null
 ) : DialogFragment() {
 
+    @Inject
+    lateinit var audioManager: AudioManager
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = CharactersDialogBinding.inflate(layoutInflater)
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        
+        binding = CharactersDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = com.bucharest.qurio.R.style.DialogAnimation
 
 
         dialog.setOnKeyListener { _, keyCode, event ->
@@ -40,18 +50,17 @@ class CharactersDialog(
             selectedCharId = currentCharacterId,
             onCharacterCardClicked = { id ->
                 binding.confirmButton.setOnClickListener {
+                    audioManager.playButtonPress()
                     onConfirmButtonClicked(id)
                     dismiss()
                 }
             },
             onCharacterCardDoubleClicked = { character ->
-                dialog.hide()
                 CharacterDetailsDialog(
                     characterUiModel = character,
-                    onOkButtonClicked = { dialog.show() },
+                    onOkButtonClicked = { },
                     onBuyButtonClicked = {
                         onBuyButtonClicked(it)
-                        dialog.show()
                     }
                 ).show(childFragmentManager, "CharacterDetailsDialog")
             },
@@ -62,8 +71,14 @@ class CharactersDialog(
             characterList.layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.HORIZONTAL, false)
             adapter.submitList(charactersUiModel)
 
-            cancelButton.setOnClickListener { dismiss() }
-            closeButton.setOnClickListener { dismiss() }
+            cancelButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
+            closeButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
         }
 
         dialog.setContentView(binding.root)
@@ -72,5 +87,13 @@ class CharactersDialog(
         dialog.window?.setLayout((328 * density).toInt(), (314 * density).toInt())
 
         return dialog
+    }
+    
+    private lateinit var binding: CharactersDialogBinding
+    
+    fun refreshCharacterList(newCharacters: List<CharacterUiModel>) {
+        if (::binding.isInitialized) {
+            (binding.characterList.adapter as? CharactersCardAdapter)?.submitList(newCharacters)
+        }
     }
 }

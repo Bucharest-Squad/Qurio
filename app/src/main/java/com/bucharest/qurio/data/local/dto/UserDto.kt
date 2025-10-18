@@ -3,6 +3,8 @@ package com.bucharest.qurio.data.local.dto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @Entity(tableName = "user")
 data class UserDto(
@@ -18,12 +20,6 @@ data class UserDto(
     
     @ColumnInfo(name = "lives") 
     val lives: Int,
-    
-    @ColumnInfo(name = "music_volume") 
-    val musicVolume: Float,
-    
-    @ColumnInfo(name = "effects_volume") 
-    val effectsVolume: Float,
     
     @ColumnInfo(name = "last_played_epoch_day") 
     val lastPlayedEpochDay: Long?,

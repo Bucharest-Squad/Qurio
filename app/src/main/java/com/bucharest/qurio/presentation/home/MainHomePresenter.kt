@@ -7,6 +7,7 @@ import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.User
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
 import com.bucharest.qurio.domain.repository.CharacterRepository
@@ -15,6 +16,7 @@ import com.bucharest.qurio.domain.repository.UserRepository
 import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementMapper
 import com.bucharest.qurio.presentation.base.BasePresenter
 import com.bucharest.qurio.presentation.character_dialog.CharacterMapper
+import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.home.mapper.CategoryMapper
 import com.bucharest.qurio.presentation.utils.NetworkUtils
@@ -24,6 +26,7 @@ import com.bucharest.qurio.presentation.utils.DateUtils
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration.Companion.milliseconds
@@ -34,6 +37,7 @@ class MainHomePresenter(
     private val characterRepository: CharacterRepository,
     private val achievementRepository: AchievementRepository,
     private val categoryRepository: CategoryRepository,
+    private val audioManager: AudioManager,
     private val context: Context
 ) : BasePresenter<MainHomeView>() {
 
@@ -47,53 +51,152 @@ class MainHomePresenter(
     }
     
     fun onCategoryClicked(categoryId: Int) {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToCategoryGame(categoryId)
         }
     }
 
     fun onViewAllClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToAllGames()
         }
     }
     
     fun onViewAllRecentGamesClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToAllRecentGames()
         }
     }
     
     fun onSettingsClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             showSettingsDialog()
         }
     }
+
     fun onBuyLifeClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             showPurchaseLivesDialog()
         }
     }
 
     fun updateCurrentCharacter(characterId: Int) {
+        audioManager.playCharacterSelect()
         tryToExecute(
             execute = { userRepository.setActiveCharacter(characterId) },
-            onSuccess = { onRefresh() },
+            onSuccess = { 
+                loadHomeDataWithoutLoading()
+            },
             onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
+            onStart = { },
+            onFinally = { }
         )
     }
 
-    fun onBuyCharacterClicked(characterId: Int) {
+    fun onBuyClicked(characterId: Int) {
+        audioManager.playButtonPress()
         tryToExecute(
             execute = { characterRepository.unlockCharacter(characterId) },
-            onSuccess = { onRefresh() },
-            onError = ::handleHomeDataError,
+            onSuccess = { 
+                loadHomeDataWithoutLoading()
+                refreshCharacterData()
+            },
+            onError = { error ->
+                executeIfViewAttached { 
+                    showError("Purchase failed: ${error.message}")
+                }
+            },
             onStart = { executeIfViewAttached { showLoading() } },
             onFinally = { executeIfViewAttached { hideLoading() } }
         )
     }
+    
+    fun refreshCharacterData() {
+        tryToExecute(
+            execute = { 
+                val characters = characterRepository.getAllCharacters()
+                val user = userRepository.getUser()
+                Pair(characters, user.coins)
+            },
+            onSuccess = { (characters, userCoins) ->
+                executeIfViewAttached {
+                    refreshCharacterSelectionDialog(characters.map { CharacterMapper.mapCharacterToUiState(it, userCoins) })
+                }
+            },
+            onError = ::handleHomeDataError,
+            onStart = { },
+            onFinally = { }
+        )
+    }
+
+    fun onCharacterClicked() {
+        audioManager.playButtonPress()
+        tryToExecute(
+            execute = { userRepository.getUser().currentCharacterId },
+            onSuccess = ::setCurrentCharacter,
+            onError = ::handleHomeDataError,
+            onStart = { },
+            onFinally = { }
+        )
+    }
+
+    fun setCurrentCharacter(id: Int) {
+        tryToExecute(
+            execute = { 
+                val characters = characterRepository.getAllCharacters()
+                val user = userRepository.getUser()
+                Pair(characters, user.coins)
+            },
+            onSuccess = { (characters, userCoins) ->
+                executeIfViewAttached {
+                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it, userCoins) })
+                }
+            },
+            onError = ::handleHomeDataError,
+            onStart = { },
+            onFinally = { }
+        )
+    }
+    
+    fun onPurchaseLivesClicked() {
+        audioManager.playButtonPress()
+        executeIfViewAttached {
+            showPurchaseLivesDialog()
+        }
+    }
+    
+    fun onAchievementsClicked() {
+        audioManager.playButtonPress()
+        tryToExecute(
+            execute = { achievementRepository.getAllAchievements() },
+            onSuccess = { achievements ->
+                executeIfViewAttached {
+                    showAchievementsDialog(
+                        achievements.map {
+                            AchievementMapper.mapAchievementToUiModel(it, context)
+                        }
+                    )
+                }
+            },
+            onError = {},
+            onStart = {},
+            onFinally = {}
+        )
+    }
+    
+    fun onLastGameClicked(game: GameSessionUiModel) {
+        audioManager.playButtonPress()
+        executeIfViewAttached {
+            showMessage("Game: ${game.categoryName} - ${game.score} pts")
+        }
+    }
+
+    // Your custom onBuyLife method for the buy life dialog
     fun onBuyLife() {
         tryToExecute(
             execute = { 
@@ -117,60 +220,6 @@ class MainHomePresenter(
         )
     }
 
-    fun onCharacterClicked() {
-        tryToExecute(
-            execute = { userRepository.getUser().currentCharacterId },
-            onSuccess = ::setCurrentCharacter,
-            onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
-        )
-    }
-
-    fun setCurrentCharacter(id: Int) {
-        tryToExecute(
-            execute = { characterRepository.getAllCharacters() },
-            onSuccess = { characters ->
-                executeIfViewAttached {
-                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it) })
-                }
-            },
-            onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
-        )
-    }
-    
-    fun onPurchaseLivesClicked() {
-        executeIfViewAttached {
-            showPurchaseLivesDialog()
-        }
-    }
-    
-    fun onAchievementsClicked() {
-        tryToExecute(
-            execute = { achievementRepository.getAllAchievements() },
-            onSuccess = { achievements ->
-                executeIfViewAttached {
-                    showAchievementsDialog(
-                        achievements.map {
-                            AchievementMapper.mapAchievementToUiModel(it, context)
-                        }
-                    )
-                }
-            },
-            onError = {},
-            onStart = {},
-            onFinally = {}
-        )
-    }
-    
-    fun onLastGameClicked(game: GameSessionUiModel) {
-        executeIfViewAttached {
-            showMessage("Game: ${game.categoryName} - ${game.score} pts")
-        }
-    }
-
     fun loadHomeData() {
         if (!NetworkUtils.isConnectedToInternet(context)) {
             executeIfViewAttached { showError("No internet connection") }
@@ -186,6 +235,21 @@ class MainHomePresenter(
         )
     }
     
+    private fun loadHomeDataWithoutLoading() {
+        if (!NetworkUtils.isConnectedToInternet(context)) {
+            executeIfViewAttached { showError("No internet connection") }
+            return
+        }
+        
+        tryToExecute(
+            execute = ::fetchAllHomeData,
+            onSuccess = ::handleHomeDataSuccess,
+            onError = ::handleHomeDataError,
+            onStart = { },
+            onFinally = { }
+        )
+    }
+    
     private suspend fun fetchAllHomeData(): HomeData {
         val user = userRepository.getUser()
         val categories = categoryRepository.getAllCategories().shuffled()
@@ -198,7 +262,7 @@ class MainHomePresenter(
     
     private fun handleHomeDataSuccess(homeData: HomeData) {
         executeIfViewAttached {
-            displayCurrentCharacter(homeData.currentCharacter)
+            displayCurrentCharacter(homeData.currentCharacter, homeData.user.coins)
             displayUserStats(homeData.user, homeData.achievements)
             displayStreak(homeData.user)
             displayCategories(homeData.categories)
@@ -222,6 +286,7 @@ class MainHomePresenter(
         }
     }
 
+    // Your custom method for updating only user stats (to avoid blinking)
     private fun loadUserStatsOnly() {
         tryToExecute(
             execute = {
@@ -240,8 +305,8 @@ class MainHomePresenter(
         )
     }
 
-    private fun displayCurrentCharacter(character: Character) {
-        val characterUiModel = CharacterMapper.mapCharacterToUiState(character)
+    private fun displayCurrentCharacter(character: Character, userCoins: Int) {
+        val characterUiModel = CharacterMapper.mapCharacterToUiState(character, userCoins)
         executeIfViewAttached {
             showCurrentCharacter(characterUiModel)
         }

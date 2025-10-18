@@ -34,6 +34,9 @@ abstract class BaseFragment<VB : ViewBinding, V : BaseView, P : BasePresenter<V>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        view.isSoundEffectsEnabled = false
+        
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as V)
         initViews()

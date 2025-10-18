@@ -18,6 +18,7 @@ import com.bucharest.qurio.presentation.base.BaseFragment
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.component.CharactersDialog
 import com.bucharest.qurio.presentation.constants.PresentationConstants
+import com.bucharest.qurio.presentation.settings.SettingsDialog
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
 import com.bucharest.qurio.domain.entity.Difficulty
 import com.bucharest.qurio.presentation.buy_life.BuyLifeFragment
@@ -48,6 +49,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             presenter.onLastGameClicked(game)
         }
     }
+    
+    private var characterDialog: CharactersDialog? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,6 +106,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         orientation = ViewPager2.ORIENTATION_HORIZONTAL
         adapter = carouselAdapter
         offscreenPageLimit = CAROUSEL_OFFSCREEN_PAGE_LIMIT
+        clipToPadding = false
+        clipChildren = false
     }
 
     private fun ViewPager2.configureCarouselScrolling() {
@@ -269,7 +274,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToAllGames() {
-        showMessage("View All Games clicked - implement navigation")
+        val action = MainHomeFragmentDirections.actionMainHomeFragmentToGamesFragment()
+        findNavController().navigate(action)
     }
 
     override fun navigateToAllRecentGames() {
@@ -278,14 +284,14 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun showSettingsDialog() {
-        showMessage("Settings Dialog - implement settings screen")
+        SettingsDialog().show(parentFragmentManager, "SettingsDialog")
     }
 
     override fun showCharacterSelectionDialog(
         currentCharacterId: Int,
         charactersUiModel: List<CharacterUiModel>
     ) {
-        CharactersDialog(
+        characterDialog = CharactersDialog(
             currentCharacterId = currentCharacterId,
             charactersUiModel = charactersUiModel,
             onConfirmButtonClicked = {
@@ -294,7 +300,11 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             onBuyButtonClicked = {
                 presenter.onBuyCharacterClicked(it)
             },
-        ).show(parentFragmentManager, "showCharacterSelectionDialog")
+            onRefreshRequested = {
+                presenter.refreshCharacterData()
+            }
+        )
+        characterDialog?.show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
     override fun showPurchaseLivesDialog() {
@@ -319,6 +329,10 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             )
             textCharacterName.text = characterUiModel.characterName
         }
+    }
+    
+    override fun refreshCharacterSelectionDialog(charactersUiModel: List<CharacterUiModel>) {
+        characterDialog?.refreshCharacterList(charactersUiModel)
     }
 
     override fun showLoading() {

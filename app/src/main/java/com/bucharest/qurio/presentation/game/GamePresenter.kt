@@ -1,6 +1,7 @@
 package com.bucharest.qurio.presentation.game
 
 import android.os.CountDownTimer
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.entity.*
 import com.bucharest.qurio.domain.model.AnswerSubmission
 import com.bucharest.qurio.domain.model.GameConfig
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 class GamePresenter @Inject constructor(
     private val gameRepository: GameRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val audioManager: AudioManager
 ) : BasePresenter<GameView>() {
 
     private var gameSession: GameSession? = null
@@ -24,6 +26,7 @@ class GamePresenter @Inject constructor(
     private var selectedAnswerIndex: Int? = null
     private var countDownTimer: CountDownTimer? = null
     private var questionChecked = false
+    private var timerSoundPlayed = false
     
     private val questionTimeMillis = PresentationConstants.DEFAULT_QUESTION_TIME_MILLIS
     private var currentScore = 0
@@ -210,6 +213,10 @@ class GamePresenter @Inject constructor(
 
         questionChecked = false
         selectedAnswerIndex = null
+        timerSoundPlayed = false
+        
+        audioManager.performMaintenance()
+        
         val question = questions[currentQuestionIndex]
         
         currentAnswers = mutableListOf<String>().apply {
@@ -236,6 +243,13 @@ class GamePresenter @Inject constructor(
                 val secondsLeft = millisUntilFinished / 1000
                 val progress = millisUntilFinished.toFloat() / questionTimeMillis
                 view?.updateTimer(secondsLeft, progress)
+                
+                // Play timer sound only once per question when it starts
+                if (!questionChecked && !timerSoundPlayed && secondsLeft > 0) {
+                    android.util.Log.d("GamePresenter", "Playing timer sound for the first time")
+                    audioManager.playTimerTick()
+                    timerSoundPlayed = true
+                }
             }
 
             override fun onFinish() {
@@ -271,11 +285,16 @@ class GamePresenter @Inject constructor(
             view?.showScoreIndicator(isCorrect)
             questionChecked = true
             countDownTimer?.cancel()
+            
+            // Stop timer sound when user checks answer
+            audioManager.stopTimerSound()
 
             if (isCorrect) {
+                audioManager.playCorrectAnswer()
                 currentScore += PresentationConstants.DEFAULT_SCORE_POINTS
                 view?.updateScore(currentScore)
             } else {
+                audioManager.playWrongAnswer()
                 currentLives--
                 view?.updateLivesCount(currentLives)
             }
@@ -283,6 +302,7 @@ class GamePresenter @Inject constructor(
             submitAnswer(selectedAnswer, isCorrect)
             
             if (currentLives <= 0) {
+                audioManager.playGameOver()
                 view?.showNoLivesLeft()
                 finishGame()
                 return
@@ -293,18 +313,13 @@ class GamePresenter @Inject constructor(
     }
 
     fun onSkipButtonClicked() {
+        audioManager.playButtonPress()
         if (!questionChecked) {
             countDownTimer?.cancel()
-            currentLives--
-            view?.updateLivesCount(currentLives)
             
-            submitAnswer("", false)
+            audioManager.stopTimerSound()
             
-            if (currentLives <= 0) {
-                view?.showNoLivesLeft()
-                finishGame()
-                return
-            }
+            submitSkippedAnswer()
             
             nextQuestion()
         }
@@ -317,15 +332,39 @@ class GamePresenter @Inject constructor(
 
     private fun handleTimeUp() {
         if (!questionChecked) {
-            currentLives--
-            view?.updateLivesCount(currentLives)
+            audioManager.stopTimerSound()
             
-            submitAnswer("", false)
-            
-            if (currentLives <= 0) {
-                view?.showNoLivesLeft()
-                finishGame()
-                return
+            if (selectedAnswerIndex != null) {
+                val question = questions[currentQuestionIndex]
+                val selectedAnswer = currentAnswers[selectedAnswerIndex!!]
+                val correctAnswer = question.answers.find { it.isCorrect }?.text ?: ""
+                
+                val isCorrect = selectedAnswer == correctAnswer
+                
+                view?.highlightAnswers(correctAnswer, selectedAnswerIndex!!)
+                view?.showScoreIndicator(isCorrect)
+                questionChecked = true
+                
+                if (isCorrect) {
+                    audioManager.playCorrectAnswer()
+                    currentScore += PresentationConstants.DEFAULT_SCORE_POINTS
+                    view?.updateScore(currentScore)
+                } else {
+                    audioManager.playWrongAnswer()
+                    currentLives--
+                    view?.updateLivesCount(currentLives)
+                }
+
+                submitAnswer(selectedAnswer, isCorrect)
+                
+                if (currentLives <= 0) {
+                    audioManager.playGameOver()
+                    view?.showNoLivesLeft()
+                    finishGame()
+                    return
+                }
+            } else {
+                submitSkippedAnswer()
             }
             
             nextQuestion()
@@ -358,8 +397,36 @@ class GamePresenter @Inject constructor(
         )
     }
 
+    private fun submitSkippedAnswer() {
+        val session = gameSession ?: return
+        
+        tryToExecute(
+            execute = {
+                val submission = AnswerSubmission(
+                    sessionId = session.id,
+                    questionId = questions[currentQuestionIndex].id,
+                    isCorrect = false,
+                    isSkipped = true,
+                    answerTimeSeconds = ((System.currentTimeMillis() - timerStartTime) / 1000).toInt(),
+                    starsForCorrect = 0,
+                    livesLostForWrong = 0
+                )
+                gameRepository.submitAnswer(submission)
+            },
+            onSuccess = { updatedSession ->
+                gameSession = updatedSession
+                kotlinx.coroutines.delay(100)
+                refreshUserData()
+            },
+            onError = { error ->
+            }
+        )
+    }
+
     private fun finishGame() {
         val session = gameSession ?: return
+        
+        audioManager.stopTimerSound()
         
         tryToExecute(
             execute = {
@@ -383,6 +450,8 @@ class GamePresenter @Inject constructor(
     
     private fun finishGameAndGoBack() {
         val session = gameSession ?: return
+        
+        audioManager.stopTimerSound()
         
         tryToExecute(
             execute = {

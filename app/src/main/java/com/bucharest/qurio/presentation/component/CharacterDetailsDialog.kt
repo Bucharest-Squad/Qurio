@@ -9,8 +9,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.Window
 import androidx.fragment.app.DialogFragment
+import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.CharactersDetailsDialogBinding
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import javax.inject.Inject
 
 class CharacterDetailsDialog(
     private val characterUiModel: CharacterUiModel,
@@ -18,11 +21,17 @@ class CharacterDetailsDialog(
     private val onBuyButtonClicked: (Int) -> Unit,
 ) : DialogFragment() {
 
+    @Inject
+    lateinit var audioManager: AudioManager
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        
         val binding = CharactersDetailsDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = com.bucharest.qurio.R.style.DialogAnimation
 
 
         val handleOk = {
@@ -46,21 +55,32 @@ class CharacterDetailsDialog(
             character.setImageResource(characterUiModel.imageRes.second)
             buyButton.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
             lockedIcon.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
+            
+            buyButton.isEnabled = characterUiModel.canAfford
+            buyButton.alpha = if (characterUiModel.canAfford) 1.0f else 0.5f
 
-            okButton.setOnClickListener { handleOk() }
-            closeButton.setOnClickListener { dismiss() }
+            okButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                handleOk() 
+            }
+            closeButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
 
             buyButton.setOnClickListener {
-                dialog.hide()
-                CharacterPurchaseDialog(
-                    characterUiModel = characterUiModel,
-                    onBuyButtonClicked = {
-                        onBuyButtonClicked(it)
-                    },
-                    onCancelButtonClicked = {
-                        dialog.show()
-                    }
-                ).show(parentFragmentManager, "CharacterPurchaseDialog")
+                if (characterUiModel.canAfford) {
+                    audioManager.playButtonPress()
+                    CharacterPurchaseDialog(
+                        characterUiModel = characterUiModel,
+                        onBuyButtonClicked = {
+                            onBuyButtonClicked(it)
+                            dismiss()
+                        },
+                        onCancelButtonClicked = {
+                        }
+                    ).show(parentFragmentManager, "CharacterPurchaseDialog")
+                }
             }
         }
 
