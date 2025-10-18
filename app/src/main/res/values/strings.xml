@@ -5,6 +5,8 @@
     <!-- GAME STATES -->
     <string name="no_games_played">No Games Played</string>
     <string name="start_playing_to_see_games">Start playing games to see your history here</string>
+    <string name="no_games_available">No Games Available</string>
+    <string name="check_back_later">Check back later for new games</string>
     <string name="loading_game">Loading Game</string>
 
     <!-- CATEGORIES -->
@@ -127,4 +129,5 @@
     <string name="onboarding_desc_4">Unlock characters, earn badges, and climb the leaderboards. Qurio is merciless, but you can handle it.</string>
 
     <string name="onboarding_swipe_up">Swipe up to PLAY!</string>
+    <string name="play_now">PLAY NOW</string>
 </resources>

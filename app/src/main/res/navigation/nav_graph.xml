@@ -16,6 +16,9 @@
         <action
             android:id="@+id/actionMainHomeFragmentToLastGamesFragment"
             app:destination="@id/lastGamesFragment" />
+        <action
+            android:id="@+id/actionMainHomeFragmentToGamesFragment"
+            app:destination="@id/gamesFragment" />
     </fragment>
 
     <fragment
@@ -104,6 +107,26 @@
         android:name="com.bucharest.qurio.presentation.lastgames.LastGamesFragment"
         android:label="Last Games"
         tools:layout="@layout/fragment_last_games" />
+
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.bucharest.qurio.presentation.games.GamesFragment"
+        android:label="Games"
+        tools:layout="@layout/fragment_games">
+        <action
+            android:id="@+id/actionGamesFragmentToGameFragment"
+            app:destination="@id/gameFragment">
+            <argument
+                android:name="categoryId"
+                app:argType="integer" />
+            <argument
+                android:name="difficulty"
+                app:argType="string" />
+            <argument
+                android:name="totalQuestions"
+                app:argType="integer" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragment"
