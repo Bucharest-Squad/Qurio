@@ -93,4 +93,11 @@
 
     <string name="buy_life">Buy Life</string>
     <string name="buy">Buy</string>
+    
+    <!-- Buy Life Dialog -->
+    <string name="card_background">Card background</string>
+    <string name="coins_icon">Coins icon</string>
+    <string name="_1">1</string>
+    <string name="equal_sign">=</string>
+    <string name="_200_x">200 X</string>
 </resources>
