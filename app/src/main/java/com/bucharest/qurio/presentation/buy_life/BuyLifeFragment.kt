@@ -43,6 +43,9 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
+        val density = context?.resources?.displayMetrics?.density ?: 1f
+        dialog.window?.setLayout((328 * density).toInt(), (314 * density).toInt())
+
         return dialog
     }
 

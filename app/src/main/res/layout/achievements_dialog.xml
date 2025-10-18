@@ -14,11 +14,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <View
-        android:id="@+id/edges_background"
-        android:layout_width="328dp"
-        android:layout_height="470dp"
-        android:background="@drawable/achievements_dialog_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/blue_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@drawable/blue_radiant_gradiant"
+        app:layout_constraintTop_toTopOf="@id/edges_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <ImageView
