@@ -6,4 +6,5 @@ interface OnBoardingView : BaseView {
     fun onRightArrowClicked()
     fun onLeftArrowClicked()
     fun onSwipeUp()
+    fun navigateToHome()
 }

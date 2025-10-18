@@ -10,7 +10,7 @@ class OnBoardingPresenter @Inject constructor(
     fun setFirstLaunch() {
         tryToExecute(
             execute = { userPreferences.setFirstLaunch() },
-            onSuccess = { view?.onSwipeUp() },
+            onSuccess = { view?.navigateToHome() },
             onError = { view?.showError(it.message.toString()) }
         )
     }
