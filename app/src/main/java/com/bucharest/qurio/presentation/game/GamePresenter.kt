@@ -319,16 +319,7 @@ class GamePresenter @Inject constructor(
             
             audioManager.stopTimerSound()
             
-            currentLives--
-            view?.updateLivesCount(currentLives)
-            
-            submitAnswer("", false)
-            
-            if (currentLives <= 0) {
-                view?.showNoLivesLeft()
-                finishGame()
-                return
-            }
+            submitSkippedAnswer()
             
             nextQuestion()
         }
@@ -373,15 +364,7 @@ class GamePresenter @Inject constructor(
                     return
                 }
             } else {
-                currentLives--
-                view?.updateLivesCount(currentLives)
-                submitAnswer("", false)
-                
-                if (currentLives <= 0) {
-                    view?.showNoLivesLeft()
-                    finishGame()
-                    return
-                }
+                submitSkippedAnswer()
             }
             
             nextQuestion()
@@ -401,6 +384,32 @@ class GamePresenter @Inject constructor(
                     answerTimeSeconds = ((System.currentTimeMillis() - timerStartTime) / 1000).toInt(),
                     starsForCorrect = if (isCorrect) 1 else 0,
                     livesLostForWrong = if (!isCorrect) 1 else 0
+                )
+                gameRepository.submitAnswer(submission)
+            },
+            onSuccess = { updatedSession ->
+                gameSession = updatedSession
+                kotlinx.coroutines.delay(100)
+                refreshUserData()
+            },
+            onError = { error ->
+            }
+        )
+    }
+
+    private fun submitSkippedAnswer() {
+        val session = gameSession ?: return
+        
+        tryToExecute(
+            execute = {
+                val submission = AnswerSubmission(
+                    sessionId = session.id,
+                    questionId = questions[currentQuestionIndex].id,
+                    isCorrect = false,
+                    isSkipped = true,
+                    answerTimeSeconds = ((System.currentTimeMillis() - timerStartTime) / 1000).toInt(),
+                    starsForCorrect = 0,
+                    livesLostForWrong = 0
                 )
                 gameRepository.submitAnswer(submission)
             },
