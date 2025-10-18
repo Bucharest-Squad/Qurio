@@ -8,5 +8,4 @@ interface UserRepository {
     suspend fun updateLives(delta: Int): User
     suspend fun setActiveCharacter(characterId: Int): User
     suspend fun purchaseCharacter(characterId: Int, price: Int): User
-    suspend fun updateVolume(musicVolume: Float, effectsVolume: Float): User
 }
