@@ -9,8 +9,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.Window
 import androidx.fragment.app.DialogFragment
+import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.CharactersDetailsDialogBinding
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import javax.inject.Inject
 
 class CharacterDetailsDialog(
     private val characterUiModel: CharacterUiModel,
@@ -18,7 +21,12 @@ class CharacterDetailsDialog(
     private val onBuyButtonClicked: (Int) -> Unit,
 ) : DialogFragment() {
 
+    @Inject
+    lateinit var audioManager: AudioManager
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        
         val binding = CharactersDetailsDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -47,10 +55,17 @@ class CharacterDetailsDialog(
             buyButton.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
             lockedIcon.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
 
-            okButton.setOnClickListener { handleOk() }
-            closeButton.setOnClickListener { dismiss() }
+            okButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                handleOk() 
+            }
+            closeButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
 
             buyButton.setOnClickListener {
+                audioManager.playButtonPress()
                 dialog.hide()
                 CharacterPurchaseDialog(
                     characterUiModel = characterUiModel,

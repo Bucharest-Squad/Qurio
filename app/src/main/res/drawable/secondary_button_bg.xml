@@ -7,6 +7,3 @@
         android:color="@color/shade_quad" />
     <corners android:radius="12dp" />
 </shape>
-
-
-

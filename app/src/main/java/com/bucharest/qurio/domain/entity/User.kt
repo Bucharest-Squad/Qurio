@@ -9,7 +9,5 @@ data class User(
     val lives: Int,
     val lastPlayedDate: LocalDate?,
     val currentDailyStreak: Int,
-    val streakStartDate: LocalDate?,
-    val musicVolume: Float,
-    val effectsVolume: Float
+    val streakStartDate: LocalDate?
 )

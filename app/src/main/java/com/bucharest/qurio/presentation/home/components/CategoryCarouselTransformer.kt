@@ -54,7 +54,7 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
     }
 
     private fun calculateRotation(position: Float): Float {
-        return if (abs(position) < CENTER_THRESHOLD || position == 0f) {
+        return if (abs(position) < CENTER_THRESHOLD) {
             0f
         } else {
             (position * MAX_ROTATION).coerceIn(-MAX_ROTATION, MAX_ROTATION)
@@ -67,12 +67,12 @@ class CategoryCarouselTransformer : ViewPager2.PageTransformer {
         private const val MIN_ALPHA = 0.90f
         private const val MAX_ALPHA = 1f
         private const val ELEVATION_OFFSET = 40f
-        private const val MAX_ROTATION = 4f
+        private const val MAX_ROTATION = 2f
         private const val PIVOT_CENTER = 0.5f
         private const val NO_TRANSLATION = 0f
         private const val MIN_POSITION = 0f
         private const val MAX_POSITION = 1f
         private const val ALWAYS_VISIBLE_THRESHOLD = 2f
-        private const val CENTER_THRESHOLD = 0.1f
+        private const val CENTER_THRESHOLD = 0.2f
     }
 }

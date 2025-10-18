@@ -18,6 +18,7 @@ import com.bucharest.qurio.presentation.base.BaseFragment
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
 import com.bucharest.qurio.presentation.component.CharactersDialog
 import com.bucharest.qurio.presentation.constants.PresentationConstants
+import com.bucharest.qurio.presentation.settings.SettingsDialog
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
 import com.bucharest.qurio.domain.entity.Difficulty
 import com.bucharest.qurio.presentation.home.adapter.CategoryCarouselAdapter
@@ -103,6 +104,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         orientation = ViewPager2.ORIENTATION_HORIZONTAL
         adapter = carouselAdapter
         offscreenPageLimit = CAROUSEL_OFFSCREEN_PAGE_LIMIT
+        clipToPadding = false
+        clipChildren = false
     }
 
     private fun ViewPager2.configureCarouselScrolling() {
@@ -278,7 +281,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun showSettingsDialog() {
-        showMessage("Settings Dialog - implement settings screen")
+        SettingsDialog().show(parentFragmentManager, "SettingsDialog")
     }
 
     override fun showCharacterSelectionDialog(

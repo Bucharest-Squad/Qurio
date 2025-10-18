@@ -20,9 +20,7 @@ fun UserDto.toEntity(): User =
         lives = lives,
         lastPlayedDate = lastPlayedEpochDay?.let { LocalDate.fromEpochDays(it.toInt()) },
         currentDailyStreak = currentDailyStreak,
-        streakStartDate = streakStartEpochDay?.let { LocalDate.fromEpochDays(it.toInt()) },
-        musicVolume = musicVolume,
-        effectsVolume = effectsVolume
+        streakStartDate = streakStartEpochDay?.let { LocalDate.fromEpochDays(it.toInt()) }
     )
 
 fun toDto(user: User): UserDto =
@@ -31,8 +29,6 @@ fun toDto(user: User): UserDto =
         currentCharacterId = user.currentCharacterId,
         coins = user.coins,
         lives = user.lives,
-        musicVolume = user.musicVolume,
-        effectsVolume = user.effectsVolume,
         lastPlayedEpochDay = user.lastPlayedDate?.toEpochDays()?.toLong(),
         currentDailyStreak = user.currentDailyStreak,
         streakStartEpochDay = user.streakStartDate?.toEpochDays()?.toLong()

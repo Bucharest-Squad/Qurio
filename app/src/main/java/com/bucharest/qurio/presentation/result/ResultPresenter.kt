@@ -1,9 +1,12 @@
 package com.bucharest.qurio.presentation.result
 
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.presentation.base.BasePresenter
 
-class ResultPresenter : BasePresenter<ResultView>() {
+class ResultPresenter(
+    private val audioManager: AudioManager
+) : BasePresenter<ResultView>() {
 
     private var gameSession: GameSession? = null
 
@@ -24,14 +27,17 @@ class ResultPresenter : BasePresenter<ResultView>() {
             showSkippedAnswers(session.skippedAnswers)
             
             if (session.starsEarned > 0) {
+                audioManager.playGameWin()
                 showWinState()
             } else {
+                audioManager.playGameOver()
                 showLoseState()
             }
         }
     }
 
     fun onPlayAgainClicked() {
+        audioManager.playButtonPress()
         val session = gameSession ?: return
         executeIfViewAttached {
             navigateToGame(
@@ -43,12 +49,14 @@ class ResultPresenter : BasePresenter<ResultView>() {
     }
 
     fun onHomeClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             navigateToHome()
         }
     }
 
     fun onShareClicked() {
+        audioManager.playButtonPress()
         executeIfViewAttached {
             showShareDialog()
         }
