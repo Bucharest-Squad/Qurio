@@ -272,7 +272,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
     }
 
     override fun navigateToAllGames() {
-        showMessage("View All Games clicked - implement navigation")
+        val action = MainHomeFragmentDirections.actionMainHomeFragmentToGamesFragment()
+        findNavController().navigate(action)
     }
 
     override fun navigateToAllRecentGames() {
