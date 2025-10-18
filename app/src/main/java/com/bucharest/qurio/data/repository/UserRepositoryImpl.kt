@@ -113,7 +113,7 @@ class UserRepositoryImpl @Inject constructor(
         private const val DEFAULT_LIVES = 10
         private const val MAX_LIVES = 100
         private const val MIN_LIVES = 0
-        private const val INITIAL_COINS = 0
+        private const val INITIAL_COINS = 5000
         private const val MIN_COINS = 0
         private const val MIN_PRICE = 0
         private const val STREAK_RESET_VALUE = 1

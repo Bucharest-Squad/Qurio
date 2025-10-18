@@ -20,7 +20,8 @@ class CharactersDialog(
     private val currentCharacterId: Int,
     private val charactersUiModel: List<CharacterUiModel>,
     private val onConfirmButtonClicked: (Int) -> Unit,
-    private val onBuyButtonClicked: (Int) -> Unit
+    private val onBuyButtonClicked: (Int) -> Unit,
+    private val onRefreshRequested: (() -> Unit)? = null
 ) : DialogFragment() {
 
     @Inject
@@ -29,10 +30,11 @@ class CharactersDialog(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         (requireActivity().application as QurioApp).appComponent.inject(this)
         
-        val binding = CharactersDialogBinding.inflate(layoutInflater)
+        binding = CharactersDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = com.bucharest.qurio.R.style.DialogAnimation
 
 
         dialog.setOnKeyListener { _, keyCode, event ->
@@ -54,13 +56,11 @@ class CharactersDialog(
                 }
             },
             onCharacterCardDoubleClicked = { character ->
-                dialog.hide()
                 CharacterDetailsDialog(
                     characterUiModel = character,
-                    onOkButtonClicked = { dialog.show() },
+                    onOkButtonClicked = { },
                     onBuyButtonClicked = {
                         onBuyButtonClicked(it)
-                        dialog.show()
                     }
                 ).show(childFragmentManager, "CharacterDetailsDialog")
             },
@@ -87,5 +87,13 @@ class CharactersDialog(
         dialog.window?.setLayout((328 * density).toInt(), (314 * density).toInt())
 
         return dialog
+    }
+    
+    private lateinit var binding: CharactersDialogBinding
+    
+    fun refreshCharacterList(newCharacters: List<CharacterUiModel>) {
+        if (::binding.isInitialized) {
+            (binding.characterList.adapter as? CharactersCardAdapter)?.submitList(newCharacters)
+        }
     }
 }

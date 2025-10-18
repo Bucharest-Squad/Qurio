@@ -25,5 +25,6 @@ interface MainHomeView : BaseView {
         achievementUImodel: List<AchievementUImodel>
     )
     fun showCurrentCharacter(characterUiModel: CharacterUiModel)
+    fun refreshCharacterSelectionDialog(charactersUiModel: List<CharacterUiModel>)
 
 }

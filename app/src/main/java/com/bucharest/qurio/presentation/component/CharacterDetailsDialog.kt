@@ -31,6 +31,7 @@ class CharacterDetailsDialog(
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = com.bucharest.qurio.R.style.DialogAnimation
 
 
         val handleOk = {
@@ -54,6 +55,9 @@ class CharacterDetailsDialog(
             character.setImageResource(characterUiModel.imageRes.second)
             buyButton.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
             lockedIcon.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
+            
+            buyButton.isEnabled = characterUiModel.canAfford
+            buyButton.alpha = if (characterUiModel.canAfford) 1.0f else 0.5f
 
             okButton.setOnClickListener { 
                 audioManager.playButtonPress()
@@ -65,17 +69,18 @@ class CharacterDetailsDialog(
             }
 
             buyButton.setOnClickListener {
-                audioManager.playButtonPress()
-                dialog.hide()
-                CharacterPurchaseDialog(
-                    characterUiModel = characterUiModel,
-                    onBuyButtonClicked = {
-                        onBuyButtonClicked(it)
-                    },
-                    onCancelButtonClicked = {
-                        dialog.show()
-                    }
-                ).show(parentFragmentManager, "CharacterPurchaseDialog")
+                if (characterUiModel.canAfford) {
+                    audioManager.playButtonPress()
+                    CharacterPurchaseDialog(
+                        characterUiModel = characterUiModel,
+                        onBuyButtonClicked = {
+                            onBuyButtonClicked(it)
+                            dismiss()
+                        },
+                        onCancelButtonClicked = {
+                        }
+                    ).show(parentFragmentManager, "CharacterPurchaseDialog")
+                }
             }
         }
 

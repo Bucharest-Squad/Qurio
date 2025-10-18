@@ -31,6 +31,7 @@ class CharacterPurchaseDialog(
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = com.bucharest.qurio.R.style.DialogAnimation
 
 
         val handleCancel = {
@@ -51,6 +52,9 @@ class CharacterPurchaseDialog(
             price.text = characterUiModel.characterPrice
             lockedIcon.visibility = VISIBLE
             character.setImageResource(characterUiModel.imageRes.second)
+            
+            buyButton.isEnabled = characterUiModel.canAfford
+            buyButton.alpha = if (characterUiModel.canAfford) 1.0f else 0.5f
 
             cancelButton.setOnClickListener { 
                 audioManager.playButtonPress()
@@ -62,9 +66,11 @@ class CharacterPurchaseDialog(
             }
 
             buyButton.setOnClickListener {
-                audioManager.playButtonPress()
-                onBuyButtonClicked(characterUiModel.id)
-                dismiss()
+                if (characterUiModel.canAfford) {
+                    audioManager.playButtonPress()
+                    onBuyButtonClicked(characterUiModel.id)
+                    dismiss()
+                }
             }
         }
 

@@ -6,11 +6,13 @@ import com.bucharest.qurio.data.local.dto.CharacterDto
 import com.bucharest.qurio.data.local.mapper.toEntity
 import com.bucharest.qurio.domain.entity.Character
 import com.bucharest.qurio.domain.repository.CharacterRepository
+import com.bucharest.qurio.domain.repository.UserRepository
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val characterDao: CharacterDao,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val userRepository: UserRepository
 ) : CharacterRepository {
 
     override suspend fun getAllCharacters(): List<Character> = 
@@ -20,12 +22,11 @@ class CharacterRepositoryImpl @Inject constructor(
         characterDao.getAll().mapNotNull { it.takeIf { dto -> dto.owned }?.toEntity() }
 
     override suspend fun unlockCharacter(characterId: Int) {
-        characterDao.updateOwnership(characterId,true)
-        val user=userDao.getUser()
-        val character=characterDao.getById(characterId)
-        val updatedUser= user?.copy(coins = (user.coins - character.price).coerceAtLeast(0))
-        if (updatedUser != null) {
-            userDao.update(updatedUser)
+        val character = characterDao.getById(characterId)
+        if (character != null) {
+            // Use UserRepository's purchaseCharacter method for proper validation and error handling
+            userRepository.purchaseCharacter(characterId, character.price)
+            characterDao.updateOwnership(characterId, true)
         }
     }
 

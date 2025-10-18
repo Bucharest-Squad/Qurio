@@ -27,8 +27,9 @@ object CharacterMapper {
         }
     }
 
-    fun mapCharacterToUiState(character: Character): CharacterUiModel {
+    fun mapCharacterToUiState(character: Character, userCoins: Int = 0): CharacterUiModel {
         val uiResources = getCharacterImages(character.id)
+        val canAfford = userCoins >= character.price && !character.isOwned
         return CharacterUiModel(
             id = character.id,
             imageRes = uiResources,
@@ -37,10 +38,13 @@ object CharacterMapper {
             characterPrice = getCharacterPrice(character.price),
             characterAge = character.age,
             isOwned = character.isOwned,
+            canAfford = canAfford,
+            userCoins = userCoins
         )
     }
-    fun getCharacterName(character: Character): CharacterUiModel {
+    fun getCharacterName(character: Character, userCoins: Int = 0): CharacterUiModel {
         val uiResources = getCharacterImages(character.id)
+        val canAfford = userCoins >= character.price && !character.isOwned
         return CharacterUiModel(
             id = character.id,
             imageRes = uiResources,
@@ -49,6 +53,8 @@ object CharacterMapper {
             characterPrice = getCharacterPrice(character.price),
             characterAge = character.age,
             isOwned = character.isOwned,
+            canAfford = canAfford,
+            userCoins = userCoins
         )
     }
 

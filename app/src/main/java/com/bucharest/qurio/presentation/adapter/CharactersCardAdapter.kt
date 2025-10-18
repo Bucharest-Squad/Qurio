@@ -50,6 +50,10 @@ class CharactersCardAdapter
             coinIcons.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
             pointsCount.text = characterUiModel.characterPrice
             pointsCount.visibility = if (characterUiModel.isOwned) GONE else VISIBLE
+            
+            if (!characterUiModel.isOwned) {
+                root.alpha = if (characterUiModel.canAfford) 1.0f else 0.6f
+            }
 
             root.setOnClickListener {
                 if (characterUiModel.id == selectedCharId && characterUiModel.isOwned) {

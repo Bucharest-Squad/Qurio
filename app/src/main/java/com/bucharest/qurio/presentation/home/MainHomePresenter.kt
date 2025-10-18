@@ -82,10 +82,12 @@ class MainHomePresenter(
         audioManager.playCharacterSelect()
         tryToExecute(
             execute = { userRepository.setActiveCharacter(characterId) },
-            onSuccess = { onRefresh() },
+            onSuccess = { 
+                loadHomeDataWithoutLoading()
+            },
             onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
+            onStart = { },
+            onFinally = { }
         )
     }
 
@@ -93,10 +95,35 @@ class MainHomePresenter(
         audioManager.playButtonPress()
         tryToExecute(
             execute = { characterRepository.unlockCharacter(characterId) },
-            onSuccess = { onRefresh() },
-            onError = ::handleHomeDataError,
+            onSuccess = { 
+                loadHomeDataWithoutLoading()
+                refreshCharacterData()
+            },
+            onError = { error ->
+                executeIfViewAttached { 
+                    showError("Purchase failed: ${error.message}")
+                }
+            },
             onStart = { executeIfViewAttached { showLoading() } },
             onFinally = { executeIfViewAttached { hideLoading() } }
+        )
+    }
+    
+    fun refreshCharacterData() {
+        tryToExecute(
+            execute = { 
+                val characters = characterRepository.getAllCharacters()
+                val user = userRepository.getUser()
+                Pair(characters, user.coins)
+            },
+            onSuccess = { (characters, userCoins) ->
+                executeIfViewAttached {
+                    refreshCharacterSelectionDialog(characters.map { CharacterMapper.mapCharacterToUiState(it, userCoins) })
+                }
+            },
+            onError = ::handleHomeDataError,
+            onStart = { },
+            onFinally = { }
         )
     }
 
@@ -106,22 +133,26 @@ class MainHomePresenter(
             execute = { userRepository.getUser().currentCharacterId },
             onSuccess = ::setCurrentCharacter,
             onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
+            onStart = { },
+            onFinally = { }
         )
     }
 
     fun setCurrentCharacter(id: Int) {
         tryToExecute(
-            execute = { characterRepository.getAllCharacters() },
-            onSuccess = { characters ->
+            execute = { 
+                val characters = characterRepository.getAllCharacters()
+                val user = userRepository.getUser()
+                Pair(characters, user.coins)
+            },
+            onSuccess = { (characters, userCoins) ->
                 executeIfViewAttached {
-                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it) })
+                    showCharacterSelectionDialog(id, characters.map { CharacterMapper.mapCharacterToUiState(it, userCoins) })
                 }
             },
             onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
+            onStart = { },
+            onFinally = { }
         )
     }
     
@@ -173,6 +204,21 @@ class MainHomePresenter(
         )
     }
     
+    private fun loadHomeDataWithoutLoading() {
+        if (!NetworkUtils.isConnectedToInternet(context)) {
+            executeIfViewAttached { showError("No internet connection") }
+            return
+        }
+        
+        tryToExecute(
+            execute = ::fetchAllHomeData,
+            onSuccess = ::handleHomeDataSuccess,
+            onError = ::handleHomeDataError,
+            onStart = { },
+            onFinally = { }
+        )
+    }
+    
     private suspend fun fetchAllHomeData(): HomeData {
         val user = userRepository.getUser()
         val categories = categoryRepository.getAllCategories().shuffled()
@@ -185,7 +231,7 @@ class MainHomePresenter(
     
     private fun handleHomeDataSuccess(homeData: HomeData) {
         executeIfViewAttached {
-            displayCurrentCharacter(homeData.currentCharacter)
+            displayCurrentCharacter(homeData.currentCharacter, homeData.user.coins)
             displayUserStats(homeData.user, homeData.achievements)
             displayStreak(homeData.user)
             displayCategories(homeData.categories)
@@ -209,8 +255,8 @@ class MainHomePresenter(
         }
     }
 
-    private fun displayCurrentCharacter(character: Character) {
-        val characterUiModel = CharacterMapper.mapCharacterToUiState(character)
+    private fun displayCurrentCharacter(character: Character, userCoins: Int) {
+        val characterUiModel = CharacterMapper.mapCharacterToUiState(character, userCoins)
         executeIfViewAttached {
             showCurrentCharacter(characterUiModel)
         }

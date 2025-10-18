@@ -49,6 +49,8 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             presenter.onLastGameClicked(game)
         }
     }
+    
+    private var characterDialog: CharactersDialog? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -289,7 +291,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         currentCharacterId: Int,
         charactersUiModel: List<CharacterUiModel>
     ) {
-        CharactersDialog(
+        characterDialog = CharactersDialog(
             currentCharacterId = currentCharacterId,
             charactersUiModel = charactersUiModel,
             onConfirmButtonClicked = {
@@ -298,7 +300,11 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             onBuyButtonClicked = {
                 presenter.onBuyClicked(it)
             },
-        ).show(parentFragmentManager, "showCharacterSelectionDialog")
+            onRefreshRequested = {
+                presenter.refreshCharacterData()
+            }
+        )
+        characterDialog?.show(parentFragmentManager, "showCharacterSelectionDialog")
     }
 
     override fun showPurchaseLivesDialog() {
@@ -320,6 +326,10 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
             )
             textCharacterName.text = characterUiModel.characterName
         }
+    }
+    
+    override fun refreshCharacterSelectionDialog(charactersUiModel: List<CharacterUiModel>) {
+        characterDialog?.refreshCharacterList(charactersUiModel)
     }
 
     override fun showLoading() {
