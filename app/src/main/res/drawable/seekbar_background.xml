@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <vector
+            android:width="171dp"
+            android:height="36dp"
+            android:viewportWidth="171"
+            android:viewportHeight="36">
+            <path
+                android:fillColor="#00000000"
+                android:pathData="M169.14,9.5L169.91,11.98L169.07,14.24L158.7,26.5H12.19L1.57,13.75L0.96,11.97L1.53,9.5H169.14Z"
+                android:strokeWidth="1"
+                android:strokeAlpha="0.04"
+                android:strokeColor="#ffffff" />
+            <path
+                android:fillColor="#30ABE8"
+                android:pathData="M155.31,14.67C155.31,14.49 155.17,14.35 155,14.35C154.83,14.35 154.69,14.49 154.69,14.67V17.69H151.67C151.49,17.69 151.35,17.83 151.35,18C151.35,18.17 151.49,18.31 151.67,18.31H154.69V21.33C154.69,21.51 154.83,21.65 155,21.65C155.17,21.65 155.31,21.51 155.31,21.33V18.31H158.33C158.51,18.31 158.65,18.17 158.65,18C158.65,17.83 158.51,17.69 158.33,17.69H155.31V14.67Z" />
+            <path
+                android:fillColor="#30ABE8"
+                android:fillType="evenOdd"
+                android:pathData="M12.35,18C12.35,17.83 12.49,17.69 12.67,17.69L19.33,17.69C19.51,17.69 19.65,17.83 19.65,18C19.65,18.17 19.51,18.31 19.33,18.31L12.67,18.31C12.49,18.31 12.35,18.17 12.35,18Z" />
+        </vector>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <vector
+                android:width="171dp"
+                android:height="36dp"
+                android:viewportWidth="171"
+                android:viewportHeight="36">
+                <path
+                    android:fillAlpha="0.06"
+                    android:fillColor="#49BAF2"
+                    android:pathData="M5,14L5.56,12L169.14,12L169.91,14.5L169.07,16.98L158.7,29.24H12.19L1.57,16.49L0.96,14.71L1.53,12.24H5Z" />
+            </vector>
+        </clip>
+    </item>
+</layer-list>
