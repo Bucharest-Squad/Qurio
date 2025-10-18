@@ -8,17 +8,17 @@ import com.bucharest.qurio.domain.entity.Achievement
 
 object AchievementMapper {
 
-    private const val ACHIEVEMENT_ID_QUIZ_ROOKIE = 1
-    private const val ACHIEVEMENT_ID_STREAK_STARTER = 2
-    private const val ACHIEVEMENT_ID_LUCKY_GUESS_1 = 3
-    private const val ACHIEVEMENT_ID_EXPLORER = 4
-    private const val ACHIEVEMENT_ID_TRIVIA_CHAMP = 5
-    private const val ACHIEVEMENT_ID_COLLECTOR_1 = 6
-    private const val ACHIEVEMENT_ID_LEGEND = 7
-    private const val ACHIEVEMENT_ID_UNTOUCHABLE = 8
-    private const val ACHIEVEMENT_ID_QUICK_THINKER = 9
-    private const val ACHIEVEMENT_ID_COLLECTOR_2 = 10
-    private const val ACHIEVEMENT_ID_LUCKY_GUESS_2 = 11
+    private const val ACHIEVEMENT_ID_QUIZ_ROOKIE = 2000
+    private const val ACHIEVEMENT_ID_STREAK_STARTER = 2001
+    private const val ACHIEVEMENT_ID_LUCKY_GUESS = 2002
+    private const val ACHIEVEMENT_ID_EXPLORER = 2003
+    private const val ACHIEVEMENT_ID_TRIVIA_CHAMP = 2004
+    private const val ACHIEVEMENT_ID_COLLECTOR = 2005
+    private const val ACHIEVEMENT_ID_LEGEND = 2006
+    private const val ACHIEVEMENT_ID_UNTOUCHABLE = 2007
+    private const val ACHIEVEMENT_ID_QUICK_THINKER = 2008
+    private const val ACHIEVEMENT_ID_STAR_GAZER = 2009
+    private const val ACHIEVEMENT_ID_ANSWER_MASTER = 2010
 
 
     fun mapAchievementToUiModel(
@@ -60,7 +60,7 @@ object AchievementMapper {
         ACHIEVEMENT_ID_STREAK_STARTER to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_streak_starter, R.drawable.img_achievement_streak_starter_outlined),
         ),
-        ACHIEVEMENT_ID_LUCKY_GUESS_1 to AchievementUiResources(
+        ACHIEVEMENT_ID_LUCKY_GUESS to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_lucky_guess, R.drawable.img_achievement_lucky_guess_outlined),
         ),
         ACHIEVEMENT_ID_EXPLORER to AchievementUiResources(
@@ -69,7 +69,7 @@ object AchievementMapper {
         ACHIEVEMENT_ID_TRIVIA_CHAMP to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_trivia_champ, R.drawable.img_achievement_trivia_champ_outlined),
         ),
-        ACHIEVEMENT_ID_COLLECTOR_1 to AchievementUiResources(
+        ACHIEVEMENT_ID_COLLECTOR to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_collector, R.drawable.img_achievement_collector_outlined),
         ),
         ACHIEVEMENT_ID_LEGEND to AchievementUiResources(
@@ -79,13 +79,15 @@ object AchievementMapper {
             imageRes = Pair(R.drawable.img_achievement_untouchable, R.drawable.img_achievement_untouchable_outlined),
         ),
         ACHIEVEMENT_ID_QUICK_THINKER to AchievementUiResources(
-            imageRes = Pair(R.drawable.img_achievement_quick_thinker, R.drawable.img_achievement_untouchable_outlined),
+            imageRes = Pair(R.drawable.img_achievement_quick_thinker, R.drawable.img_achievement_quick_thinker_outlined),
         ),
-        ACHIEVEMENT_ID_COLLECTOR_2 to AchievementUiResources(
+
+        ACHIEVEMENT_ID_STAR_GAZER to AchievementUiResources(
+            imageRes = Pair(R.drawable.img_achievement_explorer, R.drawable.img_achievement_explorer_outlined),
+        ),
+
+        ACHIEVEMENT_ID_ANSWER_MASTER to AchievementUiResources(
             imageRes = Pair(R.drawable.img_achievement_collector, R.drawable.img_achievement_collector_outlined),
-        ),
-        ACHIEVEMENT_ID_LUCKY_GUESS_2 to AchievementUiResources(
-            imageRes = Pair(R.drawable.img_achievement_lucky_guess, R.drawable.img_achievement_lucky_guess_outlined),
         )
     )
 

@@ -52,9 +52,27 @@ class MainHomePresenter(
     
     fun onCategoryClicked(categoryId: Int) {
         audioManager.playButtonPress()
-        executeIfViewAttached {
-            navigateToCategoryGame(categoryId)
-        }
+        checkLivesAndNavigate(categoryId)
+    }
+    
+    private fun checkLivesAndNavigate(categoryId: Int) {
+        tryToExecute(
+            execute = { userRepository.getUser().lives },
+            onSuccess = { lives ->
+                executeIfViewAttached {
+                    if (lives > 0) {
+                        navigateToCategoryGame(categoryId)
+                    } else {
+                        showPurchaseLivesDialog()
+                    }
+                }
+            },
+            onError = { 
+                executeIfViewAttached {
+                    showError("Failed to check user lives")
+                }
+            }
+        )
     }
 
     fun onViewAllClicked() {
@@ -75,6 +93,13 @@ class MainHomePresenter(
         audioManager.playButtonPress()
         executeIfViewAttached {
             showSettingsDialog()
+        }
+    }
+
+    fun onBuyLifeClicked() {
+        audioManager.playButtonPress()
+        executeIfViewAttached {
+            showPurchaseLivesDialog()
         }
     }
 
@@ -189,6 +214,30 @@ class MainHomePresenter(
         }
     }
 
+    // Your custom onBuyLife method for the buy life dialog
+    fun onBuyLife() {
+        tryToExecute(
+            execute = { 
+                val user = userRepository.getUser()
+                if (user.coins < 200) {
+                    throw Exception("Not enough coins! You need 200 coins to buy a life.")
+                }
+                userRepository.updateCoins(-200) // Deduct coins first
+                userRepository.updateLives(1) // Then add life
+            },
+            onSuccess = { 
+                executeIfViewAttached {
+                    loadUserStatsOnly()
+                }
+            },
+            onError = { throwable ->
+                executeIfViewAttached {
+                    showError(throwable.message ?: "Failed to buy life")
+                }
+            }
+        )
+    }
+
     fun loadHomeData() {
         if (!NetworkUtils.isConnectedToInternet(context)) {
             executeIfViewAttached { showError("No internet connection") }
@@ -253,6 +302,25 @@ class MainHomePresenter(
                 awards = achievements.size
             )
         }
+    }
+
+    // Your custom method for updating only user stats (to avoid blinking)
+    private fun loadUserStatsOnly() {
+        tryToExecute(
+            execute = {
+                val user = userRepository.getUser()
+                val achievements = achievementRepository.getUnlockedAchievements()
+                Pair(user, achievements)
+            },
+            onSuccess = { (user, achievements) ->
+                displayUserStats(user, achievements)
+            },
+            onError = { throwable ->
+                executeIfViewAttached {
+                    showError("Failed to update user stats")
+                }
+            }
+        )
     }
 
     private fun displayCurrentCharacter(character: Character, userCoins: Int) {

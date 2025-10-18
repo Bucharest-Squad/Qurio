@@ -3,6 +3,7 @@ package com.bucharest.qurio.di
 import android.app.Application
 import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.data.local.AppDatabase
+import com.bucharest.qurio.presentation.buy_life.BuyLifeFragment
 import com.bucharest.qurio.MainActivity
 import com.bucharest.qurio.presentation.home.MainHomeFragment
 import com.bucharest.qurio.presentation.game.GameFragment
@@ -40,6 +41,8 @@ interface AppComponent {
     fun inject(fragment: ResultFragment)
     fun inject(fragment: DifficultyLevelFragment)
     fun inject(fragment: LastGamesFragment)
+    fun inject(fragment: BuyLifeFragment)
+
     fun inject(fragment: GamesFragment)
     fun inject(fragment: OnBoardingFragment)
     fun inject(dialog: SettingsDialog)

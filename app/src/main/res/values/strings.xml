@@ -103,6 +103,16 @@
     <string name="no_connection">No Connection</string>
     <string name="no_connection_message"><![CDATA[Oops! It looks like you\'re offline. Please check your internet connection to continue playing]]></string>
 
+    <string name="buy_life">Buy Life</string>
+    <string name="buy">Buy</string>
+
+    <!-- Buy Life Dialog -->
+    <string name="card_background">Card background</string>
+    <string name="coins_icon">Coins icon</string>
+    <string name="_1">1</string>
+    <string name="equal_sign">=</string>
+    <string name="_200_x">200 X</string>
+
     <!-- SETTINGS DIALOG -->
     <string name="discarded">discarded</string>
     <string name="settings_saved">settings saved</string>

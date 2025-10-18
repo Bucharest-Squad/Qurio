@@ -6,4 +6,5 @@ import com.bucharest.qurio.presentation.home.state.CategoryUiModel
 interface GamesView : BaseView {
     fun showGames(categories: List<CategoryUiModel>)
     fun navigateToCategoryGame(categoryId: Int)
+    fun showPurchaseLivesDialog()
 }

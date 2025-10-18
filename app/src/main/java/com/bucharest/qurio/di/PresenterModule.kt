@@ -13,6 +13,7 @@ import com.bucharest.qurio.presentation.game.GamePresenter
 import com.bucharest.qurio.presentation.result.ResultPresenter
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelPresenter
 import com.bucharest.qurio.presentation.lastgames.LastGamesPresenter
+import com.bucharest.qurio.presentation.buy_life.BuyLifePresenter
 import com.bucharest.qurio.presentation.games.GamesPresenter
 import com.bucharest.qurio.presentation.onboarding.OnBoardingPresenter
 import dagger.Module
@@ -48,7 +49,10 @@ object PresenterModule {
     ): GamePresenter = GamePresenter(gameRepository, userRepository, audioManager)
 
     @Provides
-    fun provideResultPresenter(audioManager: AudioManager): ResultPresenter = ResultPresenter(audioManager)
+    fun provideResultPresenter(
+        audioManager: AudioManager,
+        userRepository: UserRepository
+    ): ResultPresenter = ResultPresenter(audioManager, userRepository)
 
     @Provides
     fun provideDifficultyLevelPresenter(): DifficultyLevelPresenter = DifficultyLevelPresenter()
@@ -60,10 +64,16 @@ object PresenterModule {
     ): LastGamesPresenter = LastGamesPresenter(gameRepository, context)
 
     @Provides
+    fun provideBuyLifePresenter(
+        userRepository: UserRepository
+    ): BuyLifePresenter = BuyLifePresenter(userRepository)
+
+    @Provides
     fun provideGamesPresenter(
         categoryRepository: CategoryRepository,
+        userRepository: UserRepository,
         context: Application
-    ): GamesPresenter = GamesPresenter(categoryRepository, context)
+    ): GamesPresenter = GamesPresenter(categoryRepository, userRepository, context)
 
     @Provides
     fun provideOnBoardingPresenter(

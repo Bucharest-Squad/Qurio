@@ -15,6 +15,7 @@ interface GameView : BaseView {
     fun showGameEnd(session: com.bucharest.qurio.domain.entity.GameSession)
     fun showTimeUp()
     fun showNoLivesLeft()
+    fun showBuyLifeDialog()
     fun navigateBack()
     fun navigateToResult(session: com.bucharest.qurio.domain.entity.GameSession)
 }

@@ -12,6 +12,7 @@ import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.FragmentGamesBinding
 import com.bucharest.qurio.domain.entity.Difficulty
 import com.bucharest.qurio.presentation.base.BaseFragment
+import com.bucharest.qurio.presentation.buy_life.BuyLifeFragment
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelFragment
 import com.bucharest.qurio.presentation.home.adapter.GamesGridAdapter
@@ -155,5 +156,15 @@ class GamesFragment : BaseFragment<FragmentGamesBinding, GamesView, GamesPresent
 
     override fun showMessage(message: String) {
         // Handle messages if needed
+    }
+
+    override fun showPurchaseLivesDialog() {
+        val dialog = BuyLifeFragment.newInstance(
+            onBuyClicked = {
+                // After buying life, refresh the screen to show updated lives
+                presenter.loadGames()
+            }
+        )
+        dialog.show(childFragmentManager, "BuyLifeDialog")
     }
 }

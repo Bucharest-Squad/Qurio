@@ -16,6 +16,7 @@ import com.bucharest.qurio.domain.entity.Difficulty
 import com.bucharest.qurio.domain.entity.GameSession
 import com.bucharest.qurio.domain.entity.Question
 import com.bucharest.qurio.presentation.base.BaseFragment
+import com.bucharest.qurio.presentation.buy_life.BuyLifeFragment
 import com.bucharest.qurio.presentation.constants.PresentationConstants
 import com.bucharest.qurio.presentation.game.adapter.AnswerAdapter
 import com.bucharest.qurio.presentation.utils.NetworkUtils
@@ -146,6 +147,19 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         binding.skipButton.hide()
         findNavController().navigate(R.id.mainHomeFragment)
     }
+
+    override fun showBuyLifeDialog() {
+        val dialog = BuyLifeFragment.newInstance(
+            onBuyClicked = {
+                presenter.onBuyLifeSuccess()
+            },
+            onCancelClicked = {
+                presenter.onBuyLifeCancelled()
+            }
+        )
+        dialog.show(childFragmentManager, "BuyLifeDialog")
+    }
+
 
     override fun navigateBack() {
         findNavController().navigateUp()

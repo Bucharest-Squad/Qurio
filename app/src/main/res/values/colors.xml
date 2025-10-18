@@ -11,6 +11,7 @@
     <color name="shade_tertiary">#61FFFFFF</color>
     <color name="shade_quad">#0AFFFFFF</color>
     <color name="on_primary">#FFFFFF</color>
+    <color name="on_primary_disabled">#61FFFFFF</color>
     <color name="on_image_surface">#14FFFFFF</color>
     <color name="disable">#2A2A2A</color>
     <color name="orange">#DC6A43</color>
