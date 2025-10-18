@@ -1,12 +1,12 @@
 <resources>
     <!-- APP INFO -->
     <string name="app_name">Qurio</string>
-    
+
     <!-- GAME STATES -->
     <string name="no_games_played">No Games Played</string>
     <string name="start_playing_to_see_games">Start playing games to see your history here</string>
     <string name="loading_game">Loading Game</string>
-    
+
     <!-- CATEGORIES -->
     <string name="category_title_geography">Geography</string>
     <string name="category_title_science">Science</string>
@@ -18,7 +18,7 @@
     <string name="category_title_sport_leisure">Sport &amp; Leisure</string>
     <string name="category_title_history">History</string>
     <string name="category_title_arts_literature">Arts &amp; Literature</string>
-    
+
     <!-- STATISTICS CARDS -->
     <string name="statistics_awards_card_title">Awards</string>
     <string name="statistics_awards_card_icon_description">Awards icon</string>
@@ -29,14 +29,14 @@
     <string name="statistics_points_card_title">Points</string>
     <string name="statistics_points_card_icon_description">Points icon</string>
     <string name="statistics_points_card_crown_icon_description">Crown icon</string>
-    
+
     <!-- RESULT SCREEN -->
     <string name="result_great_job">Great Job</string>
     <string name="result_reward">Reward</string>
     <string name="result_label_correct">Correct</string>
     <string name="result_label_incorrect">Incorrect</string>
     <string name="result_label_skipped">Skipped</string>
-    
+
     <!-- GENERAL UI -->
     <string name="welcome_qurio_explorer">Welcome Qurio explorer</string>
     <string name="character">character</string>
@@ -53,7 +53,7 @@
     <string name="_2m_23sec">2m 23sec</string>
     <string name="_0">0</string>
     <string name="date_shampe">date shampe</string>
-    
+
     <!-- HOME SCREEN -->
     <string name="games_section_title">Games</string>
     <string name="last_games_section_title">Last Games</string>
@@ -61,7 +61,7 @@
     <string name="streak_inactive_message">0 day streak, start as series</string>
     <string name="streak_description_active">KEEP IT UP!</string>
     <string name="streak_description_inactive">Every day count!</string>
-    
+
     <!-- GAME SCREEN -->
     <string name="submit">Submit</string>
     <string name="check">Check</string>
@@ -76,7 +76,7 @@
     <string name="score">Score: %1$d</string>
     <string name="correct">Correct: %1$d</string>
     <string name="wrong">Wrong: %1$d</string>
-    
+
     <!-- RESULT SCREEN (CONTINUED) -->
     <string name="reward">Reward</string>
     <string name="correct_label">Correct</string>
@@ -91,16 +91,16 @@
     <string name="share_result">Share result</string>
     <string name="share_win_with_friends">Share win with friends</string>
     <string name="share_disappointment_with_friends">Share disappointment with friends</string>
-    
+
     <!-- DIALOGS -->
     <string name="difficulty_level">Difficulty Level</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
-    
+
     <!-- NETWORK -->
     <string name="no_connection">No Connection</string>
     <string name="no_connection_message"><![CDATA[Oops! It looks like you\'re offline. Please check your internet connection to continue playing]]></string>
-    
+
     <!-- SETTINGS DIALOG -->
     <string name="discarded">discarded</string>
     <string name="settings_saved">settings saved</string>
@@ -112,4 +112,19 @@
     <string name="discard">Discard</string>
     <string name="settings_dialog">Settings</string>
     <string name="dialog">dialog</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Welcome to Qurio</string>
+    <string name="onboarding_desc_1">Welcome to the world of Qurio, where questions spark curiosity and prizes await the smartest. Ready to begin the challenge?</string>
+
+    <string name="onboarding_title_2">Choose your character</string>
+    <string name="onboarding_desc_2">Each hero has their own unique style! Choose from unique characters and start your adventure in your own style.</string>
+
+    <string name="onboarding_title_3">Challenge and win</string>
+    <string name="onboarding_desc_3">Answer quickly, earn points, and share with your friends! Each trivia category is a new experience.</string>
+
+    <string name="onboarding_title_4">Collect them all!</string>
+    <string name="onboarding_desc_4">Unlock characters, earn badges, and climb the leaderboards. Qurio is merciless, but you can handle it.</string>
+
+    <string name="onboarding_swipe_up">Swipe up to PLAY!</string>
 </resources>

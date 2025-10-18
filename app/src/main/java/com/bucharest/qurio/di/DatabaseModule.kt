@@ -1,6 +1,10 @@
 package com.bucharest.qurio.di
 
+import android.app.Application
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import com.bucharest.qurio.data.local.AppDatabase
 import com.bucharest.qurio.data.local.dao.AchievementDao
@@ -11,6 +15,8 @@ import com.bucharest.qurio.data.local.dao.UserDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 @Module
 object DatabaseModule {
@@ -42,5 +48,9 @@ object DatabaseModule {
     @Singleton
     fun provideCategoryDao(db: AppDatabase): CategoryDao = db.categoryDao()
 
+    @Provides
+    fun provideDataStore(application: Application): DataStore<Preferences> {
+        return application.dataStore
+    }
     private const val DB_NAME = "qurio.db"
 }

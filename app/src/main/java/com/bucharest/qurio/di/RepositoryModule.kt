@@ -6,6 +6,7 @@ import com.bucharest.qurio.data.repository.CharacterRepositoryImpl
 import com.bucharest.qurio.data.repository.GameRepositoryImpl
 import com.bucharest.qurio.data.repository.SettingsRepositoryImpl
 import com.bucharest.qurio.data.repository.TriviaRepositoryImpl
+import com.bucharest.qurio.data.repository.UserPreferencesImpl
 import com.bucharest.qurio.data.repository.UserRepositoryImpl
 import com.bucharest.qurio.domain.repository.AchievementRepository
 import com.bucharest.qurio.domain.repository.CategoryRepository
@@ -13,6 +14,7 @@ import com.bucharest.qurio.domain.repository.CharacterRepository
 import com.bucharest.qurio.domain.repository.GameRepository
 import com.bucharest.qurio.domain.repository.SettingsRepository
 import com.bucharest.qurio.domain.repository.TriviaRepository
+import com.bucharest.qurio.domain.repository.UserPreferences
 import com.bucharest.qurio.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -56,6 +58,12 @@ abstract class RepositoryModule {
     abstract fun bindGameRepository(
         impl: GameRepositoryImpl
     ): GameRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserPreferences(
+        impl: UserPreferencesImpl
+    ): UserPreferences
 
     @Binds
     @Singleton
