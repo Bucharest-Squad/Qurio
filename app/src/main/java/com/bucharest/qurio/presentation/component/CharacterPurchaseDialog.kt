@@ -8,8 +8,11 @@ import android.view.KeyEvent
 import android.view.View.VISIBLE
 import android.view.Window
 import androidx.fragment.app.DialogFragment
+import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.CharacterPurchaseDialogBinding
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import javax.inject.Inject
 
 class CharacterPurchaseDialog(
     private val characterUiModel: CharacterUiModel,
@@ -17,7 +20,12 @@ class CharacterPurchaseDialog(
     private val onCancelButtonClicked: () -> Unit
 ) : DialogFragment() {
 
+    @Inject
+    lateinit var audioManager: AudioManager
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        
         val binding = CharacterPurchaseDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
 
@@ -44,10 +52,17 @@ class CharacterPurchaseDialog(
             lockedIcon.visibility = VISIBLE
             character.setImageResource(characterUiModel.imageRes.second)
 
-            cancelButton.setOnClickListener { handleCancel() }
-            closeButton.setOnClickListener { handleCancel() }
+            cancelButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                handleCancel() 
+            }
+            closeButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                handleCancel() 
+            }
 
             buyButton.setOnClickListener {
+                audioManager.playButtonPress()
                 onBuyButtonClicked(characterUiModel.id)
                 dismiss()
             }

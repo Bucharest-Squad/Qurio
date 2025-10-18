@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bucharest.qurio.R
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.AchievementCardBinding
 import com.bucharest.qurio.presentation.achievemetns_dialog.AchievementUImodel
 
 class AchievementsAdapter
     (
     private val onCharacterCardClicked: (achievementUImodel:AchievementUImodel) -> Unit,
+    private val audioManager: AudioManager
 ) : RecyclerView.Adapter<AchievementsAdapter.AchievementsCardViewHolder>() {
 
     private var charactersList: List<AchievementUImodel> = emptyList()
@@ -57,6 +59,7 @@ class AchievementsAdapter
             )
 
             root.setOnClickListener {
+                audioManager.playButtonPress()
                 onCharacterCardClicked(achievementUImodel)
             }
 

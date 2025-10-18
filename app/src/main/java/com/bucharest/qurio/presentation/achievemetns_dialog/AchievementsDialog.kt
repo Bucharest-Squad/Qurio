@@ -9,14 +9,22 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.AchievementsDialogBinding
 import com.bucharest.qurio.presentation.adapter.AchievementsAdapter
+import javax.inject.Inject
 
 class AchievementsDialog(
     private val achievementsUiModelList: List<AchievementUImodel>,
 ) : DialogFragment() {
 
+    @Inject
+    lateinit var audioManager: AudioManager
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        
         val binding = AchievementsDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -41,7 +49,7 @@ class AchievementsDialog(
                     ).show(childFragmentManager, "AchievementDetailsDialog")
                     dialog.hide()
             },
-
+            audioManager = audioManager
         )
 
         with(binding) {
@@ -49,8 +57,14 @@ class AchievementsDialog(
             characterList.layoutManager =
                 GridLayoutManager(requireContext(), 3, RecyclerView.HORIZONTAL, false)
             adapter.submitList(achievementsUiModelList)
-            okButton.setOnClickListener { dismiss() }
-            closeButton.setOnClickListener { dismiss() }
+            okButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
+            closeButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
         }
 
         dialog.setContentView(binding.root)

@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bucharest.qurio.QurioApp
 import com.bucharest.qurio.R
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.FragmentGameBinding
 import com.bucharest.qurio.domain.entity.Category
 import com.bucharest.qurio.domain.entity.Difficulty
@@ -26,6 +27,9 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
 
     @Inject
     override lateinit var presenter: GamePresenter
+
+    @Inject
+    lateinit var audioManager: AudioManager
 
     private var answerAdapter: AnswerAdapter? = null
 
@@ -68,6 +72,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         }
 
         binding.backButton.setOnClickListener {
+            audioManager.playButtonPress()
             presenter.onBackPressed()
         }
 

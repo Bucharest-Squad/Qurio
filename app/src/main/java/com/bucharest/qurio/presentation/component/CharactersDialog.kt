@@ -9,9 +9,12 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.CharactersDialogBinding
 import com.bucharest.qurio.presentation.adapter.CharactersCardAdapter
 import com.bucharest.qurio.presentation.character_dialog.CharacterUiModel
+import javax.inject.Inject
 
 class CharactersDialog(
     private val currentCharacterId: Int,
@@ -20,7 +23,12 @@ class CharactersDialog(
     private val onBuyButtonClicked: (Int) -> Unit
 ) : DialogFragment() {
 
+    @Inject
+    lateinit var audioManager: AudioManager
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        (requireActivity().application as QurioApp).appComponent.inject(this)
+        
         val binding = CharactersDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -40,6 +48,7 @@ class CharactersDialog(
             selectedCharId = currentCharacterId,
             onCharacterCardClicked = { id ->
                 binding.confirmButton.setOnClickListener {
+                    audioManager.playButtonPress()
                     onConfirmButtonClicked(id)
                     dismiss()
                 }
@@ -62,8 +71,14 @@ class CharactersDialog(
             characterList.layoutManager = GridLayoutManager(requireContext(), 2, RecyclerView.HORIZONTAL, false)
             adapter.submitList(charactersUiModel)
 
-            cancelButton.setOnClickListener { dismiss() }
-            closeButton.setOnClickListener { dismiss() }
+            cancelButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
+            closeButton.setOnClickListener { 
+                audioManager.playButtonPress()
+                dismiss() 
+            }
         }
 
         dialog.setContentView(binding.root)

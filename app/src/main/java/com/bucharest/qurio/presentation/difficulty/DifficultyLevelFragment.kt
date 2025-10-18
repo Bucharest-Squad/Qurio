@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bucharest.qurio.QurioApp
+import com.bucharest.qurio.audio.AudioManager
 import com.bucharest.qurio.databinding.DifficultyLevelDialogBinding
 import com.bucharest.qurio.domain.entity.Difficulty
 import com.bucharest.qurio.presentation.base.BaseFragment
@@ -17,6 +18,9 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
 
     @Inject
     lateinit var presenter: DifficultyLevelPresenter
+
+    @Inject
+    lateinit var audioManager: AudioManager
 
     private var _binding: DifficultyLevelDialogBinding? = null
     private val binding get() = _binding!!
@@ -73,28 +77,46 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
 
     private fun setupListeners() {
         binding.confirmButton.setOnClickListener {
+            if (::audioManager.isInitialized) {
+                audioManager.playButtonPress()
+            }
             presenter.onConfirmClicked()
         }
 
         binding.cancelButton.setOnClickListener {
+            if (::audioManager.isInitialized) {
+                audioManager.playButtonPress()
+            }
             presenter.onCancelClicked()
         }
 
         binding.closeButton.setOnClickListener {
+            if (::audioManager.isInitialized) {
+                audioManager.playButtonPress()
+            }
             presenter.onCancelClicked()
         }
 
         binding.easyButton.setOnClickListener {
+            if (::audioManager.isInitialized) {
+                audioManager.playButtonPress()
+            }
             binding.easyButton.isSelected = false
             presenter.onEasyClicked()
         }
 
         binding.mediumButton.setOnClickListener {
+            if (::audioManager.isInitialized) {
+                audioManager.playButtonPress()
+            }
             binding.mediumButton.isSelected = false
             presenter.onMediumClicked()
         }
 
         binding.hardButton.setOnClickListener {
+            if (::audioManager.isInitialized) {
+                audioManager.playButtonPress()
+            }
             binding.hardButton.isSelected = false
             presenter.onHardClicked()
         }
