@@ -56,6 +56,8 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
+        val density = context?.resources?.displayMetrics?.density ?: 1f
+        dialog.window?.setLayout((328 * density).toInt(), (380 * density).toInt())
         return dialog
     }
 
@@ -72,25 +74,25 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         setupListeners()
-        binding.confirmButton.isEnabled = false
+        binding.btnConfirm.isEnabled = false
     }
 
     private fun setupListeners() {
-        binding.confirmButton.setOnClickListener {
+        binding.btnConfirm.setOnClickListener {
             if (::audioManager.isInitialized) {
                 audioManager.playButtonPress()
             }
             presenter.onConfirmClicked()
         }
 
-        binding.cancelButton.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             if (::audioManager.isInitialized) {
                 audioManager.playButtonPress()
             }
             presenter.onCancelClicked()
         }
 
-        binding.closeButton.setOnClickListener {
+        binding.closeShape.setOnClickListener {
             if (::audioManager.isInitialized) {
                 audioManager.playButtonPress()
             }
@@ -141,7 +143,7 @@ class DifficultyLevelFragment : DialogFragment(), DifficultyLevelView {
     }
 
     override fun setConfirmButtonEnabled(enabled: Boolean) {
-        binding.confirmButton.isEnabled = enabled
+        binding.btnConfirm.isEnabled = enabled
     }
 
     override fun onConfirmClicked(difficulty: Difficulty) {

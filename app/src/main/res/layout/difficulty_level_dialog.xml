@@ -1,122 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="328dp"
-    android:layout_height="273dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/edges_background"
-        android:layout_width="328dp"
+    <ImageView
+        android:id="@+id/corners_cut_shape"
+        android:layout_width="330dp"
         android:layout_height="260dp"
-        android:background="@drawable/characters_dialog_background"
+        android:layout_marginTop="13dp"
+        android:contentDescription="@string/card_background"
+        android:scaleType="fitXY"
+        android:src="@drawable/difficutly_dialog"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <View
-        android:id="@+id/blue_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="40dp"
-        android:background="@drawable/blue_radiant_gradiant"
-        app:layout_constraintTop_toTopOf="@id/edges_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <ImageView
-        android:id="@+id/character_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/character_dialog_header"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/close_button"
-        android:layout_width="22dp"
-        android:layout_height="26dp"
-        android:src="@drawable/ic_close_character_dialog"
-        app:layout_constraintTop_toTopOf="@id/edges_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <com.bucharest.qurio.view.DifficultyLevelButton
-        android:id="@+id/easy_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/confirm_button"
-        android:layout_marginBottom="52dp"
-        android:layout_marginStart="12dp"
-        android:text="Easy"
-        />
-    <com.bucharest.qurio.view.DifficultyLevelButton
-        android:id="@+id/medium_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        app:layout_constraintEnd_toStartOf="@id/hard_button"
-        app:layout_constraintBottom_toTopOf="@id/confirm_button"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintStart_toEndOf="@id/easy_button"
-        android:text="Medium"
-        />
-    <com.bucharest.qurio.view.DifficultyLevelButton
-        android:id="@+id/hard_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:enabled="true"
-
-        app:layout_constraintBottom_toTopOf="@id/confirm_button"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintStart_toEndOf="@id/medium_button"
-        android:text="Hard"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Difficulty level"
-        style="@style/Title.Small"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/on_primary"
+        app:layout_constraintDimensionRatio="320:320"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/confirm_button"
-        style="@style/PrimaryButton"
+    <View
+        android:id="@+id/gradient_left"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="36dp"
-        android:enabled="false"
-        android:text="Confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="1dp"
+        app:layout_constraintDimensionRatio="56:1"
+        android:background="@drawable/blue_linear_gradiant"
+        android:rotation="180"
+        android:translationX="5dp"
+        app:layout_constraintEnd_toStartOf="@id/heptagon_shape"
+        app:layout_constraintTop_toTopOf="@id/corners_cut_shape" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cancel_button"
-        style="@style/SecondaryButton"
+    <View
+        android:id="@+id/gradient_right"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="36dp"
-        android:enabled="true"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline" />
+        android:layout_height="1dp"
+        app:layout_constraintDimensionRatio="56:1"
+        android:background="@drawable/blue_linear_gradiant"
+        android:translationX="-5dp"
+        app:layout_constraintStart_toEndOf="@id/heptagon_shape"
+        app:layout_constraintTop_toTopOf="@id/corners_cut_shape" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+    <ImageView
+        android:id="@+id/heptagon_shape"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/card_background"
+        android:src="@drawable/game_date"
+        app:layout_constraintDimensionRatio="145:40"
+        app:layout_constraintEnd_toEndOf="@id/corners_cut_shape"
+        app:layout_constraintStart_toStartOf="@id/corners_cut_shape"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/difficulty_title"
+        style="@style/Title.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        android:textColor="@color/on_primary"
+        android:text="@string/difficulty_level"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/heptagon_shape"
+        app:layout_constraintEnd_toEndOf="@id/heptagon_shape"
+        app:layout_constraintStart_toStartOf="@id/heptagon_shape"
+        app:layout_constraintTop_toTopOf="@id/heptagon_shape" />
 
+    <ImageView
+        android:id="@+id/close_shape"
+        android:layout_width="0dp"
+        android:layout_height="26dp"
+        android:clickable="true"
+        android:contentDescription="@string/card_background"
+        android:src="@drawable/close_dialog"
+        app:layout_constraintDimensionRatio="22:26"
+        app:layout_constraintEnd_toEndOf="@+id/corners_cut_shape"
+        app:layout_constraintTop_toTopOf="@+id/corners_cut_shape" />
 
+    <!-- Difficulty Buttons Container -->
+    <LinearLayout
+        android:id="@+id/difficulty_buttons_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/btn_confirm"
+        app:layout_constraintEnd_toEndOf="@id/corners_cut_shape"
+        app:layout_constraintStart_toStartOf="@id/corners_cut_shape"
+        app:layout_constraintTop_toBottomOf="@id/heptagon_shape">
+
+        <com.bucharest.qurio.view.DifficultyLevelButton
+            android:id="@+id/easy_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Easy" />
+
+        <com.bucharest.qurio.view.DifficultyLevelButton
+            android:id="@+id/medium_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:text="Medium" />
+
+        <com.bucharest.qurio.view.DifficultyLevelButton
+            android:id="@+id/hard_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Hard" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_confirm"
+        style="@style/Label.Medium"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/primary_button_background"
+        android:text="@string/confirm"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:textColor="@drawable/primary_button_text_color"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="@+id/corners_cut_shape"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/corners_cut_shape" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_cancel"
+        style="@style/Label.Medium"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/secondary_button_background"
+        android:text="@string/cancel"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:textColor="@drawable/secondary_button_text_color"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_confirm"
+        app:layout_constraintEnd_toEndOf="@+id/corners_cut_shape"
+        app:layout_constraintStart_toEndOf="@+id/btn_confirm"
+        app:layout_constraintTop_toTopOf="@+id/btn_confirm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
