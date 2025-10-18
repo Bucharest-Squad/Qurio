@@ -22,6 +22,7 @@ dagger = "2.57.2"
 glide = "5.0.5"
 ksp = "2.2.20-2.0.3"
 kotlinxDatetime = "0.6.1"
+lottie = "6.4.0"
 
 compileSdk = "36"
 minSdk = "28"
@@ -65,6 +66,9 @@ dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", versi
 
 # Kotlin DateTime
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+
+# Lottie
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
