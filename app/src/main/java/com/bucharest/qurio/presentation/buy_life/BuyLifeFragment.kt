@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bucharest.qurio.QurioApp
-import com.bucharest.qurio.databinding.DifficultyLevelDialogBinding
+import com.bucharest.qurio.R
 import com.bucharest.qurio.databinding.FragmentBuyLifeDialogBinding
 import com.bucharest.qurio.domain.entity.Difficulty
 import javax.inject.Inject
@@ -62,18 +62,21 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         setupListeners()
+        // Initialize button as disabled until we load user data
+        setBuyButtonEnabled(false)
+        presenter.loadUserCoins()
     }
 
     private fun setupListeners() {
-        binding.buyButton.setOnClickListener {
+        binding.btnBuy.setOnClickListener {
             presenter.onBuyClicked()
         }
 
-        binding.cancelButton.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             presenter.onCancelClicked()
         }
 
-        binding.closeButton.setOnClickListener {
+        binding.closeShape.setOnClickListener {
             presenter.onCancelClicked()
         }
 
@@ -88,6 +91,13 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
         dismiss()
     }
 
+    override fun setBuyButtonEnabled(enabled: Boolean) {
+        binding.btnBuy.isEnabled = enabled
+        binding.btnBuy.alpha = if (enabled) 1.0f else 0.5f
+        // Keep the same "Buy" text regardless of enabled state
+        binding.btnBuy.text = getString(R.string.buy)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.detachView()
@@ -96,6 +106,11 @@ class BuyLifeFragment : DialogFragment(), BuyLifeView {
 
     override fun showLoading() {}
     override fun hideLoading() {}
-    override fun showError(message: String) {}
+    override fun showError(message: String) {
+        // Show error message to user - keep button text as "Buy" but disable it
+        binding.btnBuy.isEnabled = false
+        binding.btnBuy.alpha = 0.5f
+        binding.btnBuy.text = getString(R.string.buy)
+    }
     override fun showMessage(message: String) {}
 }

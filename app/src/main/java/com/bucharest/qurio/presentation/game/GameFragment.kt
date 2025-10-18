@@ -142,6 +142,7 @@ class GameFragment : BaseFragment<FragmentGameBinding, GameView, GamePresenter>(
         findNavController().navigate(R.id.mainHomeFragment)
     }
 
+
     override fun navigateBack() {
         findNavController().navigateUp()
     }

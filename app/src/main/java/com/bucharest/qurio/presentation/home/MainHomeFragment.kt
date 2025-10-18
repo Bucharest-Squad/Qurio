@@ -301,7 +301,7 @@ class MainHomeFragment : BaseFragment<FragmentMainHomeBinding, MainHomeView, Mai
         val dialog = BuyLifeFragment.newInstance(
             onBuyClicked = presenter::onBuyLife
         )
-        dialog.show(childFragmentManager, "DifficultyLevelDialog")
+        dialog.show(childFragmentManager, "BuyLifeDialog")
     }
 
     override fun showAchievementsDialog(

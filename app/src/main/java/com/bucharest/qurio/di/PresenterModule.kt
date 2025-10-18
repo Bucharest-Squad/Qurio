@@ -11,6 +11,7 @@ import com.bucharest.qurio.presentation.game.GamePresenter
 import com.bucharest.qurio.presentation.result.ResultPresenter
 import com.bucharest.qurio.presentation.difficulty.DifficultyLevelPresenter
 import com.bucharest.qurio.presentation.lastgames.LastGamesPresenter
+import com.bucharest.qurio.presentation.buy_life.BuyLifePresenter
 import dagger.Module
 import dagger.Provides
 
@@ -51,4 +52,9 @@ object PresenterModule {
         gameRepository: GameRepository,
         context: Application
     ): LastGamesPresenter = LastGamesPresenter(gameRepository, context)
+
+    @Provides
+    fun provideBuyLifePresenter(
+        userRepository: UserRepository
+    ): BuyLifePresenter = BuyLifePresenter(userRepository)
 }

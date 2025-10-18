@@ -398,6 +398,7 @@ class GamePresenter @Inject constructor(
         )
     }
 
+
     override fun onViewDetached() {
         super.onViewDetached()
         countDownTimer?.cancel()

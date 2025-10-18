@@ -96,11 +96,24 @@ class MainHomePresenter(
     }
     fun onBuyLife() {
         tryToExecute(
-            execute = { userRepository.updateLives(1) },
-            onSuccess = { onRefresh() },
-            onError = ::handleHomeDataError,
-            onStart = { executeIfViewAttached { showLoading() } },
-            onFinally = { executeIfViewAttached { hideLoading() } }
+            execute = { 
+                val user = userRepository.getUser()
+                if (user.coins < 200) {
+                    throw Exception("Not enough coins! You need 200 coins to buy a life.")
+                }
+                userRepository.updateCoins(-200) // Deduct coins first
+                userRepository.updateLives(1) // Then add life
+            },
+            onSuccess = { 
+                executeIfViewAttached {
+                    loadUserStatsOnly()
+                }
+            },
+            onError = { throwable ->
+                executeIfViewAttached {
+                    showError(throwable.message ?: "Failed to buy life")
+                }
+            }
         )
     }
 
@@ -207,6 +220,24 @@ class MainHomePresenter(
                 awards = achievements.size
             )
         }
+    }
+
+    private fun loadUserStatsOnly() {
+        tryToExecute(
+            execute = {
+                val user = userRepository.getUser()
+                val achievements = achievementRepository.getUnlockedAchievements()
+                Pair(user, achievements)
+            },
+            onSuccess = { (user, achievements) ->
+                displayUserStats(user, achievements)
+            },
+            onError = { throwable ->
+                executeIfViewAttached {
+                    showError("Failed to update user stats")
+                }
+            }
+        )
     }
 
     private fun displayCurrentCharacter(character: Character) {

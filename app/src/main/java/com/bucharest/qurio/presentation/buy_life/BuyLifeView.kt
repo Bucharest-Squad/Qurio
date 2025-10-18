@@ -7,4 +7,5 @@ interface BuyLifeView : BaseView {
 
     fun onBuyClicked()
     fun onCancelClicked()
+    fun setBuyButtonEnabled(enabled: Boolean)
 }
